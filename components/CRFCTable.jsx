@@ -5,7 +5,7 @@ export default function CRFCTable ({ data }) {
 
   const columns = useMemo(() => [
     {
-      Header: 'Pesticide',
+      Header: 'Analyte',
       accessor: 'rpt_pest_name'
     },
     {

@@ -13,7 +13,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
       emptyHeader: true,
       columns: [
         {
-          Header: 'Pesticide',
+          Header: 'Analyte',
           accessor: 'rpt_pest_name',
           width: 5
         }
@@ -85,7 +85,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
       <Table data={data} columns={columns}/>
       <style jsx>{`
         .title {
-          font-family: Helvetica, Arial, sans-serif;
+          font-family: Arial, Helvetica, sans-serif;
         }
       `}</style>
     </>

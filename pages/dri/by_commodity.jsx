@@ -7,6 +7,8 @@ import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
+import Methods from '../../components/Methods'
+import KeyFindings from '../../components/KeyFindings'
 import CRFCTable from '../../components/CRFCTable'
 export default function ByCommodityScreen () {
   
@@ -110,6 +112,7 @@ export default function ByCommodityScreen () {
   useEffect(() => {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
+
     //console.log(query)
     if (query.commodity_name && query.origin && query.claim && query.pdp_year) {
       fetchRows({ table: 'dri', params: query }).then(val => {
@@ -133,8 +136,10 @@ export default function ByCommodityScreen () {
         <h4 className="title">Results</h4>
         <DRITitleTable1 commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
         <ResidueAndRiskIndicatorsTable data={rows} />
+        <Methods />
+        <KeyFindings data='Test' />
         <DRITitleTable2 commodity={params[0].selected} origin={params[1].selected} year={params[3].selected}/>
-        <CRFCTable data={rows} />
+        <CRFCTable data={_.sortBy( rows, 'rpt_pest_name')} />
       </TableContainer>
       <style jsx>{`
         .title {

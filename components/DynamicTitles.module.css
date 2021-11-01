@@ -1,6 +1,7 @@
 .title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 400;
+    border-bottom: 4px solid #399c2a;
 }
 
 .tableTitle {

@@ -1,11 +1,17 @@
-.container {
+.outer {
     padding: 20px;
     margin-top: 10px;
     background-color: #f7fafc;
     border: 1px solid rgb(226, 232, 240);
     border-radius: 0.25rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.outer h4 {
+    font-size: 1.2rem;
+}
+.inner {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-family: Arial, Helvetica, sans-serif;
 }

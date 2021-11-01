@@ -3,9 +3,12 @@ import styles from './ParameterContainer.module.css'
 
 export default function ParameterContainer (props) {
   return (
-    <section className={styles.container}>
+    <div className={styles.outer}>
+      <h4>Select Data Parameters</h4>
+      <section className={styles.inner}>
       {props.children}
-    </section>
+      </section>
+    </div>
   )
 }
 

@@ -78,7 +78,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
       <Table data={data} columns={columns}/>
       <style jsx>{`
         .title {
-          font-family: Helvetica, Arial, sans-serif;
+          font-family: Arial, Helvetica, sans-serif;
         }
 `}</style>
     </>
