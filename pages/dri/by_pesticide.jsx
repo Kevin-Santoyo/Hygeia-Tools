@@ -5,32 +5,32 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
+import ResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
 import CRFCTable from '../../components/CRFCTable'
-export default function ByCommodityScreen () {
+export default function ByPesticideScreen () {
   
   const [params, setParams] = useState([
     {
-      field: 'commodity_name',
-      label: 'Select Food:',
-      options: ['Apples'],
+      field: 'rpt_pest_name',
+      label: 'Analyte',
+      options: ['Chlorpyrifos'],
       selected: null
     },
     {
       field: 'origin',
-      label: 'Select Origin:',
+      label: 'Origin',
       options: ['Combined Imports'],
       selected: null
     },
     {
       field: 'claim',
-      label: 'Select Claim:',
+      label: 'Claim',
       options: ['All Market Claims'],
       selected: null
     },
     {
       field: 'pdp_year',
-      label: 'Select Year:',
+      label: 'Year',
       options: ['2016'],
       selected: null
     }
@@ -74,8 +74,8 @@ export default function ByCommodityScreen () {
     //console.log(params)
     setParams([
       {
-        field: 'commodity_name',
-        label: 'Food',
+        field: 'rpt_pest_name',
+        label: 'Analyte',
         options: foods.data,
         selected: null
       },
@@ -98,7 +98,7 @@ export default function ByCommodityScreen () {
         selected: null
       }
     ]) 
-    handleParamUpdate('Apples')
+    handleParamUpdate('Chlorpyrifos')
   }
   
   useEffect(() => {
@@ -110,7 +110,7 @@ export default function ByCommodityScreen () {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     //console.log(query)
-    if (query.commodity_name && query.origin && query.claim && query.pdp_year) {
+    if (query.rpt_pest_name && query.origin && query.claim && query.pdp_year) {
       fetchRows({ table: 'dri', params: query }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)

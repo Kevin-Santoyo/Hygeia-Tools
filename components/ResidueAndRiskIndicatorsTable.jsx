@@ -5,10 +5,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
 
   console.log("DATA IN RESIDUE TABLE")
   console.log(data)
-  if (data.length !== 0) {
-    console.log(data[0]['risk_group'])
-    console.log(data[0]['fs_dir_kid'])
-  }
+  
   const columns = useMemo(() => [
     // const columns = [{
     {
@@ -39,7 +36,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
         },
         {
           Header: 'Percent Positive',
-          accessor: 'pct_pos',
+          accessor: d => parseFloat(d.pct_pos * 100).toFixed(1).concat('%'),
           borderLeft: true
         }
       ]
@@ -50,12 +47,12 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: 'mean_positives',
+          accessor: d => d.mean_positives.substr(0, 5),
           borderLeft: true
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: 'crfc_kid',
+          accessor: d => parseFloat(d.crfc_kid).toFixed(3),
           borderRight: true
         }
       ]
@@ -66,18 +63,17 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: d => parseFloat(d.dri_mean_kid).toFixed(5),
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dir_kid',
+          accessor: d => parseFloat(d.fs_dir_kid).toFixed(5),
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: 'per_agg_fsdri',
+          accessor: d => parseFloat(d.per_agg_fsdri * 100).toFixed(2).concat('%'),
           borderRight: true
-          //accessor: (row) => row.per_agg_fsdri
         }
       ]
     }

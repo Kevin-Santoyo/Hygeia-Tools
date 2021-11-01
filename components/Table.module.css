@@ -55,7 +55,11 @@
 }
 
 .cell {
-  text-align: center;
+  text-align: right;
   padding: 4px;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.cell:first-child {
+  text-align: left;
 }

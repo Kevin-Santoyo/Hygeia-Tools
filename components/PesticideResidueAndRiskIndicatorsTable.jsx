@@ -2,6 +2,10 @@ import { useMemo } from 'react'
 import Table from './Table'
 
 export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
+
+  console.log("DATA IN COMMODITY TABLE")
+  console.log(data)
+
   const columns = useMemo(() => [
     {
       Header: ' ',
@@ -9,7 +13,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'Food',
-          accessor: 'food'
+          accessor: 'commodity_name'
         }
       ]
     },
@@ -28,7 +32,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
         },
         {
           Header: 'Percent Positive',
-          accesser: 'pct_positive',
+          accesser: 'pct_pos',
           borderRight: true
         }
       ]
