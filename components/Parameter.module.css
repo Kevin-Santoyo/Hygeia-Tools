@@ -1,0 +1,25 @@
+.parameterWrapper {
+    /*border:         1px solid black;*/
+    border-radius:  5px;
+    flex:           1;
+    padding:        0 10px;
+}
+
+.title {
+    font-weight: 500;
+    color: black;
+    font-size: 18px;
+    /*font-family: Helvetica, sans-serif;*/
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.value {
+    color: white;
+    display: inline-block;
+    background-color: #335a42;
+    width: auto;
+    padding: 5px;
+    margin: 2px 0;
+    height: 20px;
+    /*font-family: Helvetica, sans-serif;*/
+}

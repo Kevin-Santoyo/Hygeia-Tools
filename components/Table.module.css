@@ -1,0 +1,61 @@
+.header-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  /*text-align: center;*/
+}
+
+.borderBottom {
+  border-bottom: 2px solid black;
+}
+
+.groupHeader {
+  composes: header-title;
+  border: 2px solid black;
+  padding: 1rem 0;
+}
+
+.columnHeader {
+  composes: header-title borderBottom;
+  margin: -1px;
+  padding: 0;
+  padding: 1rem
+}
+
+.columnHeaderLeft {
+  composes: columnHeader;
+  border-left: 2px solid black;
+}
+.columnHeaderRight{
+  composes: columnHeader;
+  border-right: 2px solid black;
+}
+
+.table {
+  background-color: white;
+  min-width: 99%;
+  border: 2px solid black;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  padding: 0;
+}
+
+.row {
+  font-size: 12px;
+}
+
+.rowOdd {
+  composes: row;
+  background-color: #eee;
+}
+
+.cell {
+  text-align: center;
+  padding: 4px;
+  font-family: Helvetica, Arial, sans-serif;
+}
