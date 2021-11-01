@@ -25,17 +25,16 @@ export default function CRFCTable ({ data }) {
     },
     {
       Header: 'cRfD or cPAD (mg/kg/day)',
-      accessor: 'chronic_rfd_pad'
+      accessor: d => parseFloat(d.chronic_rfd_pad).toFixed(4)
     },
     {
       Header: 'cRfC (ppm)',
-      accessor: 'crfc_kid'
+      accessor: d => parseFloat(d.crfc_kid).toFixed(3)
     }
   ], [])
 
   return (
     <>
-      <h2 className="title">Table 2: Calculation of the Chronic Reference Concentration (cRfC) by Pesticide Active Ingredient</h2>
       <Table data={data} columns={columns} />
       <style jsx>{`
         .title {

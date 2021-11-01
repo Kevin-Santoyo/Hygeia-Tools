@@ -82,7 +82,6 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
 
   return (
     <>
-      <h2 className="title">Table 1: Pesticide Residue and Risk Indicators</h2>
       <Table data={data} columns={columns}/>
       <style jsx>{`
         .title {

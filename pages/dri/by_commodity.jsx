@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import _ from 'lodash'
+import _, { constant } from 'lodash'
 import Header from '../../components/Header'
+import PageTitle, { DRITitleTable1, DRITitleTable2 } from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
@@ -41,7 +42,7 @@ export default function ByCommodityScreen () {
   
   const handleParamUpdate = async (field, selected) => {
     // console.log('update fields after ', field)
-    console.time('fetch params' + field)
+    console.time('fetch params: ' + field)
     const newParams = _.cloneDeep(params)
     
     //console.log(newParams)
@@ -61,7 +62,7 @@ export default function ByCommodityScreen () {
     
     //console.log('new params: ', newParams)
     setParams(newParams)
-    console.timeEnd('fetch params' + field)
+    console.timeEnd('fetch params: ' + field)
   }
 
   const getFormData = async () => {
@@ -123,18 +124,23 @@ export default function ByCommodityScreen () {
   
   return (
     <div>
-      <Header title="By Commodity"/>
+      <Header title="DRI Analytical System"/>
+      <PageTitle commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>
       <TableContainer>
-        <h1 className="title">Results</h1>
+        <h4 className="title">Results</h4>
+        <DRITitleTable1 commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
         <ResidueAndRiskIndicatorsTable data={rows} />
+        <DRITitleTable2 commodity={params[0].selected} origin={params[1].selected} year={params[3].selected}/>
         <CRFCTable data={rows} />
       </TableContainer>
       <style jsx>{`
         .title {
-          font-family: Helvetica, Arial, sans-serif;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 2em;
+          margin: 0
         }
       `}
       </style>
