@@ -47,7 +47,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: d => d.mean_positives.substr(0, 5),
+          accessor: d => String(d.mean_positives).substr(0, 5),
           borderLeft: true
         },
         {
