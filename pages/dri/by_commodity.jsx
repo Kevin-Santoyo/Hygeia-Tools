@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import _, { constant } from 'lodash'
+import _, { constant, has } from 'lodash'
 import Header from '../../components/Header'
 import PageTitle, { DRITitleTable1, DRITitleTable2 } from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
@@ -9,6 +9,7 @@ import TableContainer                      from '../../components/TableContainer
 import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
+import TableLinks from '../../components/TableLinks'
 import CRFCTable from '../../components/CRFCTable'
 export default function ByCommodityScreen () {
   
@@ -127,6 +128,7 @@ export default function ByCommodityScreen () {
   
   return (
     <div>
+      {console.log(rows, 'test')}
       <Header title="DRI Analytical System"/>
       <PageTitle commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
       <ParameterContainer>
@@ -137,7 +139,8 @@ export default function ByCommodityScreen () {
         <DRITitleTable1 commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
         <ResidueAndRiskIndicatorsTable data={rows} />
         <Methods />
-        <KeyFindings data='Test' />
+        <KeyFindings data={rows} />
+        <TableLinks />
         <DRITitleTable2 commodity={params[0].selected} origin={params[1].selected} year={params[3].selected}/>
         <CRFCTable data={_.sortBy( rows, 'rpt_pest_name')} />
       </TableContainer>

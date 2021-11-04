@@ -1,12 +1,11 @@
 .header {
-    border-top: 3px solid rgb(58, 112, 120);
-    /* border-bottom: 4px solid #335a42; */
+    border-top: 3px solid #4F868E;
 }
 
 .heading {
     font-family: Arial;
     text-transform: uppercase;
     float: right;
-    border-bottom: 2px solid #4f868e;
+    border-bottom: 2px solid #4F868E;
     padding-right: 10px;
 }
