@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
+import { DRITitleTable2 } from './DynamicTitles'
 import Table from './Table'
-export default function CRFCTable ({ data }) {
+export default function CRFCTable ({ data, params }) {
   // TODO: Figure out where to get data for these columns
 
   const columns = useMemo(() => [
     {
-      Header: 'Analyte',
-      accessor: 'rpt_pest_name'
+        Header: 'Analyte',
+        accessor: 'rpt_pest_name'
     },
     {
       Header: 'NOAEL (mg/kg/day)',
@@ -35,6 +36,7 @@ export default function CRFCTable ({ data }) {
 
   return (
     <>
+      <DRITitleTable2 params={params} />
       <Table data={data} columns={columns} />
       <style jsx>{`
         .title {

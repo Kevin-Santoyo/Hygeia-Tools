@@ -6,7 +6,10 @@ import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import ResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
-import CRFCTable from '../../components/CRFCTable'
+import Methods from '../../components/Methods'
+import KeyFindings from '../../components/KeyFindings'
+import TableLinks from '../../components/TableLinks'
+import PageTitle, { DRITitleTable1 } from '../../components/DynamicTitles'
 export default function ByPesticideScreen () {
   
   const [params, setParams] = useState([
@@ -124,13 +127,16 @@ export default function ByPesticideScreen () {
   return (
     <div>
       <Header title="DRI Analytical System"/>
+      <PageTitle data={params} />
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>
       <TableContainer>
         <h1 className="title">Results</h1>
-        <ResidueAndRiskIndicatorsTable data={rows} />
-        <CRFCTable data={rows} />
+        <ResidueAndRiskIndicatorsTable data={rows} params={params}/>
+        <Methods />
+        <KeyFindings data={rows} />
+        <TableLinks />
       </TableContainer>
       <style jsx>{`
         .title {

@@ -1,10 +1,8 @@
 import { useMemo } from 'react'
+import { DRITitleTable1 } from './DynamicTitles'
 import Table from './Table'
 
-export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
-
-  console.log("DATA IN COMMODITY TABLE")
-  console.log(data)
+export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }) {
 
   const columns = useMemo(() => [
     {
@@ -32,7 +30,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
         },
         {
           Header: 'Percent Positive',
-          accesser: 'pct_pos',
+          accessor: d => parseFloat(d.pct_pos * 100).toFixed(1).concat('%'),
           borderRight: true
         }
       ]
@@ -43,11 +41,11 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: 'mean_positives'
+          accessor: d => parseFloat(d.mean_positives).toFixed(3)
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: 'crfc_kid'
+          accessor: d => parseFloat(d.crfc_kid).toFixed(3)
         }
       ]
     },
@@ -57,25 +55,25 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data }) {
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: d => parseFloat(d.dri_mean_kid).toFixed(5),
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dri_kid'
+          accessor: d => parseFloat(d.fs_dir_kid).toFixed(5)
         },
         {
           // TODO: Calc these in DB?
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: 'per_agg_fsdri'
+          accessor: d => parseFloat(d.per_agg_fsdri * 100).toFixed(2).concat('%'),
         }
       ]
     }
   ], [])
   return (
     <>
-      <h2 className="title">Table 1.</h2>
-      <Table data={data} columns={columns}/>
+      <DRITitleTable1 params={params} />
+      <Table data={data} columns={columns} params={params} />
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

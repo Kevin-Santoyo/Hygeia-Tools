@@ -128,21 +128,18 @@ export default function ByCommodityScreen () {
   
   return (
     <div>
-      {console.log(rows, 'test')}
       <Header title="DRI Analytical System"/>
-      <PageTitle commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
+      <PageTitle data={params}/>
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>
       <TableContainer>
         <h4 className="title">Results</h4>
-        <DRITitleTable1 commodity={params[0].selected} origin={params[1].selected} claim={params[2].selected} year={params[3].selected}/>
-        <ResidueAndRiskIndicatorsTable data={rows} />
+        <ResidueAndRiskIndicatorsTable data={rows} params={params} />
         <Methods />
         <KeyFindings data={rows} />
         <TableLinks />
-        <DRITitleTable2 commodity={params[0].selected} origin={params[1].selected} year={params[3].selected}/>
-        <CRFCTable data={_.sortBy( rows, 'rpt_pest_name')} />
+        <CRFCTable data={_.sortBy( rows, 'rpt_pest_name')} params={params} />
       </TableContainer>
       <style jsx>{`
         .title {

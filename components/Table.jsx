@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import { useTable } from 'react-table'
+import { DRITitleTable1 } from './DynamicTitles'
 import styles from './Table.module.css'
 
-export default function Table ({ columns, data }) {
+export default function Table ({ columns, data, params }) {
   const {
     getTableProps,
     getTableBodyProps,

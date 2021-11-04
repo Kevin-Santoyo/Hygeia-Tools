@@ -1,10 +1,8 @@
 import { useMemo } from 'react'
+import { DRITitleTable1 } from './DynamicTitles'
 import Table from './Table'
 
-export default function ResidueAndRiskIndicatorsTable ({ data }) {
-
-  console.log("DATA IN RESIDUE TABLE")
-  console.log(data)
+export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
   
   const columns = useMemo(() => [
     // const columns = [{
@@ -82,6 +80,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data }) {
 
   return (
     <>
+    <DRITitleTable1 params={params} />
       <Table data={data} columns={columns}/>
       <style jsx>{`
         .title {

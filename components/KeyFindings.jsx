@@ -3,19 +3,17 @@ import _ from 'lodash';
 
 export default function KeyFindings ({ data }) {
     if (data) {
-        var analyte, analytePercentage, topThree
-        analyte = _.get(data[0], 'rpt_pest_name', 'loading')
-        analytePercentage = _.get(data[0], 'per_agg_fsdri', 'loading')
-        topThree = parseFloat(((_.get(data[0], 'per_agg_fsdri', 0))+(_.get(data[1], 'per_agg_fsdri', 0))+(_.get(data[2], 'per_agg_fsdri', 0))) * 100).toFixed(2).concat('%')
-        analytePercentage = parseFloat(analytePercentage * 100).toFixed(2).concat('%')
+        var analyte, analytePercentage, topThree, meanAnalyte, meanPPM, meanPCT, reSort
         var lessThan1 = 0
+        analyte = _.get(data[0], 'rpt_pest_name', 'loading')
+        analytePercentage = parseFloat((_.get(data[0], 'per_agg_fsdri', 'loading') * 100).toFixed(2).concat('%'))
+        topThree = parseFloat(((_.get(data[0], 'per_agg_fsdri', 0))+(_.get(data[1], 'per_agg_fsdri', 0))+(_.get(data[2], 'per_agg_fsdri', 0))) * 100).toFixed(2).concat('%')
         data.map((row) => {
             if (row.per_agg_fsdri < 0.01) {
                 lessThan1++
             }
         })
-        var meanAnalyte, meanPPM, meanPCT
-        var reSort = _.orderBy( data, 'mean_positives', 'desc');
+        reSort = _.orderBy( data, 'mean_positives', 'desc');
         meanAnalyte = _.get(reSort[0], 'rpt_pest_name', 'loading');
         meanPPM = parseFloat(_.get(reSort[0], 'mean_positives', 'loading')).toFixed(3);
         meanPCT = parseFloat(_.get(reSort[0], 'pct_pos', 0)*100).toFixed(1).concat('%');
