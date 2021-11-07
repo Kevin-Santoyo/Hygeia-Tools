@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import _, { constant, has } from 'lodash'
 import Header from '../../components/Header'
-import PageTitle, { DRITitleTable1, DRITitleTable2 } from '../../components/DynamicTitles'
+import PageTitle from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
@@ -129,7 +129,7 @@ export default function ByCommodityScreen () {
   return (
     <div>
       <Header title="DRI Analytical System"/>
-      <PageTitle data={params}/>
+      <PageTitle params={params}/>
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>

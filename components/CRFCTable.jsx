@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { DRITitleTable2 } from './DynamicTitles'
 import Table from './Table'
 export default function CRFCTable ({ data, params }) {
   // TODO: Figure out where to get data for these columns
@@ -36,8 +35,7 @@ export default function CRFCTable ({ data, params }) {
 
   return (
     <>
-      <DRITitleTable2 params={params} />
-      <Table data={data} columns={columns} />
+      <Table data={data} columns={columns} params={params} type="crfc" />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;

@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { DRITitleTable1 } from './DynamicTitles'
 import Table from './Table'
 
 export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }) {
@@ -72,8 +71,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
   ], [])
   return (
     <>
-      <DRITitleTable1 params={params} />
-      <Table data={data} columns={columns} params={params} />
+      <Table data={data} columns={columns} params={params} type="residue" />
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

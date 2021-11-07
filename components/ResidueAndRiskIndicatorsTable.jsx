@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { DRITitleTable1 } from './DynamicTitles'
 import Table from './Table'
 
 export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
@@ -30,12 +29,11 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
         {
           Header: 'Number of Positives',
           accessor: 'number_positives',
-          borderLeft: true
         },
         {
           Header: 'Percent Positive',
           accessor: d => parseFloat(d.pct_pos * 100).toFixed(1).concat('%'),
-          borderLeft: true
+          borderRight: true
         }
       ]
     },
@@ -80,8 +78,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
   return (
     <>
-    <DRITitleTable1 params={params} />
-      <Table data={data} columns={columns}/>
+      <Table data={data} columns={columns} params={params} type="residue" totalReq="true"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
