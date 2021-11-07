@@ -98,8 +98,8 @@ export default function ByCommodityScreen () {
       </ParameterContainer>
       <TableContainer>
         <h1 className="title">Results</h1>
-        <ResidueAndRiskIndicatorsTable data={rows} />
-        <CRFCTable data={rows} />
+        <ResidueAndRiskIndicatorsTable data={rows} params={params}/>
+        <CRFCTable data={rows} params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {

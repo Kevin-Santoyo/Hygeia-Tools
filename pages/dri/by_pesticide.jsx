@@ -127,7 +127,7 @@ export default function ByPesticideScreen () {
   return (
     <div>
       <Header title="DRI Analytical System"/>
-      <PageTitle data={params} />
+      <PageTitle params={params} />
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>

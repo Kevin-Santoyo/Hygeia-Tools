@@ -98,7 +98,7 @@ export default function ByPesticideScreen () {
       </ParameterContainer>
       <TableContainer>
         <h1 className="title">Results</h1>
-        <PesticideResidueAndRiskIndicatorsTable data={rows} />
+        <PesticideResidueAndRiskIndicatorsTable data={rows} params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {
