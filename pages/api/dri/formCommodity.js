@@ -1,6 +1,6 @@
-import db from '../../../lib/db'
+import db from '../../../lib/db.ts'
 
-const validFields = ['origin', 'commodity_name', 'claim', 'pdp_year', 'rpt_pest_name']
+const validFields = ['origin', 'commodity', 'market', 'pdp_year', 'pesticide']
 
 export default async (req, res) => {
   const field = req.query.field
@@ -17,7 +17,7 @@ export default async (req, res) => {
   //if (validFields.indexOf(field) === -1) return res.json({ error: 'Invalid Field Specified' })
   if (validFields.indexOf(field) === -1) return res.json({ error: field })
   
-  const values = await db.from('dri_rows').distinct(field).where(dependencies).orderBy(field)
+  const values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field)
   res.json(values.map(row => row[field]))
   // console.time('fetch origins')
   // const origins = await db

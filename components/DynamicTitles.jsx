@@ -1,9 +1,9 @@
 import styles from './DynamicTitles.module.css'
 
-export default function PageTitle ({ params }) {
+export default function PageTitle ({ params, analyte }) {
     return (
         <div>
-            <h2 className={styles.title}>Dietary Risk by Commodity: PDP Samples of {params[0].selected}, {params[2].selected}, {params[1].selected}, {params[3].selected}</h2>
+            <h2 className={styles.title}>Dietary Risk by {analyte}: PDP Samples of {params[0].selected}, {params[2].selected}, {params[1].selected}, {params[3].selected}</h2>
         </div>
     )
 }

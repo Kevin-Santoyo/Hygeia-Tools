@@ -15,7 +15,7 @@ export default function ByCommodityScreen () {
   
   const [params, setParams] = useState([
     {
-      field: 'commodity_name',
+      field: 'commodity',
       label: 'Select Food:',
       options: ['Apples'],
       selected: null
@@ -27,7 +27,7 @@ export default function ByCommodityScreen () {
       selected: null
     },
     {
-      field: 'claim',
+      field: 'market',
       label: 'Select Claim:',
       options: ['All Market Claims'],
       selected: null
@@ -56,7 +56,7 @@ export default function ByCommodityScreen () {
     
     for (let i = idx + 1; i < newParams.length; i++) {
       const dependencies = _.fromPairs(_.slice(newParams, 0, i).map(dep => [dep.field, dep.selected]))
-      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'dri' })
+      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'dri', form: 'Commodity' })
       //console.log('options')
       //console.log(options)
       newParams[i].options = options
@@ -70,7 +70,7 @@ export default function ByCommodityScreen () {
 
   const getFormData = async () => {
     //console.log('getFormData')
-    const foods = await fetchFormData({ table: 'dri' })
+    const foods = await fetchFormData({ table: 'dri', form: 'Commodity' })
     //console.log(foods)
 
     //console.log(foods.data)
@@ -78,7 +78,7 @@ export default function ByCommodityScreen () {
     //console.log(params)
     setParams([
       {
-        field: 'commodity_name',
+        field: 'commodity',
         label: 'Food',
         options: foods.data,
         selected: null
@@ -90,7 +90,7 @@ export default function ByCommodityScreen () {
         selected: null
       },
       {
-        field: 'claim',
+        field: 'market',
         label: 'Claim',
         options: ['All Market Claims'],
         selected: null
@@ -115,8 +115,8 @@ export default function ByCommodityScreen () {
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
     //console.log(query)
-    if (query.commodity_name && query.origin && query.claim && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query }).then(val => {
+    if (query.commodity && query.origin && query.market && query.pdp_year) {
+      fetchRows({ table: 'dri', params: query, form: 'Commodity' }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -129,7 +129,7 @@ export default function ByCommodityScreen () {
   return (
     <div>
       <Header title="DRI Analytical System"/>
-      <PageTitle params={params}/>
+      <PageTitle params={params} analyte='Commodity'/>
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>
@@ -139,7 +139,7 @@ export default function ByCommodityScreen () {
         <Methods />
         <KeyFindings data={rows} />
         <TableLinks />
-        <CRFCTable data={_.sortBy( rows, 'rpt_pest_name')} params={params} />
+        <CRFCTable data={_.sortBy( rows, 'pesticide')} params={params} />
       </TableContainer>
       <style jsx>{`
         .title {

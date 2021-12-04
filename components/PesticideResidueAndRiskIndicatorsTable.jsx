@@ -1,16 +1,23 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import _ from 'lodash'
 import Table from './Table'
 
 export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }) {
 
-  const columns = useMemo(() => [
+  var agg_dri = 0
+
+  data.forEach(function (row) {
+    agg_dri = row.fs_dri_kid + agg_dri
+  })
+
+  var columns = [
     {
       Header: ' ',
       emptyHeader: true,
       columns: [
         {
           Header: 'Food',
-          accessor: 'commodity_name'
+          accessor: 'commodity'
         }
       ]
     },
@@ -29,7 +36,10 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
         },
         {
           Header: 'Percent Positive',
-          accessor: d => parseFloat(d.pct_pos * 100).toFixed(1).concat('%'),
+          accessor: 'percent_positive',
+          Cell: ({ value }) => {
+            return (value * 100).toFixed(1).concat('%')
+          },
           borderRight: true
         }
       ]
@@ -40,11 +50,17 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: d => parseFloat(d.mean_positives).toFixed(3)
+          accessor: 'mean_positives',
+          Cell: ({ value }) => {
+            return value.toFixed(3)
+          },
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: d => parseFloat(d.crfc_kid).toFixed(3)
+          accessor: 'crfc_kid',
+          Cell: ({ value }) => {
+            return value.toFixed(3)
+          }
         }
       ]
     },
@@ -54,24 +70,30 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'DRI-M',
-          accessor: d => parseFloat(d.dri_mean_kid).toFixed(5),
+          accessor: 'dri_mean_kid',
+          Cell: ({ value }) => {
+            return value.toFixed(5)
+          },
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: d => parseFloat(d.fs_dir_kid).toFixed(5)
+          accessor: d => parseFloat(d.fs_dri_kid).toFixed(5)
         },
         {
           // TODO: Calc these in DB?
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: d => parseFloat(d.per_agg_fsdri * 100).toFixed(2).concat('%'),
+          accessor: 'fs_dri_kid',
+          Cell: ({ value }) => {
+            return ((value / agg_dri) * 100).toFixed(2).concat('%')
+          }
         }
       ]
     }
-  ], [])
+  ]
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" totalReq="true"/>
+      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="pesticide"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

@@ -11,7 +11,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'rpt_pest_name',
+          accessor: 'pesticide',
           width: 5
         }
       ]
@@ -32,7 +32,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
         },
         {
           Header: 'Percent Positive',
-          accessor: d => parseFloat(d.pct_pos * 100).toFixed(1).concat('%'),
+          accessor: d => parseFloat(d.percent_positive * 100).toFixed(1).concat('%'),
           borderRight: true
         }
       ]
@@ -64,7 +64,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
         },
         {
           Header: 'FS-DRI',
-          accessor: d => parseFloat(d.fs_dir_kid).toFixed(5),
+          accessor: d => parseFloat(d.fs_dri_kid).toFixed(5),
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
@@ -78,7 +78,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" totalReq="true"/>
+      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

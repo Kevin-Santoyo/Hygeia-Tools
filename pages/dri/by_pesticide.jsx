@@ -5,7 +5,7 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
+import PesticideResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
@@ -14,7 +14,7 @@ export default function ByPesticideScreen () {
   
   const [params, setParams] = useState([
     {
-      field: 'rpt_pest_name',
+      field: 'pesticide',
       label: 'Analyte',
       options: ['Chlorpyrifos'],
       selected: null
@@ -26,7 +26,7 @@ export default function ByPesticideScreen () {
       selected: null
     },
     {
-      field: 'claim',
+      field: 'market',
       label: 'Claim',
       options: ['All Market Claims'],
       selected: null
@@ -55,7 +55,7 @@ export default function ByPesticideScreen () {
     
     for (let i = idx + 1; i < newParams.length; i++) {
       const dependencies = _.fromPairs(_.slice(newParams, 0, i).map(dep => [dep.field, dep.selected]))
-      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'dri' })
+      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'dri', form: 'Pesticide' })
       //console.log('options')
       //console.log(options)
       newParams[i].options = options
@@ -69,7 +69,7 @@ export default function ByPesticideScreen () {
 
   const getFormData = async () => {
     //console.log('getFormData')
-    const foods = await fetchFormData({ table: 'dri' })
+    const foods = await fetchFormData({ table: 'dri', form: 'Pesticide' })
     //console.log(foods)
 
     //console.log(foods.data)
@@ -77,7 +77,7 @@ export default function ByPesticideScreen () {
     //console.log(params)
     setParams([
       {
-        field: 'rpt_pest_name',
+        field: 'pesticide',
         label: 'Analyte',
         options: foods.data,
         selected: null
@@ -89,7 +89,7 @@ export default function ByPesticideScreen () {
         selected: null
       },
       {
-        field: 'claim',
+        field: 'market',
         label: 'Claim',
         options: ['All Market Claims'],
         selected: null
@@ -113,8 +113,8 @@ export default function ByPesticideScreen () {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     //console.log(query)
-    if (query.rpt_pest_name && query.origin && query.claim && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query }).then(val => {
+    if (query.pesticide && query.origin && query.market && query.pdp_year) {
+      fetchRows({ table: 'dri', params: query, form: 'Pesticide' }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -127,13 +127,13 @@ export default function ByPesticideScreen () {
   return (
     <div>
       <Header title="DRI Analytical System"/>
-      <PageTitle params={params} />
+      <PageTitle params={params} analyte='Pesticide'/>
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>
       <TableContainer>
         <h1 className="title">Results</h1>
-        <ResidueAndRiskIndicatorsTable data={rows} params={params}/>
+        <PesticideResidueAndRiskIndicatorsTable data={rows} params={params}/>
         <Methods />
         <KeyFindings data={rows} />
         <TableLinks />
