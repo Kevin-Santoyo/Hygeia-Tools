@@ -40,6 +40,12 @@ const selectStyles = {
   // })
 }
 
+const groupStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}
+
 export default function Parameter ({ label, field, options, selected, handleSelect }) {
   return (
     <div className={styles.parameterWrapper}>

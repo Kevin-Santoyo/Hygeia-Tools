@@ -18,25 +18,25 @@ export default function ByCommodityScreen () {
       field: 'commodity',
       label: 'Select Food:',
       options: ['Apples'],
-      selected: null
+      selected: 'Apples'
     },
     {
       field: 'origin',
       label: 'Select Origin:',
       options: ['Combined Imports'],
-      selected: null
+      selected: 'Combined Imports'
     },
     {
       field: 'market',
       label: 'Select Claim:',
       options: ['All Market Claims'],
-      selected: null
+      selected: 'All Market Claims'
     },
     {
       field: 'pdp_year',
       label: 'Select Year:',
       options: ['2016'],
-      selected: null
+      selected: 2016
     }
   ])
   

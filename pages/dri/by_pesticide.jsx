@@ -17,34 +17,33 @@ export default function ByPesticideScreen () {
       field: 'pesticide',
       label: 'Analyte',
       options: ['Chlorpyrifos'],
-      selected: null
+      selected: 'Chlorpyrifos'
     },
     {
       field: 'origin',
       label: 'Origin',
       options: ['Combined Imports'],
-      selected: null
+      selected: 'Combined Imports'
     },
     {
       field: 'market',
       label: 'Claim',
       options: ['All Market Claims'],
-      selected: null
+      selected: 'All Market Claims'
     },
     {
       field: 'pdp_year',
       label: 'Year',
-      options: ['2016'],
-      selected: null
+      options: ['2018'],
+      selected: 2018
     }
   ])
-  
   // TODO: DRY
   const [rows, setRows] = useState([])
   
   const handleParamUpdate = async (field, selected) => {
     // console.log('update fields after ', field)
-    console.time('fetch params' + field)
+    console.time('fetch params: ' + field)
     const newParams = _.cloneDeep(params)
     
     //console.log(newParams)
@@ -64,7 +63,7 @@ export default function ByPesticideScreen () {
     
     //console.log('new params: ', newParams)
     setParams(newParams)
-    console.timeEnd('fetch params' + field)
+    console.timeEnd('fetch params: ' + field)
   }
 
   const getFormData = async () => {
@@ -97,7 +96,7 @@ export default function ByPesticideScreen () {
       {
         field: 'pdp_year',
         label: 'Year',
-        options: ['2016'],
+        options: [2016],
         selected: null
       }
     ]) 
@@ -125,7 +124,7 @@ export default function ByPesticideScreen () {
   }, [params])
   
   return (
-    <div>
+    <div className='div'>
       <Header title="DRI Analytical System"/>
       <PageTitle params={params} analyte='Pesticide'/>
       <ParameterContainer>

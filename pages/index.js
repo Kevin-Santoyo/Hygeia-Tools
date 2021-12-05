@@ -41,7 +41,7 @@ const Index = () => {
         DRI: <br/>
         <ul>
           <li><Link href={"/dri/by_commodity"}>By Commodity</Link></li>
-          {<li><Link href={"/dri/by_pesticide"}>By Pesticide (in-progress)</Link></li>}
+          {<li><Link href={"/dri/by_pesticide"}>By Pesticide</Link></li>}
         </ul>
       </div>
       <style jsx global>{`
