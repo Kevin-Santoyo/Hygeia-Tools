@@ -30,6 +30,10 @@ export function TableTitle({ params, type }) {
             return (
                 <th className={styles.TableTitle} colSpan="9">Table 1: {params[0].selected} Pesticide Residue and Risk Indicators in {params[1].selected} of {params[2].selected} Samples Tested by the PDP in {params[3].selected}: Ranked by Food Share of Aggregate FS-DRI</th>
             )
+        } else {
+            return (
+                <th colSpan="9">No Title</th>
+            )
         }
     } else if (type == "crfc") {
         return (
