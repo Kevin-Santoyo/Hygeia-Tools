@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import styles from './Table.module.css'
+import { useRouter } from 'next/router'
 
 
 export default function Summary({ data, form }) {
-    var localURL = window.location.pathname
+    var localURL = useRouter().route
     if ( localURL == '/dri/by_pesticide' ) {
         return summaryPesticide(data={data})
     } else if ( localURL == '/dri/by_commodity' ) {

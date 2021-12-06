@@ -1,10 +1,10 @@
 import styles from './KeyFindings.module.css'
 import _ from 'lodash';
+import { useRouter } from 'next/router'
 
 export default function KeyFindings({ data }) {
+    const localURL = useRouter().route
     try {
-        var localURL = window.location.pathname
-        console.log(localURL)
         if (localURL == '/dri/by_pesticide') {
             return KeyPesticides(data = { data })
         } else if (localURL == '/dri/by_commodity') {
@@ -56,7 +56,6 @@ function KeyCommodities({ data }) {
 }
 
 function KeyPesticides({ data }) {
-    console.log(data)
     var agg_dri_m_times = 0
     var num_threshhold = 0
     var totalDetections = 0

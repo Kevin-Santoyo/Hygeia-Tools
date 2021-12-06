@@ -40,13 +40,9 @@ const selectStyles = {
   // })
 }
 
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-}
+const noncountries = ['All Samples', 'Domestic Samples', 'Combined Imports']
 
-export default function Parameter ({ label, field, options, selected, handleSelect }) {
+export default function Parameter({ label, field, options, selected, handleSelect }) {
   return (
     <div className={styles.parameterWrapper}>
       <div className={styles.title}>
@@ -56,6 +52,45 @@ export default function Parameter ({ label, field, options, selected, handleSele
         styles={selectStyles}
         value={{ value: selected, label: selected }}
         options={options.map(opt => ({ value: opt, label: opt }))}
+        onChange={(val) => handleSelect(field, val.value)}
+        menuIsOpen={true}
+      />
+    </div>
+  )
+}
+
+export function OriginParameter({ label, field, options, selected, handleSelect }) {
+  const noncountries = ['All Samples', 'Domestic Samples', 'Combined Imports']
+  var notcountries = options.filter((opt) => {
+    if (noncountries.indexOf(opt) !== -1) {
+      return opt
+    }
+  })
+  var countries = options.filter((opt) => {
+    if (noncountries.indexOf(opt) == -1) {
+      return opt
+    }
+  })
+  options = []
+  notcountries.map(loc => options.push(loc))
+  options.push('Imports By Country')
+  countries.map(loc => options.push(loc))
+  return (
+    <div className={styles.parameterWrapper}>
+      <div className={styles.title}>
+        {label}
+      </div>
+      <Select
+        styles={selectStyles}
+        value={{ value: selected, label: selected }}
+        options={options.map((opt) => {
+          if (opt == 'Imports By Country') {
+            return { value: opt, label: opt, isDisabled: true }
+          } else {
+            return { value: opt, label: opt }
+          }
+        })
+        }
         onChange={(val) => handleSelect(field, val.value)}
         menuIsOpen={true}
       />
