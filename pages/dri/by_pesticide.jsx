@@ -115,7 +115,8 @@ export default function ByPesticideScreen() {
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     //console.log(query)
     if (query.pesticide && query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Pesticide' }).then(val => {
+      console.log(query, 'query - by_pesticide')
+      fetchRows({ table: 'dri', params: query, form: 'Pesticide', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })

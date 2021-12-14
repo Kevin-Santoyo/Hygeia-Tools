@@ -10,7 +10,7 @@ export default async (req, res) => {
   Object.entries(values).forEach(([k,v]) => {
     //console.log("The key: ", k)
     //console.log("The value: ", v)
-    names.push(v['commodity_name'])
+    names.push(v['commodity'])
   })
   console.log(names)
   res.json(names)

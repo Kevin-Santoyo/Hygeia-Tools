@@ -1,3 +1,4 @@
+import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 import styles from './Table.module.css'
 import { useRouter } from 'next/router'
@@ -44,7 +45,7 @@ function summaryPesticide({data}) {
     return (
         <><tr className={styles.totalRow}>
             <td className={styles.cell}>Total Number of Samples</td>
-            <td className={styles.cell}>{total_samples}</td>
+            <td className={styles.cell}>{<NumberFormat value={total_samples} displayType="text" thousandSeparator=","/>}</td>
             <td className={styles.cell}></td>
             <td className={styles.cell}></td>
             <td className={styles.cell}></td>

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import _ from 'lodash'
 import Table from './Table'
+import NumberFormat from 'react-number-format'
 
 export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }) {
 
@@ -38,7 +39,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Header: 'Percent Positive',
           accessor: 'percent_positive',
           Cell: ({ value }) => {
-            return (value * 100).toFixed(1).concat('%')
+            return <NumberFormat value={value*100} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           },
           borderRight: true
         }
@@ -52,14 +53,14 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Header: 'Mean Residue (ppm)',
           accessor: 'mean_positives',
           Cell: ({ value }) => {
-            return value.toFixed(3)
+            return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           },
         },
         {
           Header: 'cRfC (ppm)',
           accessor: 'crfc_kid',
           Cell: ({ value }) => {
-            return value.toFixed(3)
+            return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           }
         }
       ]
@@ -72,20 +73,23 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Header: 'DRI-M',
           accessor: 'dri_mean_kid',
           Cell: ({ value }) => {
-            return value.toFixed(5)
+            return <NumberFormat value={value} displayType="text"  decimalScale={5} fixedDecimalScale="true"/>
           },
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: d => parseFloat(d.fs_dri_kid).toFixed(5)
+          accessor: d => d.fs_dri_kid,
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} />
+          }
         },
         {
           // TODO: Calc these in DB?
           Header: 'Percent of Aggregate FS-DRI',
           accessor: 'fs_dri_kid',
           Cell: ({ value }) => {
-            return ((value / agg_dri) * 100).toFixed(2).concat('%')
+            return <NumberFormat value={(value / agg_dri)*100} displayType="text" decimalScale={2} suffix="%"/>
           }
         }
       ]

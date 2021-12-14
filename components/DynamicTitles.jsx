@@ -19,7 +19,6 @@ export default function PageTitle({ params, analyte }) {
 }
 
 export function TableTitle({ params, type }) {
-    console.log(params, 'params')
     if (type == "residue") {
         const pageName = useRouter().route
         if (pageName == '/dri/by_commodity') {

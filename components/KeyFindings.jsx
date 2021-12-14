@@ -56,6 +56,7 @@ function KeyCommodities({ data }) {
 }
 
 function KeyPesticides({ data }) {
+    
     var agg_dri_m_times = 0
     var num_threshhold = 0
     var totalDetections = 0

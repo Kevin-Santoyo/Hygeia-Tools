@@ -116,7 +116,7 @@ export default function ByCommodityScreen() {
 
     //console.log(query)
     if (query.commodity && query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Commodity' }).then(val => {
+      fetchRows({ table: 'dri', params: query, form: 'Commodity', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
