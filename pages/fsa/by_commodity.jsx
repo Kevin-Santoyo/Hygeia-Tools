@@ -5,8 +5,7 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchFSARows } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
-import CRFCTable from '../../components/CRFCTable'
+import ResidueAndRiskIndicatorsTable, { CRFCTable} from '../../components/TablesByCommodity'
 export default function ByCommodityScreen () {
   const [params, setParams] = useState([
     {

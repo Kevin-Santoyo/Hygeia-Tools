@@ -5,9 +5,7 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter                           from '../../components/Parameter'
 import { fetchParamOptions, fetchFSARows } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
-import CRFCTable from '../../components/CRFCTable'
-import PesticideResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
+import PesticideResidueAndRiskIndicatorsTable from '../../components/TablesByPesticide'
 
 export default function ByPesticideScreen () {
   const [params, setParams] = useState([
