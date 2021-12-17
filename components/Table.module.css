@@ -47,10 +47,13 @@
   text-align: left;
 }
 
-.table thead tr:nth-child(2) {
+.table thead tr:nth-child(n + 2) {
   border-top: 2px solid black;
 }
 
+.table thead tr:nth-child(n + 2) th {
+  font-size: 0.9rem;
+}
 .tableHead {
   padding: 0;
   border-bottom: 1px solid black;

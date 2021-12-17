@@ -79,12 +79,14 @@ export default function conventionalVSOrganicScreen() {
         handleParamUpdate('Apple')
       }
 
-      useEffect(() => getFormData(), [])
+      useEffect(() => {
+        getFormData()
+      }, [])
 
       useEffect(() => {
-        //console.log('useEffect - params - fetch rows')
+        
         const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-        console.log(query, 'table 1 query')
+        
         if (query.commodity && query.pdp_year) {
           fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 1 }).then(val => {
             console.log('fetched rows: ', val)
@@ -92,6 +94,7 @@ export default function conventionalVSOrganicScreen() {
           })
         } else {
           console.log('not fetching rows. ', query)
+          setRows([])
         }
         // fetch()
       }, [params])

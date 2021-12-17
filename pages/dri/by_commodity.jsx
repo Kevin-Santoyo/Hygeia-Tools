@@ -106,7 +106,6 @@ export default function ByCommodityScreen() {
   }
 
   useEffect(() => {
-    //handleParamUpdate('Apple')
     getFormData()
   }, [])
 

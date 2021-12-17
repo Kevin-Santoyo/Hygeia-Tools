@@ -4,12 +4,14 @@ import styles from './Table.module.css'
 import { useRouter } from 'next/router'
 
 
-export default function Summary({ data, form }) {
+export default function Summary({ data, tableNum }) {
     var localURL = useRouter().route
     if ( localURL == '/dri/by_pesticide' ) {
         return summaryPesticide(data={data})
     } else if ( localURL == '/dri/by_commodity' ) {
         return summaryCommodity(data={data})
+    } else if ( localURL == '/dri/conventional-vs-organic' ) {
+        return summaryConventional(data={data}, tableNum={tableNum})
     } else {
         return null;
     }
@@ -154,5 +156,28 @@ function summaryCommodity({data}) {
                 <td className={styles.cell}></td>
                 <td className={styles.cell}></td>
             </tr></>
+    )
+}
+
+function summaryConventional({ data, tableNum }) {
+    var conventionalTotal
+    var organicTotal
+    var conventionalResidue
+    var organicResidue
+
+    conventionalTotal = data[0].avg_total_samples
+    organicTotal = data[1].avg_total_samples
+    conventionalResidue = data[0].avg_number_residues
+    organicResidue = data[1].avg_number_residues
+    return (
+        <><tr className={styles.totalRow}>
+            <td className={styles.cell}>Ratio of Conventional to Organic</td>
+            <td className={styles.cell}><NumberFormat value={conventionalTotal/organicTotal} displayType="text" decimalScale={1}/></td>
+            <td className={styles.cell}></td>
+            <td className={styles.cell}><NumberFormat value={conventionalResidue/organicResidue} displayType="text" decimalScale={2}/></td>
+            <td className={styles.cell}></td>
+            <td className={styles.cell}></td>
+            <td className={styles.cell}></td>
+        </tr></>
     )
 }

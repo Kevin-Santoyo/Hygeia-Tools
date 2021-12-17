@@ -88,11 +88,12 @@ export function ConventialOrganicTable2 ({ params }){
       })
     } else {
       console.log('not fetching rows. ', query)
+      setRows([])
     }
-    // fetch()
+    
   }, [params])
 
-  const data = rows
+  console.log(rows, 2)
 
   const columns = useMemo(() => [
     {
@@ -151,7 +152,7 @@ export function ConventialOrganicTable2 ({ params }){
   
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -176,12 +177,12 @@ export function ConventialOrganicTable3 ({ params }){
       })
     } else {
       console.log('not fetching rows. ', query)
+      setRows([])
     }
     // fetch()
   }, [params])
 
-  const data = rows
-
+  console.log(rows, 3)
   const columns = useMemo(() => [
     {
       Header: ' ',
@@ -254,7 +255,7 @@ export function ConventialOrganicTable3 ({ params }){
   
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -279,11 +280,12 @@ export function ConventialOrganicTable4 ({ params }){
       })
     } else {
       console.log('not fetching rows. ', query)
+      setRows([])
     }
     // fetch()
   }, [params])
 
-  const data = rows
+  console.log(rows, 4)
 
   const columns = useMemo(() => [
     {
@@ -338,7 +340,7 @@ export function ConventialOrganicTable4 ({ params }){
   
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

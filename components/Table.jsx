@@ -12,6 +12,7 @@ export default function Table ({ columns, data, params, type, summary, form }) {
     getTableProps,
     getTableBodyProps,
     headerGroups,
+    footerGroups,
     rows,
     prepareRow
   } = useTable({ 
@@ -75,11 +76,12 @@ export default function Table ({ columns, data, params, type, summary, form }) {
             </tr>
           )
         })}
-        {summary == "true" && _.has(data[0], 'crfc_kid') &&
+        {summary == "true" && (data.length > 0) &&
           <Summary data={data} form={{ form }}/>
         }
 
       </tbody>
+      
     </table>
   )
 }

@@ -106,7 +106,6 @@ export default function ByPesticideScreen() {
   }
 
   useEffect(() => {
-    //handleParamUpdate('Apple')
     getFormData()
   }, [])
 

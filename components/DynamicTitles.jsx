@@ -15,6 +15,12 @@ export default function PageTitle({ params, analyte }) {
                 <h2 className={styles.title}>Dietary Risk by {analyte}: All Foods Tested by PDP, {params[2].selected}, {params[1].selected}, {params[3].selected}</h2>
             </div>
         )
+    } else if (pageName == '/dri/conventional-vs-organic') {
+        return (
+            <div>
+                <h2 className={styles.title}> Dietary Risk in Conventional and Organic Foods: PDP Samples of {params[0].selected} in Domestically Grown Crops, {params[1].selected} </h2>
+            </div>
+        )
     } else return null
 }
 
