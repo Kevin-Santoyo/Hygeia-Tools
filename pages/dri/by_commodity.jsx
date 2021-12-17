@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import _, { constant, has } from 'lodash'
 import Header from '../../components/Header'
-import PageTitle from '../../components/DynamicTitles'
+import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter, { OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable from '../../components/ResidueAndRiskIndicatorsTable'
+import ResidueAndRiskIndicatorsTable, { CRFCTable } from '../../components/TablesByCommodity'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import CRFCTable from '../../components/CRFCTable'
 export default function ByCommodityScreen() {
 
   const [params, setParams] = useState([
@@ -40,7 +39,6 @@ export default function ByCommodityScreen() {
     }
   ])
 
-  // TODO: DRY
   const [rows, setRows] = useState([])
 
   const handleParamUpdate = async (field, selected) => {
@@ -128,7 +126,7 @@ export default function ByCommodityScreen() {
   return (
     <div>
       <Header title="DRI Analytical System" />
-      <PageTitle params={params} analyte='Commodity' />
+      <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
           if (param.field == 'origin') {

@@ -33,7 +33,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
             Header: '% Samples with Zero Residue',
             accessor:'per_zero_residues',
             Cell: ({ value }) => {
-              return <NumberFormat value={value*100} displayType="text"  decimalScale={1} suffix="%"/>
+              return <NumberFormat value={value*100} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
             },
         }
       ]
@@ -63,7 +63,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
+      <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -152,7 +152,7 @@ export function ConventialOrganicTable2 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} summary="true" tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -255,7 +255,7 @@ export function ConventialOrganicTable3 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} summary="true" tableNum={3}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -340,7 +340,7 @@ export function ConventialOrganicTable4 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} type="residue" form="commodity"/>
+      <Table data={rows} columns={columns} params={params} summary="true" tableNum={4}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

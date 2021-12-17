@@ -2,11 +2,11 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { useMemo } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import { TableTitle } from './DynamicTitles'
+import Titles from './DynamicTitles'
 import Summary from './Summary'
 import styles from './Table.module.css'
 
-export default function Table ({ columns, data, params, type, summary, form }) {
+export default function Table ({ columns, data, params, type, summary, tableNum }) {
 
   const {
     getTableProps,
@@ -32,7 +32,7 @@ export default function Table ({ columns, data, params, type, summary, form }) {
     <table {...getTableProps()} className={styles.table}>
       <thead className={styles.tableHead}>
             <tr>
-              <TableTitle params={params} type={type} />
+              <Titles params={params} tableNum={tableNum} />
             </tr>
         {
           headerGroups.map(headerGroup => (
@@ -77,7 +77,7 @@ export default function Table ({ columns, data, params, type, summary, form }) {
           )
         })}
         {summary == "true" && (data.length > 0) &&
-          <Summary data={data} form={{ form }}/>
+          <Summary data={data} tableNum={tableNum}/>
         }
 
       </tbody>

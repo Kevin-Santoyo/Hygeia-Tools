@@ -5,11 +5,11 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter, { OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
-import PesticideResidueAndRiskIndicatorsTable from '../../components/PesticideResidueAndRiskIndicatorsTable'
+import PesticideResidueAndRiskIndicatorsTable from '../../components/TablesByPesticide'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import PageTitle, { DRITitleTable1 } from '../../components/DynamicTitles'
+import Titles from '../../components/DynamicTitles'
 export default function ByPesticideScreen() {
 
   const noncountries = ['All Samples', 'Domestic Samples', 'Combined Imports']
@@ -128,7 +128,7 @@ export default function ByPesticideScreen() {
   return (
     <div className='div'>
       <Header title="DRI Analytical System" />
-      <PageTitle params={params} analyte='Pesticide' />
+      <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
           if (param.field == 'origin') {

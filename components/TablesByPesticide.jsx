@@ -97,7 +97,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
   ]
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="pesticide"/>
+      <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

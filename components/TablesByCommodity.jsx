@@ -78,12 +78,56 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} type="residue" summary="true" form="commodity"/>
+      <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
         }
       `}</style>
+    </>
+  )
+}
+
+export function CRFCTable ({ data, params }) {
+
+  const columns = useMemo(() => [
+    {
+        Header: 'Analyte',
+        accessor: 'pesticide'
+    },
+    {
+      Header: 'NOAEL (mg/kg/day)',
+      accessor: 'chronic_noael',
+      //accessor: () => '-'
+    },
+    {
+      Header: 'Standard Safety Factor',
+      accessor: 'chronic_sf'
+      //accessor: () => '100'
+    },
+    {
+      Header: 'FQPA Safety Factor',
+      //accessor: () => '1'
+      accessor: 'chronic_fqpa_sf'
+    },
+    {
+      Header: 'cRfD or cPAD (mg/kg/day)',
+      accessor: d => parseFloat(d.chronic_rfd_pad).toFixed(4)
+    },
+    {
+      Header: 'cRfC (ppm)',
+      accessor: d => parseFloat(d.crfc_kid).toFixed(3)
+    }
+  ], [])
+
+  return (
+    <>
+      <Table data={data} columns={columns} params={params} tableNum={2} />
+      <style jsx>{`
+        .title {
+          font-family: Helvetica, Arial, sans-serif;
+        }
+`}</style>
     </>
   )
 }
