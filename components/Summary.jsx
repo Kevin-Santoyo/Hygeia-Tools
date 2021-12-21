@@ -133,10 +133,10 @@ function summaryCommodity({ data }) {
   var totalDetections = 0;
   data.forEach(function (row) {
     averageSamples = row.total_samples + averageSamples;
-    total_num_pos = total_num_pos + row.number_positives;
-    total_drim = total_drim + row.dri_mean_kid;
-    total_fsdri = total_fsdri + row.fs_dri_kid;
-    total_percent = total_percent + row.per_agg_fsdri * 100;
+    total_num_pos += row.number_positives;
+    total_drim += row.dri_mean_kid;
+    total_fsdri += row.fs_dri_kid;
+    total_percent += row.per_agg_fsdri * 100;
     totalDetections++;
     agg_dri = row.fs_dri_kid + agg_dri;
     dri_kid = row.fs_dri_kid + dri_kid;
@@ -298,7 +298,6 @@ function summaryConventional2({ data }) {
 }
 
 function summaryConventional3({ data }) {
-  console.log(data, 3);
   var num_pos = 0;
   var dri_total = 0;
   var res_over_thresh = 0;

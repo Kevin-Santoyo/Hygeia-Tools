@@ -1,10 +1,10 @@
 import styles from "./KeyFindings.module.css";
 import _ from "lodash";
 import { useRouter } from "next/router";
+import NumberFormat from "react-number-format";
 
 export default function KeyFindings({ data, tableNum }) {
   const localURL = useRouter().route;
-  console.log(useRouter());
   try {
     if (localURL == "/dri/by_pesticide") {
       return KeyPesticides((data = { data }));
@@ -12,10 +12,26 @@ export default function KeyFindings({ data, tableNum }) {
       return KeyCommodities((data = { data }));
     } else if (localURL == "/dri/conventional-vs-organic") {
       switch (tableNum) {
-        case 0:
-          return null;
         case 1:
-          return null;
+          return KeyConventional1((data = { data }));
+        case 2:
+          return (
+            <div className={styles.container}>
+              <h4 className={styles.title}>No findings available</h4>
+            </div>
+          );
+        case 3:
+          return (
+            <div className={styles.container}>
+              <h4 className={styles.title}>No findings available</h4>
+            </div>
+          );
+        case 4:
+          return (
+            <div className={styles.container}>
+              <h4 className={styles.title}>No findings available</h4>
+            </div>
+          );
         default:
           return (
             <div className={styles.container}>
@@ -177,4 +193,88 @@ function KeyPesticides({ data }) {
       </ul>
     </div>
   );
+}
+
+function KeyConventional1({ data }) {
+  if (data.length > 1) {
+    let selected_food = data[0].commodity;
+    let organic_percentage = data[1].per_zero_residues;
+    let conventional_percentage = data[0].per_zero_residues;
+    let avg_sample_residue =
+      data[0].avg_number_residues / data[1].avg_number_residues;
+    let conventional_risk = data[0].sum_dri_mean / data[1].sum_dri_mean;
+    let organic_risk = data[0].sum_dri_fs / data[1].sum_dri_fs;
+    let avg_organic_residue = data[1].avg_number_residues;
+    return (
+      <div className={styles.container}>
+        <h4 className={styles.title}>Key Findings</h4>
+        <ul>
+          <li>
+            No pesticide residues were detected in{" "}
+            <NumberFormat
+              value={organic_percentage * 100}
+              displayType="text"
+              decimalScale={1}
+              suffix="%"
+            />{" "}
+            of organic samples and{" "}
+            <NumberFormat
+              value={conventional_percentage * 100}
+              displayType="text"
+              decimalScale={1}
+              suffix="%"
+            />{" "}
+            of conventional samples.
+          </li>
+          <li>
+            The average conventional sample of {selected_food} contained{" "}
+            <NumberFormat
+              value={avg_sample_residue}
+              displayType="text"
+              decimalScale={1}
+            />{" "}
+            times as many more residues than the average organic {selected_food}{" "}
+            sample.
+          </li>
+          <li>
+            Among samples of {selected_food} with residues, conventionally grown{" "}
+            {selected_food} posed dietary risks{" "}
+            <NumberFormat
+              value={conventional_risk}
+              displayType="text"
+              decimalScale={1}
+            />{" "}
+            times higher than the residues in organic {selected_food}.
+          </li>
+          <li>
+            Residues found in conventional samples of {selected_food} pose
+            FS-DRI risks{" "}
+            <NumberFormat
+              value={organic_risk}
+              displayType="text"
+              decimalScale={1}
+            />{" "}
+            times as high as residues found in organic samples of{" "}
+            {selected_food}.
+          </li>
+          <li>
+            The average organic sample contained{" "}
+            <NumberFormat
+              value={avg_organic_residue}
+              displayType="text"
+              decimalScale={2}
+              fixedDecimalScale="true"
+            />{" "}
+            residues.
+          </li>
+        </ul>
+      </div>
+    );
+  } else {
+    return (
+      <div className={styles.container}>
+        <h4 className={styles.title}>No findings available</h4>
+      </div>
+    );
+  }
 }

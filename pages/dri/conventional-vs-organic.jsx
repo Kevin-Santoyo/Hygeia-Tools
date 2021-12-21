@@ -116,8 +116,6 @@ export default function conventionalVSOrganicScreen() {
           <TableContainer>
             <h1 className="title">Results</h1>
             <ConventialOrganicTable1 data={rows} params={params}/>
-            <Methods />
-            <KeyFindings data={rows} />
             <ConventialOrganicTable2 params={params} />
             <ConventialOrganicTable3 params={params} />
             <ConventialOrganicTable4 params={params} />

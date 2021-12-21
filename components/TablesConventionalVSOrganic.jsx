@@ -2,6 +2,8 @@ import { useEffect, useState, useMemo } from 'react'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
+import KeyFindings from './KeyFindings'
+import Methods from './Methods'
 
 export default function ConventialOrganicTable1 ({ data, params }) {
   
@@ -26,7 +28,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
             Header: 'Average Number of Residues per Sample',
             accessor: 'avg_number_residues',
             Cell: ({ value }) => {
-              return <NumberFormat value={value} displayType="text"  decimalScale={2}/>
+              return <NumberFormat value={value} displayType="text"  decimalScale={2} fixedDecimalScale="true"/>
             },
         },
         {
@@ -64,6 +66,8 @@ export default function ConventialOrganicTable1 ({ data, params }) {
   return (
     <>
       <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
+      <Methods />
+      <KeyFindings data={data} tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -152,6 +156,7 @@ export function ConventialOrganicTable2 ({ params }){
   return (
     <>
       <Table data={rows} columns={columns} params={params} summary="true" tableNum={2} />
+      <KeyFindings data={rows} tableNum={2}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -259,6 +264,7 @@ export function ConventialOrganicTable3 ({ params }){
   return (
     <>
       <Table data={rows} columns={columns} params={params} summary="true" tableNum={3}/>
+      <KeyFindings data={rows} tableNum={3}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -342,6 +348,7 @@ export function ConventialOrganicTable4 ({ params }){
   return (
     <>
       <Table data={rows} columns={columns} params={params} summary="true" tableNum={4}/>
+      <KeyFindings data={rows} tableNum={4}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
