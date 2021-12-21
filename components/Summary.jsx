@@ -197,63 +197,18 @@ function summaryCommodity({ data }) {
 }
 
 function summaryConventional1({ data }) {
-  var conventionalTotal;
-  var organicTotal;
-  var conventionalResidue;
-  var organicResidue;
-
-  if (data[1]) {
-    conventionalTotal = data[0].avg_total_samples;
-    organicTotal = data[1].avg_total_samples;
-    conventionalResidue = data[0].avg_number_residues;
-    organicResidue = data[1].avg_number_residues;
-  }
-  return (
-    <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Ratio of Conventional to Organic</td>
-        <td className={styles.cell}>
-          <NumberFormat
-            value={conventionalTotal / organicTotal}
-            displayType="text"
-            decimalScale={1}
-          />
-        </td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
-          <NumberFormat
-            value={conventionalResidue / organicResidue}
-            displayType="text"
-            decimalScale={2}
-          />
-        </td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-      </tr>
-    </>
-  );
-}
-
-function summaryConventional2({ data }) {
-    var conventionalTotal;
-    var organicTotal;
-    var conventionalResidue;
-    var organicResidue;
-  
-    if (data[1]) {
-      conventionalTotal = data[0].avg_total_samples;
-      organicTotal = data[1].avg_total_samples;
-      conventionalResidue = data[0].avg_number_residues;
-      organicResidue = data[1].avg_number_residues;
-    }
+  if (data.length != 1) {
+      let totalRatio = data[0].avg_total_samples / data[1].avg_total_samples
+      let residueRatio = data[0].avg_number_residues / data[1].avg_number_residues
+      let driRatio = data[0].sum_dri_mean / data[1].sum_dri_mean
+      let fsRatio = data[0].sum_dri_fs / data[1].sum_dri_fs
     return (
       <>
         <tr className={styles.totalRow}>
-          <td className={styles.cell}>Totals:</td>
+          <td className={styles.cell}>Ratio of Conventional to Organic</td>
           <td className={styles.cell}>
             <NumberFormat
-              value={conventionalTotal / organicTotal}
+              value={totalRatio}
               displayType="text"
               decimalScale={1}
             />
@@ -261,38 +216,34 @@ function summaryConventional2({ data }) {
           <td className={styles.cell}>--</td>
           <td className={styles.cell}>
             <NumberFormat
-              value={conventionalResidue / organicResidue}
+              value={residueRatio}
               displayType="text"
               decimalScale={2}
             />
           </td>
           <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>
+            <NumberFormat
+              value={driRatio}
+              displayType="text"
+              decimalScale={2}
+            />
+          </td>
+          <td className={styles.cell}>
+            <NumberFormat
+              value={fsRatio}
+              displayType="text"
+              decimalScale={2}
+            />
+          </td>
         </tr>
       </>
     );
-  }
-
-  function summaryConventional3({ data }) {
-    var conventionalTotal;
-    var organicTotal;
-    var conventionalResidue;
-    var organicResidue;
-  
-    if (data[1]) {
-      conventionalTotal = data[0].avg_total_samples;
-      organicTotal = data[1].avg_total_samples;
-      conventionalResidue = data[0].avg_number_residues;
-      organicResidue = data[1].avg_number_residues;
-    }
+  } else {
     return (
       <>
         <tr className={styles.totalRow}>
-          <td className={styles.cell}>Totals:</td>
-          <td className={styles.cell}></td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}></td>
+          <td className={styles.cell}>Ratio of Conventional to Organic</td>
           <td className={styles.cell}>--</td>
           <td className={styles.cell}>--</td>
           <td className={styles.cell}>--</td>
@@ -303,29 +254,123 @@ function summaryConventional2({ data }) {
       </>
     );
   }
+}
 
-  function summaryConventional4({ data }) {
-    var conventionalTotal;
-    var organicTotal;
-    var conventionalResidue;
-    var organicResidue;
-  
-    if (data[1]) {
-      conventionalTotal = data[0].avg_total_samples;
-      organicTotal = data[1].avg_total_samples;
-      conventionalResidue = data[0].avg_number_residues;
-      organicResidue = data[1].avg_number_residues;
-    }
-    return (
-      <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Totals:</td>
-          <td className={styles.cell}></td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}></td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-        </tr>
-      </>
-    );
-  }
+function summaryConventional2({ data }) {
+  var num_pos = 0;
+  var dri_total = 0;
+  var fsdri_total = 0;
+  data.map((dat) => {
+    num_pos += dat.number_positives;
+    dri_total += dat.dri_mean_kid;
+    fsdri_total += dat.fs_dri_kid;
+  });
+
+  return (
+    <>
+      <tr className={styles.totalRow}>
+        <td className={styles.cell}>Totals:</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat value={num_pos} displayType="text" />
+        </td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat
+            value={dri_total}
+            displayType="text"
+            decimalScale={5}
+            fixedDecimalScale="true"
+          />
+        </td>
+        <td className={styles.cell}>
+          <NumberFormat
+            value={fsdri_total}
+            displayType="text"
+            decimalScale={5}
+            fixedDecimalScale="true"
+          />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+function summaryConventional3({ data }) {
+  console.log(data, 3);
+  var num_pos = 0;
+  var dri_total = 0;
+  var res_over_thresh = 0;
+  var num_inadvert_res = 0;
+  data.map((dat) => {
+    num_pos += dat.number_positives;
+    dri_total += dat.dri_mean_kid;
+    res_over_thresh += dat.number_residues_exceed_at;
+    num_inadvert_res += dat.number_inadvertent_residues;
+  });
+  return (
+    <>
+      <tr className={styles.totalRow}>
+        <td className={styles.cell}>Totals:</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat value={num_pos} displayType="text" />
+        </td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat value={res_over_thresh} displayType="text" />
+        </td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat value={num_inadvert_res} displayType="text" />
+        </td>
+        <td className={styles.cell}>
+          <NumberFormat
+            value={dri_total}
+            displayType="text"
+            decimalScale={5}
+            fixedDecimalScale="true"
+          />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+function summaryConventional4({ data }) {
+  var dri_total = 0;
+  var fsdri_total = 0;
+  data.map((dat) => {
+    dri_total += dat.dri_mean_kid;
+    fsdri_total += dat.fs_dri_kid;
+  });
+  return (
+    <>
+      <tr className={styles.totalRow}>
+        <td className={styles.cell}>Totals:</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>--</td>
+        <td className={styles.cell}>
+          <NumberFormat
+            value={dri_total}
+            displayType="text"
+            decimalScale={5}
+            fixedDecimalScale="true"
+          />
+        </td>
+        <td className={styles.cell}>
+          <NumberFormat
+            value={fsdri_total}
+            displayType="text"
+            decimalScale={5}
+            fixedDecimalScale="true"
+          />
+        </td>
+      </tr>
+    </>
+  );
+}

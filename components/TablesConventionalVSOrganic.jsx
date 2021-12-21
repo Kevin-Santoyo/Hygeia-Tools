@@ -93,7 +93,6 @@ export function ConventialOrganicTable2 ({ params }){
     
   }, [params])
 
-  console.log(rows, 2)
 
   const columns = useMemo(() => [
     {
@@ -182,7 +181,6 @@ export function ConventialOrganicTable3 ({ params }){
     // fetch()
   }, [params])
 
-  console.log(rows, 3)
   const columns = useMemo(() => [
     {
       Header: ' ',
@@ -194,7 +192,12 @@ export function ConventialOrganicTable3 ({ params }){
         },
         {
           Header: 'Post-Harvest Fungicide',
-          accessor: 'ph_fungicide'
+          accessor: 'ph_fungicide',
+          Cell: ({ value }) => {
+            if (value) {
+              return 'Yes'
+            } else return 'No'
+          }
         },
         {
           Header: 'Number of Positives',
@@ -232,7 +235,7 @@ export function ConventialOrganicTable3 ({ params }){
           Header: 'Conventional Mean of Positives (ppm)',
           accessor: 'conventional_mean_residue',
           Cell: ({ value }) => {
-            return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
+            return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" defaultValue={0} />
           }
         },
         {
@@ -284,8 +287,6 @@ export function ConventialOrganicTable4 ({ params }){
     }
     // fetch()
   }, [params])
-
-  console.log(rows, 4)
 
   const columns = useMemo(() => [
     {

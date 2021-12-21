@@ -104,7 +104,7 @@ export default function conventionalVSOrganicScreen() {
       return (
         <div className='div'>
           <Header title="DRI Analytical System" />
-          <PageTitle params={params} analyte='Pesticide' />
+          <PageTitle params={params} tableNum={0} />
           <ParameterContainer>
             {params.map((param) => {
               if (param.field == 'origin') {

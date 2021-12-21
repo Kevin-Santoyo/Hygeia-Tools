@@ -27,8 +27,16 @@ export default function Titles({ params, tableNum }) {
     switch (tableNum) {
       case 0:
         return ConOrgPageTitle((params = { params }));
-      default:
-        return <th colSpan="9">No Title</th>;
+        case 1:
+            return ConOrgTitle1((params = { params }));
+            case 2:
+                return ConOrgTitle2((params = { params }));
+                case 3:
+                    return ConOrgTitle3((params = { params }));
+                    case 4:
+                        return ConOrgTitle4((params = { params }));
+          default:
+            return <th colSpan="9">No Title</th>;
     }
   } else return null;
 }
@@ -96,3 +104,35 @@ function ConOrgPageTitle({ params }) {
     </div>
   );
 }
+
+function ConOrgTitle1({ params }) {
+    return (
+      <th className={styles.TableTitle} colSpan="7">
+        Table 1: Pesticide Residues and Risk Indicators in Domestically Grown Samples of {params[0].selected}, {params[1].selected}
+      </th>
+    );
+  }
+
+  function ConOrgTitle2({ params }) {
+    return (
+      <th className={styles.TableTitle} colSpan="7">
+        Table 2: Pesticide Residues Detected in Organically Grown {params[0].selected}, {params[1].selected}
+      </th>
+    );
+  }
+
+  function ConOrgTitle3({ params }) {
+    return (
+      <th className={styles.TableTitle} colSpan="10">
+        Table 3: Residues Detected in Organic Samples: Compliance With National Organic Program Rule Provisions Governing Pesticide Residues in {params[0].selected} {params[1].selected}
+      </th>
+    );
+  }
+
+  function ConOrgTitle4({ params }) {
+    return (
+      <th className={styles.TableTitle} colSpan="6">
+        Table 4: Pesticide Residues Detected in Domestic Samples {params[0].selected} Conventionally Grown {params[1].selected}
+      </th>
+    );
+  }

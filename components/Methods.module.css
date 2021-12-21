@@ -8,6 +8,15 @@
     margin-right: .5rem;
 }
 
+.link {
+    color: #2e6924;
+    transition: color .2s ease;
+}
+
+.link:hover, .link:focus {
+    color: #419639;
+}
+
 .list, .list li, .title {
     display: inline;
 }
