@@ -106,12 +106,7 @@ export default function conventionalVSOrganicScreen() {
           <Header title="DRI Analytical System" />
           <PageTitle params={params} tableNum={0} />
           <ParameterContainer>
-            {params.map((param) => {
-              if (param.field == 'origin') {
-                return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} />
-              } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
-            }
-            )}
+          {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
           </ParameterContainer>
           <TableContainer>
             <h1 className="title">Results</h1>

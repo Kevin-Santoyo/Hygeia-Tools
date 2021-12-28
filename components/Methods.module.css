@@ -21,6 +21,10 @@
     display: inline;
 }
 
+.list {
+    padding-left: 0
+}
+
 .list li:not(:last-child) {
     border-right: 1px solid #000;
     margin-right: .5rem;
