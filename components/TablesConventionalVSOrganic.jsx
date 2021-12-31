@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import KeyFindings from './KeyFindings'
 import Methods from './Methods'
-import Charts from './Chart'
+import GraphicsTabs from './GraphicsTabs'
 
 export default function ConventialOrganicTable1 ({ data, params }) {
   
@@ -63,24 +63,13 @@ export default function ConventialOrganicTable1 ({ data, params }) {
       ]
     }
   ], [])
-
-  const cdata = {
-    labels: ['Conventional', 'Organic'],
-    datasets: [{
-      label: 'FS-DRI',
-      backgroundColor: 'rgb(158, 27, 52)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0.16, 0.0004]
-    }]
-  }
-
-  const [chartData, setChartData] = useState({})
+  
   return (
     <>
       <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
       <Methods />
       <KeyFindings data={data} tableNum={1}/>
-      <Charts data={data} params={params}/>
+      <GraphicsTabs data={data} params={params}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
