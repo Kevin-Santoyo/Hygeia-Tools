@@ -32,6 +32,17 @@ export default function Summary({ data, tableNum }) {
       default:
         return null;
     }
+  } else if (localURL == "/dri/domestic_vs_imported") {
+    switch (tableNum) {
+      case 1:
+        return summaryDomestic1((data = { data }));
+      case 2:
+        return summaryDomestic2((data = { data }));
+      case 3:
+        return summaryDomestic2((data = { data }));
+      default:
+        return null;
+    }
   } else {
     return null;
   }
@@ -67,15 +78,7 @@ function summaryPesticide({ data }) {
     <>
       <tr className={styles.totalRow}>
         <td className={styles.cell}>Total Number of Samples</td>
-        <td className={styles.cell}>
-          {
-            <NumberFormat
-              value={total_samples}
-              displayType="text"
-              thousandSeparator=","
-            />
-          }
-        </td>
+        <td className={styles.cell}>{<NumberFormat value={total_samples} displayType="text" thousandSeparator="," />}</td>
         <td className={styles.cell}></td>
         <td className={styles.cell}></td>
         <td className={styles.cell}></td>
@@ -198,43 +201,27 @@ function summaryCommodity({ data }) {
 
 function summaryConventional1({ data }) {
   if (data.length != 1) {
-      let totalRatio = data[0].avg_total_samples / data[1].avg_total_samples
-      let residueRatio = data[0].avg_number_residues / data[1].avg_number_residues
-      let driRatio = data[0].sum_dri_mean / data[1].sum_dri_mean
-      let fsRatio = data[0].sum_dri_fs / data[1].sum_dri_fs
+    let totalRatio = data[0].avg_total_samples / data[1].avg_total_samples;
+    let residueRatio = data[0].avg_number_residues / data[1].avg_number_residues;
+    let driRatio = data[0].sum_dri_mean / data[1].sum_dri_mean;
+    let fsRatio = data[0].sum_dri_fs / data[1].sum_dri_fs;
     return (
       <>
         <tr className={styles.totalRow}>
           <td className={styles.cell}>Ratio of Conventional to Organic</td>
           <td className={styles.cell}>
-            <NumberFormat
-              value={totalRatio}
-              displayType="text"
-              decimalScale={1}
-            />
+            <NumberFormat value={totalRatio} displayType="text" decimalScale={1} />
           </td>
           <td className={styles.cell}>--</td>
           <td className={styles.cell}>
-            <NumberFormat
-              value={residueRatio}
-              displayType="text"
-              decimalScale={2}
-            />
+            <NumberFormat value={residueRatio} displayType="text" decimalScale={2} />
           </td>
           <td className={styles.cell}>--</td>
           <td className={styles.cell}>
-            <NumberFormat
-              value={driRatio}
-              displayType="text"
-              decimalScale={2}
-            />
+            <NumberFormat value={driRatio} displayType="text" decimalScale={2} />
           </td>
           <td className={styles.cell}>
-            <NumberFormat
-              value={fsRatio}
-              displayType="text"
-              decimalScale={2}
-            />
+            <NumberFormat value={fsRatio} displayType="text" decimalScale={2} />
           </td>
         </tr>
       </>
@@ -277,20 +264,10 @@ function summaryConventional2({ data }) {
         <td className={styles.cell}>--</td>
         <td className={styles.cell}>--</td>
         <td className={styles.cell}>
-          <NumberFormat
-            value={dri_total}
-            displayType="text"
-            decimalScale={5}
-            fixedDecimalScale="true"
-          />
+          <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
         </td>
         <td className={styles.cell}>
-          <NumberFormat
-            value={fsdri_total}
-            displayType="text"
-            decimalScale={5}
-            fixedDecimalScale="true"
-          />
+          <NumberFormat value={fsdri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
         </td>
       </tr>
     </>
@@ -327,12 +304,7 @@ function summaryConventional3({ data }) {
           <NumberFormat value={num_inadvert_res} displayType="text" />
         </td>
         <td className={styles.cell}>
-          <NumberFormat
-            value={dri_total}
-            displayType="text"
-            decimalScale={5}
-            fixedDecimalScale="true"
-          />
+          <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
         </td>
       </tr>
     </>
@@ -354,22 +326,90 @@ function summaryConventional4({ data }) {
         <td className={styles.cell}>--</td>
         <td className={styles.cell}>--</td>
         <td className={styles.cell}>
-          <NumberFormat
-            value={dri_total}
-            displayType="text"
-            decimalScale={5}
-            fixedDecimalScale="true"
-          />
+          <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
         </td>
         <td className={styles.cell}>
-          <NumberFormat
-            value={fsdri_total}
-            displayType="text"
-            decimalScale={5}
-            fixedDecimalScale="true"
-          />
+          <NumberFormat value={fsdri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
         </td>
       </tr>
     </>
   );
+}
+
+function summaryDomestic1({ data }) {
+  if (_.has(data, 1)) {
+    let ratioTotal = <NumberFormat value={data[0].avg_total_samples / data[1].avg_total_samples} displayType="text" decimalScale={2} />;
+    let ratioAvgRes = <NumberFormat value={data[0].avg_number_residues / data[1].avg_number_residues} displayType="text" decimalScale={2} />;
+    let ratioDRI = <NumberFormat value={data[0].sum_dri_mean / data[1].sum_dri_mean} displayType="text" decimalScale={4} />;
+    let ratioFS = <NumberFormat value={data[0].sum_dri_fs / data[1].sum_dri_fs} displayType="text" decimalScale={4} />;
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell}>Ratio of Domestic to Imported</td>
+          <td className={styles.cell}>{ratioTotal}</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>{ratioAvgRes}</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>{ratioDRI}</td>
+          <td className={styles.cell}>{ratioFS}</td>
+        </tr>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell}>Ratio of Domestic to Imported</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+        </tr>
+      </>
+    );
+  }
+}
+
+function summaryDomestic2({ data }) {
+  if (data.length > 0) {
+    let totalPositives = <NumberFormat value={data.reduce((a, b) => a + b.number_positives, 0)} displayType="text" />;
+    let totalDRI = <NumberFormat value={data.reduce((a, b) => a + b.dri_mean_kid, 0)} displayType="text" decimalScale={5} fixedDecimalScale="true" />;
+    let totalFS = <NumberFormat value={data.reduce((a, b) => a + b.fs_dri_kid, 0)} displayType="text" decimalScale={6} fixedDecimalScale="true" />;
+    let totalAggPer = <NumberFormat value={data.reduce((a, b) => a + b.per_agg_fsdri * 100, 0)} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%" />;
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell}>Totals:</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>{totalPositives}</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>{totalDRI}</td>
+          <td className={styles.cell}>{totalFS}</td>
+          <td className={styles.cell}>{totalAggPer}</td>
+        </tr>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell}>Totals:</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+          <td className={styles.cell}>--</td>
+        </tr>
+      </>
+    );
+  }
+}
+
+function summaryDomestic3({ data }) {
+  return null;
 }

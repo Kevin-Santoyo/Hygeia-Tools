@@ -1,0 +1,155 @@
+import { useEffect, useState } from "react";
+import _, { forEach } from "lodash";
+import Header from "../../components/Header";
+import ParameterContainer from "../../components/ParameterContainer";
+import Parameter, { OriginParameter } from "../../components/Parameter";
+import { fetchParamOptions, fetchRows, fetchFormData } from "../../lib/api";
+import TableContainer from "../../components/TableContainer";
+import PageTitle from "../../components/DynamicTitles";
+import DomesticTable1, { DomesticTable2, DomesticTable3 } from "../../components/TablesDomestic";
+export default function conventionalVSOrganicScreen() {
+  const [params, setParams] = useState([
+    {
+      field: "commodity",
+      label: "Select Food:",
+      options: ["Apples"],
+      selected: "Apples",
+    },
+    {
+      field: "origin",
+      label: "Select Origin:",
+      options: ["Combined Imports"],
+      selected: "Combined Imports",
+    },
+    {
+      field: "market",
+      label: "Select Claim:",
+      options: ["All Market Claims"],
+      selected: "All Market Claims",
+    },
+    {
+      field: "pdp_year",
+      label: "Select Year:",
+      options: ["2016"],
+      selected: 2016,
+    },
+  ]);
+
+  const [rows, setRows] = useState([]);
+
+  const handleParamUpdate = async (field, selected) => {
+    // console.log('update fields after ', field)
+    console.time("fetch params: " + field);
+    const newParams = _.cloneDeep(params);
+
+    //console.log(newParams)
+
+    const idx = _.findIndex(newParams, (param) => param.field === field);
+
+    if (idx !== -1) newParams[idx].selected = selected;
+
+    for (let i = idx + 1; i < newParams.length; i++) {
+      const dependencies = _.fromPairs(_.slice(newParams, 0, i).map((dep) => [dep.field, dep.selected]));
+      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: "dri", form: "Domestic" });
+      //console.log('options')
+      //console.log(options)
+      newParams[i].options = options;
+      if (newParams[i].options.indexOf(newParams[i].selected) === -1) newParams[i].selected = newParams[i].options[0];
+    }
+
+    //console.log('new params: ', newParams)
+    setParams(newParams);
+    console.timeEnd("fetch params: " + field);
+  };
+
+  const getFormData = async () => {
+    //console.log('getFormData')
+    const foods = await fetchFormData({ table: "dri", form: "Commodity" });
+    //console.log(foods)
+
+    //console.log(foods.data)
+
+    //console.log(params)
+    setParams([
+        {
+            field: 'commodity',
+            label: 'Food',
+            options: foods.data,
+            selected: null
+          },
+          {
+            field: 'origin',
+            label: 'Origin',
+            options: ['Combined Imports'],
+            selected: null
+          },
+          {
+            field: 'market',
+            label: 'Claim',
+            options: ['All Market Claims'],
+            selected: null
+          },
+          {
+            field: 'pdp_year',
+            label: 'Year',
+            options: ['2016'],
+            selected: null
+          }
+    ]);
+    handleParamUpdate("Apple");
+  };
+
+  useEffect(() => {
+    getFormData();
+  }, []);
+
+  useEffect(() => {
+    const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]));
+
+    const query2 = {
+      "commodity" : query.commodity,
+      "market" : query.market,
+      "pdp_year" : query.pdp_year
+    }
+    console.log(query, 'main params')
+    if (query.commodity && query.origin && query.market && query.pdp_year) {
+      fetchRows({ table: "dri", params: query2, form: "Domestic", tableNum: 1 }).then((val) => {
+        console.log("fetched rows: ", val);
+        setRows(val);
+      });
+    } else {
+      console.log("not fetching rows. ", query);
+      setRows([]);
+    }
+    // fetch()
+  }, [params]);
+
+  console.log(rows);
+
+  return (
+    <div className="div">
+      <Header title="DRI Analytical System" />
+      <PageTitle params={params} tableNum={0} />
+      <ParameterContainer>
+        {params.map((param) => {
+          if (param.field == "origin") {
+            return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Domestic"/>;
+          } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />;
+        })}
+      </ParameterContainer>
+      <TableContainer>
+        <h1 className="title">Results</h1>
+        <DomesticTable1 data={rows} params={params}/>
+        <DomesticTable2 params={params} />
+        <DomesticTable3 params={params} />
+      </TableContainer>
+      <style jsx>
+        {`
+          .title {
+            font-family: Helvetica, Arial, sans-serif;
+          }
+        `}
+      </style>
+    </div>
+  );
+}

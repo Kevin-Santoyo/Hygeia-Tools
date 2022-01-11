@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import styles from "./KeyFindings.module.css";
-import _, { countBy } from "lodash";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
+import { fetchRows } from "../lib/api";
 
-export default function KeyFindings({ data, tableNum, food }) {
+export default function KeyFindings({ data, tableNum, food, params }) {
   const localURL = useRouter().route;
   try {
     if (localURL == "/dri/by_pesticide") {
@@ -22,27 +24,31 @@ export default function KeyFindings({ data, tableNum, food }) {
         case 4:
           return KeyConventional4((data = { data }));
         default:
-          return (
-            <div className={styles.container}>
-              <h4 className={styles.title}>No findings available</h4>
-            </div>
-          );
+          return KeyDefault();
+      }
+    } else if (localURL == "/dri/domestic_vs_imported") {
+      switch (tableNum) {
+        case 1:
+          let obj = { data: data, food: params[0].selected, origin: params[1].selected, market: params[2].selected, year: params[3].selected };
+          return KeyDomestic1((obj = { obj }));
+        default:
+          return KeyDefault();
       }
     } else {
-      return (
-        <div className={styles.container}>
-          <h4 className={styles.title}>No Key Findings</h4>
-        </div>
-      );
+      return KeyDefault();
     }
   } catch (err) {
     console.log(err);
-    return (
-      <div className={styles.container}>
-        <h4 className={styles.title}>No Key Findings</h4>
-      </div>
-    );
+    return KeyDefault();
   }
+}
+
+function KeyDefault() {
+  return (
+    <div className={styles.container}>
+      <h4 className={styles.title}>No Key Findings</h4>
+    </div>
+  );
 }
 
 function KeyCommodities({ data }) {
@@ -151,12 +157,12 @@ function KeyPesticides({ data }) {
 function KeyConventional1({ data }) {
   if (data.length > 1) {
     let food = data[0].commodity;
-    let organic_percentage = <NumberFormat value={data[1].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />
-    let conventional_percentage = <NumberFormat value={data[0].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />
-    let avg_sample_residue = <NumberFormat value={data[0].avg_number_residues / data[1].avg_number_residues} displayType="text" decimalScale={1} />
-    let conventional_risk = <NumberFormat value={data[0].sum_dri_mean / data[1].sum_dri_mean} displayType="text" decimalScale={1} />
-    let organic_risk = <NumberFormat value={data[0].sum_dri_fs / data[1].sum_dri_fs} displayType="text" decimalScale={1} />
-    let avg_organic_residue = <NumberFormat value={data[1].avg_number_residues} displayType="text" decimalScale={2} fixedDecimalScale="true" />
+    let organic_percentage = <NumberFormat value={data[1].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />;
+    let conventional_percentage = <NumberFormat value={data[0].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />;
+    let avg_sample_residue = <NumberFormat value={data[0].avg_number_residues / data[1].avg_number_residues} displayType="text" decimalScale={1} />;
+    let conventional_risk = <NumberFormat value={data[0].sum_dri_mean / data[1].sum_dri_mean} displayType="text" decimalScale={1} />;
+    let organic_risk = <NumberFormat value={data[0].sum_dri_fs / data[1].sum_dri_fs} displayType="text" decimalScale={1} />;
+    let avg_organic_residue = <NumberFormat value={data[1].avg_number_residues} displayType="text" decimalScale={2} fixedDecimalScale="true" />;
     return (
       <div className={styles.container}>
         <h4 className={styles.title}>Key Findings</h4>
@@ -173,9 +179,7 @@ function KeyConventional1({ data }) {
           <li>
             Residues found in conventional samples of {food} pose FS-DRI risks {organic_risk} times as high as residues found in organic samples of {food}.
           </li>
-          <li>
-            The average organic sample contained {avg_organic_residue} residues.
-          </li>
+          <li>The average organic sample contained {avg_organic_residue} residues.</li>
         </ul>
       </div>
     );
@@ -239,7 +243,7 @@ function KeyConventional3({ data }) {
       totalPositives += dat.number_positives;
       totalInadvertent += dat.number_inadvertent_residues;
     });
-    let totalPercentage = <NumberFormat value={(phTotalPositives / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />
+    let totalPercentage = <NumberFormat value={(phTotalPositives / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let threshPercentage = <NumberFormat value={(resOverAction / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let driPercentage = <NumberFormat value={(totalOverDRI / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let legalPercentage = <NumberFormat value={(totalLegal / totalPesticides) * 100} displayType="text" decimalScale={1} suffix="%" />;
@@ -282,7 +286,6 @@ function KeyConventional3({ data }) {
 
 function KeyConventional4({ data }) {
   if (data.length > 0) {
-    console.log(data, "keydata");
     let length = data.length;
     let totalPesticides = length;
     let totalSamples = 0;
@@ -302,10 +305,59 @@ function KeyConventional4({ data }) {
       </div>
     );
   } else {
+    return KeyDefault();
+  }
+}
+
+function KeyDomestic1({ obj }) {
+  if (obj.data.length > 0) {
+    console.log(obj, "obj");
+    let domesticPositive = <NumberFormat value={obj.data[0].per_zero_residues * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
+    let domesticAverage = <NumberFormat value={obj.data[0].avg_number_residues} displayType="text" decimalScale={2} fixedDecimalScale="true" />;
+    let importedPositive = <NumberFormat value={obj.data[1].per_zero_residues * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
+    let averageResidues = <NumberFormat value={obj.data[1].avg_number_residues / obj.data[0].avg_number_residues} displayType="text" decimalScale={1} fixedDecimalScale="true" />;
+    let fsdriAverage = <NumberFormat value={obj.data[1].sum_dri_fs / obj.data[0].sum_dri_fs} displayType="text" decimalScale={1} fixedDecimalScale="true" />;
+    let food = obj.food;
+    let origin = obj.origin;
+    let market = obj.market;
+    let year = obj.year;
+
+    let [driCount, setdriCount] = useState([])
+    useEffect(() => {
+      let params = {
+        commodity: food,
+        origin: origin,
+        market: market,
+        pdp_year: year,
+      };
+
+      if (obj.data.length > 0) {
+        fetchRows({ table: "dri", params: params, form: "Domestic", tableNum: 4 }).then((val) => {
+          setdriCount(val.length)
+        });
+      } else {
+        console.log("not fetching rows. ", params);
+      }
+    })
     return (
       <div className={styles.container}>
-        <h4 className={styles.title}>No findings available</h4>
+        <h4 className={styles.title}>Key Findings</h4>
+        <ul>
+          <li>
+            No pesticide residues were detected in {domesticPositive} of domestic samples of {market} {food} and {importedPositive} of imported samples of {market} {food}
+          </li>
+          <li>
+            The average {market} imported sample of {food} contained {averageResidues} times as many residues as the average, {market}, domestic sample of {food}.
+          </li>
+          <li>
+            Residues found in {market} imported samples of {food} pose FS-DRI risks {fsdriAverage} times as high as residues found in {market}, domestic samples of {food}.
+          </li>
+          <li>
+            {driCount} pesticide found in {origin} of {food} posed DRI-M risks above the action threshold of 0.1.
+          </li>
+          <li>The average domestic sample contained {domesticAverage} residues.</li>
+        </ul>
       </div>
     );
-  }
+  } else return KeyDefault();
 }

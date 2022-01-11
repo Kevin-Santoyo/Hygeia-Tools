@@ -27,16 +27,29 @@ export default function Titles({ params, tableNum }) {
     switch (tableNum) {
       case 0:
         return ConOrgPageTitle((params = { params }));
-        case 1:
-            return ConOrgTitle1((params = { params }));
-            case 2:
-                return ConOrgTitle2((params = { params }));
-                case 3:
-                    return ConOrgTitle3((params = { params }));
-                    case 4:
-                        return ConOrgTitle4((params = { params }));
-          default:
-            return <th colSpan="9">No Title</th>;
+      case 1:
+        return ConOrgTitle1((params = { params }));
+      case 2:
+        return ConOrgTitle2((params = { params }));
+      case 3:
+        return ConOrgTitle3((params = { params }));
+      case 4:
+        return ConOrgTitle4((params = { params }));
+      default:
+        return <th colSpan="9">No Title</th>;
+    }
+  } else if (pageName == "/dri/domestic_vs_imported") {
+    switch (tableNum) {
+      case 0:
+        return DomesticPageTitle((params = { params }));
+      case 1:
+        return DomesticTitle1((params = { params }));
+        case 2:
+          return DomesticTitle2((params = { params }));
+          case 3:
+            return DomesticTitle3((params = { params }));
+      default:
+        return <th colSpan="9">No Title</th>;
     }
   } else return null;
 }
@@ -45,8 +58,7 @@ function CommodityPageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk by Commodity: PDP Samples of {params[0].selected},{" "}
-        {params[2].selected}, {params[1].selected}, {params[3].selected}
+        Dietary Risk by Commodity: PDP Samples of {params[0].selected}, {params[2].selected}, {params[1].selected}, {params[3].selected}
       </h2>
     </div>
   );
@@ -55,9 +67,7 @@ function CommodityPageTitle({ params }) {
 function CommodityTitle1({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="9">
-      Table 1: Pesticide Residue and Risk Indicators in {params[0].selected}{" "}
-      Ranked by Percent of Aggregate FS-DRI: {params[2].selected},{" "}
-      {params[1].selected} Tested by PDP in {params[3].selected}
+      Table 1: Pesticide Residue and Risk Indicators in {params[0].selected} Ranked by Percent of Aggregate FS-DRI: {params[2].selected}, {params[1].selected} Tested by PDP in {params[3].selected}
     </th>
   );
 }
@@ -65,9 +75,7 @@ function CommodityTitle1({ params }) {
 function CommodityTitle2({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="9">
-      Table 2: Calculation of the Chronic Reference Concentration (cRfC) by
-      Pesticide Active Ingredient for {params[1].selected} {params[0].selected},{" "}
-      {params[3].selected}
+      Table 2: Calculation of the Chronic Reference Concentration (cRfC) by Pesticide Active Ingredient for {params[1].selected} {params[0].selected}, {params[3].selected}
     </th>
   );
 }
@@ -76,8 +84,7 @@ function PesticidePageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk by Pesticide: All Foods Tested by PDP, {params[2].selected}
-        , {params[1].selected}, {params[3].selected}
+        Dietary Risk by Pesticide: All Foods Tested by PDP, {params[2].selected}, {params[1].selected}, {params[3].selected}
       </h2>
     </div>
   );
@@ -86,9 +93,7 @@ function PesticidePageTitle({ params }) {
 function PesticideTitle1({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="9">
-      Table 1: {params[0].selected} Pesticide Residue and Risk Indicators in{" "}
-      {params[1].selected} of {params[2].selected} Samples Tested by the PDP in{" "}
-      {params[3].selected}: Ranked by Food Share of Aggregate FS-DRI
+      Table 1: {params[0].selected} Pesticide Residue and Risk Indicators in {params[1].selected} of {params[2].selected} Samples Tested by the PDP in {params[3].selected}: Ranked by Food Share of Aggregate FS-DRI
     </th>
   );
 }
@@ -98,41 +103,72 @@ function ConOrgPageTitle({ params }) {
     <div>
       <h2 className={styles.title}>
         {" "}
-        Dietary Risk in Conventional and Organic Foods: PDP Samples of{" "}
-        {params[0].selected} in Domestically Grown Crops, {params[1].selected}{" "}
+        Dietary Risk in Conventional and Organic Foods: PDP Samples of {params[0].selected} in Domestically Grown Crops, {params[1].selected}{" "}
       </h2>
     </div>
   );
 }
 
 function ConOrgTitle1({ params }) {
-    return (
-      <th className={styles.TableTitle} colSpan="7">
-        Table 1: Pesticide Residues and Risk Indicators in Domestically Grown Samples of {params[0].selected}, {params[1].selected}
-      </th>
-    );
-  }
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 1: Pesticide Residues and Risk Indicators in Domestically Grown Samples of {params[0].selected}, {params[1].selected}
+    </th>
+  );
+}
 
-  function ConOrgTitle2({ params }) {
-    return (
-      <th className={styles.TableTitle} colSpan="7">
-        Table 2: Pesticide Residues Detected in Organically Grown {params[0].selected}, {params[1].selected}
-      </th>
-    );
-  }
+function ConOrgTitle2({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 2: Pesticide Residues Detected in Organically Grown {params[0].selected}, {params[1].selected}
+    </th>
+  );
+}
 
-  function ConOrgTitle3({ params }) {
-    return (
-      <th className={styles.TableTitle} colSpan="10">
-        Table 3: Residues Detected in Organic Samples: Compliance With National Organic Program Rule Provisions Governing Pesticide Residues in {params[0].selected} {params[1].selected}
-      </th>
-    );
-  }
+function ConOrgTitle3({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="10">
+      Table 3: Residues Detected in Organic Samples: Compliance With National Organic Program Rule Provisions Governing Pesticide Residues in {params[0].selected} {params[1].selected}
+    </th>
+  );
+}
 
-  function ConOrgTitle4({ params }) {
-    return (
-      <th className={styles.TableTitle} colSpan="6">
-        Table 4: Pesticide Residues Detected in Domestic Samples {params[0].selected} Conventionally Grown {params[1].selected}
-      </th>
-    );
-  }
+function ConOrgTitle4({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="6">
+      Table 4: Pesticide Residues Detected in Domestic Samples {params[0].selected} Conventionally Grown {params[1].selected}
+    </th>
+  );
+}
+
+function DomesticPageTitle({ params }) {
+  return (
+    <div>
+      <h2 className={styles.title}>
+        Dietary Risk Indicators for Domestically Grown and {params[1].selected} of {params[0].selected}: {params[2].selected} Samples of {params[0].selected}, {params[3].selected}
+      </h2>
+    </div>
+  );
+}
+
+function DomesticTitle1({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 1: Pesticide Residue and Risk Indicators in Domestic Samples and {params[1].selected} of {params[2].selected} {params[0].selected}, {params[3].selected}{" "}
+    </th>
+  );
+}
+function DomesticTitle2({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 2: Pesticide Residues Detected in {params[1].selected} of {params[2].selected} {params[0].selected}, {params[3].selected}
+    </th>
+  );
+}
+function DomesticTitle3({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 3: Pesticide Residues Detected in Domestic Samples of {params[2].selected} {params[0].selected}, {params[3].selected}: Ranked by Share of Aggregate FS-DRI
+    </th>
+  );
+}

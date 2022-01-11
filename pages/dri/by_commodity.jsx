@@ -130,7 +130,7 @@ export default function ByCommodityScreen() {
       <ParameterContainer>
         {params.map((param) => {
           if (param.field == 'origin') {
-            return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} />
+            return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
         }
         )}

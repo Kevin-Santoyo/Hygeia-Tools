@@ -17,17 +17,7 @@ export default async (req, res) => {
 
     res.json(rows)
 
-  } else if (tableNum == 2) {
-
-    const rows = await db.select().from('commodity_pesticide AS c_p')
-      .leftJoin('commodity as c', 'c.commodity_id', 'c_p.commodity_id')
-      .leftJoin('pesticide as p', 'p.pesticide_id', 'c_p.pesticide_id')
-      .where(params).andWhere('origin', 'Domestic Samples').andWhere('market', 'Organic')
-      .orderBy('pesticide', 'asec')
-
-    res.json(rows)
-
-  } else if (tableNum == 3) {
+  } else if (tableNum == 2 || tableNum == 3) {
 
     const rows = await db.select().from('commodity_pesticide AS c_p')
       .leftJoin('commodity as c', 'c.commodity_id', 'c_p.commodity_id')
