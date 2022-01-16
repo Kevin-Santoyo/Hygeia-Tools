@@ -5,6 +5,7 @@ import { fetchRows } from "../lib/api";
 import KeyFindings from "./KeyFindings";
 import Methods from "./Methods";
 import NumberFormat from "react-number-format";
+import GraphicsTabs from "./GraphicsTabs";
 
 export default function DomesticTable1({ data, params }) {
   const columns = useMemo(
@@ -84,6 +85,7 @@ export default function DomesticTable1({ data, params }) {
       <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
       <Methods />
       <KeyFindings data={data} tableNum={1} params={params}/>
+      <GraphicsTabs data={data} params={params}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -178,9 +180,11 @@ export function DomesticTable2({ params }) {
     []
   );
 
+  let rowCount = rows.length
   return (
     <>
       <Table data={rows} columns={columns} params={params} summary="true" tableNum={2} />
+      <KeyFindings tableNum={2} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -282,9 +286,11 @@ export function DomesticTable3({ params }) {
     []
   );
 
+  let rowCount = rows.length
   return (
     <>
       <Table data={rows} columns={columns} params={params} summary="true" tableNum={3} />
+      <KeyFindings tableNum={3} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

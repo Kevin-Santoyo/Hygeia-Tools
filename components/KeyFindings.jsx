@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
 import { fetchRows } from "../lib/api";
 
-export default function KeyFindings({ data, tableNum, food, params }) {
+export default function KeyFindings({ data, tableNum, food, params, rowCount }) {
   const localURL = useRouter().route;
+  let obj;
   try {
     if (localURL == "/dri/by_pesticide") {
       return KeyPesticides((data = { data }));
@@ -29,8 +30,16 @@ export default function KeyFindings({ data, tableNum, food, params }) {
     } else if (localURL == "/dri/domestic_vs_imported") {
       switch (tableNum) {
         case 1:
-          let obj = { data: data, food: params[0].selected, origin: params[1].selected, market: params[2].selected, year: params[3].selected };
+          obj = { data: data, food: params[0].selected, origin: params[1].selected, market: params[2].selected, year: params[3].selected };
           return KeyDomestic1((obj = { obj }));
+        case 2:
+          obj = { rowCount: rowCount, food: params[0].selected, origin: params[1].selected };
+          console.log(obj, "key findings top");
+          return KeyDomestic2((obj = { obj }));
+        case 3:
+          obj = { rowCount: rowCount, food: params[0].selected, origin: params[1].selected };
+          console.log(obj, "key findings top");
+          return KeyDomestic2((obj = { obj }));
         default:
           return KeyDefault();
       }
@@ -311,7 +320,6 @@ function KeyConventional4({ data }) {
 
 function KeyDomestic1({ obj }) {
   if (obj.data.length > 0) {
-    console.log(obj, "obj");
     let domesticPositive = <NumberFormat value={obj.data[0].per_zero_residues * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
     let domesticAverage = <NumberFormat value={obj.data[0].avg_number_residues} displayType="text" decimalScale={2} fixedDecimalScale="true" />;
     let importedPositive = <NumberFormat value={obj.data[1].per_zero_residues * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
@@ -322,7 +330,7 @@ function KeyDomestic1({ obj }) {
     let market = obj.market;
     let year = obj.year;
 
-    let [driCount, setdriCount] = useState([])
+    let [driCount, setdriCount] = useState([]);
     useEffect(() => {
       let params = {
         commodity: food,
@@ -333,12 +341,12 @@ function KeyDomestic1({ obj }) {
 
       if (obj.data.length > 0) {
         fetchRows({ table: "dri", params: params, form: "Domestic", tableNum: 4 }).then((val) => {
-          setdriCount(val.length)
+          setdriCount(val.length);
         });
       } else {
         console.log("not fetching rows. ", params);
       }
-    })
+    });
     return (
       <div className={styles.container}>
         <h4 className={styles.title}>Key Findings</h4>
@@ -356,6 +364,50 @@ function KeyDomestic1({ obj }) {
             {driCount} pesticide found in {origin} of {food} posed DRI-M risks above the action threshold of 0.1.
           </li>
           <li>The average domestic sample contained {domesticAverage} residues.</li>
+        </ul>
+      </div>
+    );
+  } else return KeyDefault();
+}
+
+function KeyDomestic2({ obj }) {
+  console.log(obj, "key findings test");
+  if (obj.rowCount > -0) {
+    console.log("test2");
+    console.log(obj, "object");
+    let origin;
+    if (obj.origin == "Combined Imports") {
+      origin = "imported";
+    } else origin = obj.origin;
+    return (
+      <div className={styles.container}>
+        <h4 className={styles.title}>Key Findings</h4>
+        <ul>
+          <li>
+            {obj.rowCount} {origin} active ingredients, metabolites, and isomers were found in {obj.food} samples.
+          </li>
+        </ul>
+      </div>
+    );
+  } else return KeyDefault();
+}
+
+function KeyDomestic3({ obj }) {
+  console.log(obj, "key findings test");
+  if (obj.rowCount > -0) {
+    console.log("test2");
+    console.log(obj, "object");
+    let origin;
+    if (obj.origin == "Combined Imports") {
+      origin = "imported";
+    } else origin = obj.origin;
+    return (
+      <div className={styles.container}>
+        <h4 className={styles.title}>Key Findings</h4>
+        <ul>
+          <li>
+            {obj.rowCount} {origin} active ingredients, metabolites, and isomers were found in domestic samples.
+          </li>
         </ul>
       </div>
     );
