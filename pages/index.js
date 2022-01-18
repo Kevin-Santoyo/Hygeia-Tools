@@ -44,6 +44,7 @@ const Index = () => {
           <li><Link href={"/dri/by_pesticide"}>By Pesticide</Link></li>
           <li><Link href={"/dri/conventional-vs-organic"}>Conventional VS Organic</Link></li>
           <li><Link href={"/dri/domestic_vs_imported"}>Domestic VS Imported</Link></li>
+          <li><Link href={"/dri/fqpa_impacts"}>FQPA Impacts</Link></li>
         </ul>
       </div>
       <style jsx global>{`
