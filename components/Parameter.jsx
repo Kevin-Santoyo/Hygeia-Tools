@@ -9,7 +9,7 @@ const selectStyles = {
     position: "static",
     // border: '2px solid red'
     height: "300px",
-    overflowY: "scroll",
+    overflowY: "hidden",
   }),
   // dropdownIndicator: () => ({
   //   display: 'none'

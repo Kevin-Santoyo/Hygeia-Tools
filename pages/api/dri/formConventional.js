@@ -4,6 +4,7 @@ const validFields = ['commodity', 'pdp_year']
 
 export default async (req, res) => {
   const field = req.query.field
+  let values
   //console.log("form request")
   //console.log(req.query)
   let dependencies
@@ -16,8 +17,11 @@ export default async (req, res) => {
   }
   //if (validFields.indexOf(field) === -1) return res.json({ error: 'Invalid Field Specified' })
   if (validFields.indexOf(field) === -1) return res.json({ error: field })
-  
-  const values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field)
+  if (field == 'pdp_year') {
+    values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field, 'desc')
+  } else {
+    values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field)
+  }
   res.json(values.map(row => row[field]))
   // console.time('fetch origins')
   // const origins = await db

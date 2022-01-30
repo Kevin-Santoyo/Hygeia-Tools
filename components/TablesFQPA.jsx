@@ -36,6 +36,7 @@ export default function FQPATable1a({ data, params }) {
     []
   );
 
+  
   return (
     <>
       <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />

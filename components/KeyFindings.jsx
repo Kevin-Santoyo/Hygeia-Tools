@@ -39,7 +39,7 @@ export default function KeyFindings({ data, tableNum, food, params, rowCount }) 
         case 3:
           obj = { rowCount: rowCount, food: params[0].selected, origin: params[1].selected };
           console.log(obj, "key findings top");
-          return KeyDomestic2((obj = { obj }));
+          return KeyDomestic3((obj = { obj }));
         default:
           return KeyDefault();
       }
@@ -373,8 +373,6 @@ function KeyDomestic1({ obj }) {
 function KeyDomestic2({ obj }) {
   console.log(obj, "key findings test");
   if (obj.rowCount > -0) {
-    console.log("test2");
-    console.log(obj, "object");
     let origin;
     if (obj.origin == "Combined Imports") {
       origin = "imported";
@@ -393,10 +391,7 @@ function KeyDomestic2({ obj }) {
 }
 
 function KeyDomestic3({ obj }) {
-  console.log(obj, "key findings test");
   if (obj.rowCount > -0) {
-    console.log("test2");
-    console.log(obj, "object");
     let origin;
     if (obj.origin == "Combined Imports") {
       origin = "imported";

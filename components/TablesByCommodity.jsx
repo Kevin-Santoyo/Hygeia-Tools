@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import Table from './Table'
+import NumberFormat from 'react-number-format'
 
 export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
   
@@ -112,11 +113,17 @@ export function CRFCTable ({ data, params }) {
     },
     {
       Header: 'cRfD or cPAD (mg/kg/day)',
-      accessor: d => parseFloat(d.chronic_rfd_pad).toFixed(4)
+      accessor: 'chronic_rfd_pad',
+      Cell: ({ value }) => {
+        return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
+      },
     },
     {
       Header: 'cRfC (ppm)',
-      accessor: d => parseFloat(d.crfc_kid).toFixed(3)
+      accessor: 'crfc_kid',
+      Cell: ({ value }) => {
+        return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
+      },
     }
   ], [])
 
