@@ -98,17 +98,14 @@ export function CRFCTable ({ data, params }) {
     },
     {
       Header: 'NOAEL (mg/kg/day)',
-      accessor: 'chronic_noael',
-      //accessor: () => '-'
+      accessor: 'chronic_noael'
     },
     {
       Header: 'Standard Safety Factor',
       accessor: 'chronic_sf'
-      //accessor: () => '100'
     },
     {
       Header: 'FQPA Safety Factor',
-      //accessor: () => '1'
       accessor: 'chronic_fqpa_sf'
     },
     {

@@ -111,21 +111,34 @@ export default function IndividualSamplesScreen() {
   useEffect(() => {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    let query2
-    if (query.origin == 'All Samples' | query.origin == 'Combined Imports' | query.origin == 'Domestic Samples') {
-        query2 = {
-            commodity: query.commodity,
-            origin: query.origin,
-            pdp_year: query.pdp_year
-        }
-    } else {
-        query2 = {
-            commodity: query.commodity,
-            country_name: query.origin,
-            pdp_year: query.pdp_year
-        }
+    var query2 = {
+      commodity: query.commodity,
+      pdp_year: query.pdp_year
     }
-    //console.log(query)
+    let pair
+    if (query.origin == 'All Samples' | query.origin == 'Combined Imports' | query.origin == 'Domestic Samples' | query.origin == 'Unknown') {
+      if (query.origin == "Combined Imports") {
+        pair = {
+          origin: 2
+        }
+      } else if (query.origin == 'Domestic Samples') {
+        pair = {
+            origin: 1
+        }
+      } else if (query.origin == 'Unknown') {
+        pair = {
+            origin: 3
+        }
+      }
+    }
+    query2 = {...query2, ...pair};
+    let pair2
+    if (query.market !== 'All Market Claims') {
+      pair2 = {
+        claim: query.market
+      }
+      query2 = {...query2, ...pair2};
+    }
     if (query.commodity && query.origin && query.market && query.pdp_year) {
       fetchRows({ table: 'dri', params: query2, form: 'Individual', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)

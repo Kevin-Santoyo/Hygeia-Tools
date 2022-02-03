@@ -2,19 +2,23 @@ import { useMemo, useState } from 'react'
 import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
+import moment from 'moment'
 
 export default function IndividualSamplesTable ({ data, params }) {
 
   var agg_dri = 0
 
-  data.forEach(function (row) {
-    agg_dri = row.fs_dri_kid + agg_dri
-  })
-
   var columns = [
       {
           Header: 'Sample ID',
           accessor: 'sample_id'
+        },
+        {
+          Header: 'Sample Date',
+          accessor: 'sample_date',
+          Cell: ({ value }) => {
+            return moment(value).format('MM/DD/YYYY');
+          }
         },
         {
           Header: 'Analyte',
@@ -23,11 +27,17 @@ export default function IndividualSamplesTable ({ data, params }) {
         },
         {
           Header: 'Concentration (ppm)',
-          accessor: 'residue_ppm'
+          accessor: 'residue_ppm',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
+          },
         },
         {
           Header: 'DRI',
-          accessor: 'residue_dri',
+          accessor: 'dri',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
+          },
           borderRight: true
         },
         {
@@ -36,18 +46,18 @@ export default function IndividualSamplesTable ({ data, params }) {
         },
         {
           Header: 'Origin',
-          accessor: 'country_name'
+          accessor: 'origin_desc'
         },
         {
           Header: 'State',
-          accessor: 'dri_mean_kid',
+          accessor: 'state',
           borderLeft: true
         },
         {
           Header: 'Post-Harvest',
-          accessor: 'ph_fungicide',
+          accessor: 'post_harvest_code',
           Cell: ({ value }) => {
-            if (value) {
+            if (value == 'PH') {
               return 'Yes'
             } else return 'No'
           }
