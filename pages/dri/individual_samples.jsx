@@ -130,6 +130,10 @@ export default function IndividualSamplesScreen() {
             origin: 3
         }
       }
+    } else {
+      pair = {
+        country_name: query.origin
+      }
     }
     query2 = {...query2, ...pair};
     let pair2
