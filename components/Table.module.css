@@ -83,3 +83,16 @@
 .cell:first-child {
   text-align: left;
 }
+
+.outputs {
+  margin-bottom: 25px;
+}
+
+.download {
+  background-color: #419639;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 5px 5px;
+  min-width: 30px;
+  text-align: center;
+}

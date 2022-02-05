@@ -83,9 +83,12 @@ export default function Table({ columns, data, params, summary, tableNum }) {
           {summary == "true" && data.length > 0 && <Summary data={data} tableNum={tableNum} />}
         </tbody>
       </table>
-      <CSVLink data={csvData} filename="download.csv">
-        Download
-      </CSVLink>
+      <span className={styles.outputs}>
+        Output Options: 
+          <CSVLink data={csvData} className={styles.download} filename="download.csv">
+            CSV
+          </CSVLink>
+      </span>
     </>
   );
 }

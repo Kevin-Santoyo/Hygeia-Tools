@@ -51,6 +51,17 @@ export default function Titles({ params, tableNum }) {
       default:
         return <th colSpan="9">No Title</th>;
     }
+  } else if (pageName == "/dri/individual_samples") {
+    switch (tableNum) {
+      case 0:
+        return IndividualPageTitle((params = { params }));
+      case 1:
+        return IndividualTitle1((params = { params }));
+      case 2:
+        return IndividualTitle2((params = { params }));
+      default:
+        return null;
+    }
   } else return null;
 }
 
@@ -158,6 +169,7 @@ function DomesticTitle1({ params }) {
     </th>
   );
 }
+
 function DomesticTitle2({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="7">
@@ -165,10 +177,37 @@ function DomesticTitle2({ params }) {
     </th>
   );
 }
+
 function DomesticTitle3({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="7">
       Table 3: Pesticide Residues Detected in Domestic Samples of {params[2].selected} {params[0].selected}, {params[3].selected}: Ranked by Share of Aggregate FS-DRI
+    </th>
+  );
+}
+
+function IndividualPageTitle({ params }) {
+  return (
+    <div>
+      <h2 className={`${styles.title} ${styles.center}`}>
+        Individual Positive Samples of {params[0].selected} tested in {params[3].selected}
+      </h2>
+    </div>
+  );
+}
+
+function IndividualTitle1 ({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 1: All Analytes Found in Individual Samples of {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
+    </th>
+  );
+}
+
+function IndividualTitle2 ({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="7">
+      Table 2. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {params[0].selected} and {params[3].selected}
     </th>
   );
 }

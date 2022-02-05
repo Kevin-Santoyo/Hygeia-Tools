@@ -10,7 +10,7 @@ import ResidueAndRiskIndicatorsTable, { CRFCTable } from '../../components/Table
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import IndividualSamplesTable from '../../components/TablesIndividual'
+import IndividualSamplesTable, { AggregateSamplesTable } from '../../components/TablesIndividual'
 export default function IndividualSamplesScreen() {
 
   const [params, setParams] = useState([
@@ -156,7 +156,7 @@ export default function IndividualSamplesScreen() {
 
   return (
     <div>
-      <Header title="DRI Analytical System" />
+      <Header title="DRI Analytical System" system="US-PDP DRI" />
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
@@ -169,6 +169,7 @@ export default function IndividualSamplesScreen() {
       <TableContainer>
         <h4 className="title">Results</h4>
         <IndividualSamplesTable data={rows} params={params}/>
+        <AggregateSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {
