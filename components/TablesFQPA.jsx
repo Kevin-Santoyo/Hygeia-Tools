@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import Table from "./Table";
 
 export default function FQPATable1a({ data, params }) {
-    console.log(data, 'fqpa data')
+  
   const columns = useMemo(
     () => [
       // const columns = [{
