@@ -128,7 +128,7 @@ export default function conventionalVSOrganicScreen() {
 
   return (
     <div className="div">
-      <Header title="DRI Analytical System" />
+    <Header title="DRI Analytical System" system="US-PDP DRI" />
       <PageTitle params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {

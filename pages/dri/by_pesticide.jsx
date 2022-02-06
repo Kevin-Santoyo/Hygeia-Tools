@@ -127,7 +127,7 @@ export default function ByPesticideScreen() {
 
   return (
     <div className='div'>
-      <Header title="DRI Analytical System" />
+    <Header title="DRI Analytical System" system="US-PDP DRI" />
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
