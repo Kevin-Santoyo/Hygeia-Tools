@@ -84,9 +84,9 @@ export default function Table({ columns, data, params, summary, tableNum }) {
         </tbody>
       </table>
       <span className={styles.outputs}>
-        Output Options: 
+        Output Options:&nbsp;
           <CSVLink data={csvData} className={styles.download} filename="download.csv">
-            CSV
+            csv
           </CSVLink>
       </span>
     </>

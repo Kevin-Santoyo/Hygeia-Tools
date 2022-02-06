@@ -198,7 +198,7 @@ function IndividualPageTitle({ params }) {
 
 function IndividualTitle1 ({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <th className={styles.TableTitle} colSpan="11">
       Table 1: All Analytes Found in Individual Samples of {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
     </th>
   );

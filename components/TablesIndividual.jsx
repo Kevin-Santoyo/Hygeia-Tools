@@ -7,6 +7,7 @@ import moment from 'moment'
 
 export default function IndividualSamplesTable ({ data, params }) {
 
+  
   var columns = [
       {
           Header: 'Sample ID',
@@ -42,7 +43,10 @@ export default function IndividualSamplesTable ({ data, params }) {
         },
         {
           Header: 'Residues Exceeding Tolerance',
-          accessor: ''
+          accessor: d => d.residue_ppm / d.tolerance * 100,
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
+          }
         },
         {
           Header: ' Claim',
