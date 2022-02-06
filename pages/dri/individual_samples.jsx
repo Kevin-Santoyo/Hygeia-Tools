@@ -169,6 +169,7 @@ export default function IndividualSamplesScreen() {
       <TableContainer>
         <h4 className="title">Results</h4>
         <IndividualSamplesTable data={rows} params={params}/>
+        <Methods />
         <AggregateSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`

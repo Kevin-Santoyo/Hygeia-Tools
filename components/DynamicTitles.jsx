@@ -207,7 +207,7 @@ function IndividualTitle1 ({ params }) {
 function IndividualTitle2 ({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="7">
-      Table 2. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {params[0].selected} and {params[3].selected}
+      Table 2. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {params[0].selected} in {params[3].selected}
     </th>
   );
 }
