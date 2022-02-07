@@ -10,7 +10,7 @@ import ResidueAndRiskIndicatorsTable, { CRFCTable } from '../../components/Table
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import IndividualSamplesTable, { AggregateSamplesTable } from '../../components/TablesIndividual'
+import AggregateSamplesTable, { IndividualSamplesTable } from '../../components/TablesIndividual'
 export default function IndividualSamplesScreen() {
 
   const [params, setParams] = useState([
@@ -168,9 +168,9 @@ export default function IndividualSamplesScreen() {
       </ParameterContainer>
       <TableContainer>
         <h4 className="title">Results</h4>
-        <IndividualSamplesTable data={rows} params={params}/>
+        <AggregateSamplesTable data={rows} params={params}/>
         <Methods />
-        <AggregateSamplesTable params={params}/>
+        <IndividualSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {

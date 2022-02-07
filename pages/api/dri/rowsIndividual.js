@@ -11,14 +11,14 @@ export default async (req, res) => {
     params = {}
   }
   
-  if (tableNum == 1) {
+  if (tableNum == 2) {
     const rows = await db.select('sample_id', 'rpt_pest_name', 'residue_ppm', 'dri', 'tolerance', 'claim', 'sample_date', 'origin_desc', 'state_country')
           .from('individual_samples')
           .where(params)
           .orderByRaw('MAX(dri) OVER(PARTITION BY sample_id) DESC, sample_id, dri DESC')
     console.log('resulting rows: ', rows)
     res.json(rows)
-  } else if (tableNum == 2) {
+  } else if (tableNum == 1) {
     const rows = await db
           .select(['sample_id', 'claim', 'origin_desc', 'state_country'])
           .count('* AS num_res')

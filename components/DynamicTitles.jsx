@@ -44,10 +44,10 @@ export default function Titles({ params, tableNum }) {
         return DomesticPageTitle((params = { params }));
       case 1:
         return DomesticTitle1((params = { params }));
-        case 2:
-          return DomesticTitle2((params = { params }));
-          case 3:
-            return DomesticTitle3((params = { params }));
+      case 2:
+        return DomesticTitle2((params = { params }));
+      case 3:
+        return DomesticTitle3((params = { params }));
       default:
         return <th colSpan="9">No Title</th>;
     }
@@ -197,17 +197,30 @@ function IndividualPageTitle({ params }) {
 }
 
 function IndividualTitle1 ({ params }) {
+
+  let claim = params[2].selected
+
+  if (claim == "All Market Claims") {
+    claim = "All"
+  }
+
   return (
-    <th className={styles.TableTitle} colSpan="11">
-      Table 1: All Analytes Found in Individual Samples of {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
+    <th className={styles.TableTitle} colSpan="7">
+      Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {params[0].selected} in {params[3].selected}
     </th>
   );
 }
 
 function IndividualTitle2 ({ params }) {
+  let claim = params[2].selected
+
+  if (claim == "All Market Claims") {
+    claim = "All"
+  }
+
   return (
-    <th className={styles.TableTitle} colSpan="7">
-      Table 2. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {params[0].selected} in {params[3].selected}
+    <th className={styles.TableTitle} colSpan="11">
+      Table 2: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
     </th>
   );
 }
