@@ -80,7 +80,7 @@ export function IndividualSamplesTable ({ params }) {
   }
   query = {...query, ...pair};
   let pair2
-  if (query.market !== 'All Market Claims') {
+  if (params[2].selected !== 'All Market Claims') {
     pair2 = {
       claim: params[2].selected
     }
@@ -142,7 +142,12 @@ export function IndividualSamplesTable ({ params }) {
         },
         {
           Header: 'Type of Tolerance',
-          accessor: 'notes'
+          accessor: 'notes',
+          Cell: ({ value }) => {
+            if (value == 'PP') {
+              return 'PH'
+            } else return value
+          }
         },
         {
           Header: 'AI Type',
