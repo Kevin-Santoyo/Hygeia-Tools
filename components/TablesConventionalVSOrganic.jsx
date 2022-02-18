@@ -107,7 +107,8 @@ export function ConventialOrganicTable2 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide'
+          accessor: 'pesticide',
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',
@@ -195,7 +196,8 @@ export function ConventialOrganicTable3 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide'
+          accessor: 'pesticide',
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Post-Harvest Fungicide',
@@ -303,7 +305,8 @@ export function ConventialOrganicTable4 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide'
+          accessor: 'pesticide',
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',

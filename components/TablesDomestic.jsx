@@ -123,6 +123,7 @@ export function DomesticTable2({ params }) {
           {
             Header: "Analyte",
             accessor: "pesticide",
+            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
           },
           {
             Header: "Total Samples",
@@ -229,6 +230,7 @@ export function DomesticTable3({ params }) {
           {
             Header: "Analyte",
             accessor: "pesticide",
+            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
           },
           {
             Header: "Total Samples",

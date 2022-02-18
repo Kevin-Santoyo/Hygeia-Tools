@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react'
-import _ from 'lodash'
+import _, { ceil } from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
@@ -12,7 +12,8 @@ export default function AggregateSamplesTable ({ data, params }) {
   var columns = [
       {
           Header: 'Sample ID',
-          accessor: 'sample_id'
+          accessor: 'sample_id',
+          borderLeft: true
         },
         {
           Header: 'Claim',
@@ -20,8 +21,7 @@ export default function AggregateSamplesTable ({ data, params }) {
         },
         {
           Header: 'Origin',
-          accessor: 'origin_desc',
-          borderLeft: true
+          accessor: 'origin_desc'
         },
         {
           Header: 'Country/State',
@@ -35,7 +35,7 @@ export default function AggregateSamplesTable ({ data, params }) {
           Header: 'Aggregate Sample DRI',
           accessor: 'aggr_sample_dri',
           Cell: ({ value }) => {
-            return <NumberFormat value={value} displayType="text" decimalScale={9} fixedDecimalScale="true"/>;
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
           borderRight: true
         }
@@ -82,7 +82,7 @@ export function IndividualSamplesTable ({ params }) {
   let pair2
   if (query.market !== 'All Market Claims') {
     pair2 = {
-      claim: query.market
+      claim: params[2].selected
     }
     query = {...query, ...pair2};
   }
@@ -107,34 +107,34 @@ export function IndividualSamplesTable ({ params }) {
   var columns = [
       {
           Header: 'Sample ID',
-          accessor: 'sample_id'
+          accessor: 'sample_id',
+          borderLeft: true
         },
         {
           Header: 'Analyte',
           accessor: 'rpt_pest_name',
-          borderLeft: true
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Residue Level (ppm)',
           accessor: 'residue_ppm',
           Cell: ({ value }) => {
-            return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
         },
         {
           Header: 'DRI',
           accessor: 'dri',
           Cell: ({ value }) => {
-            return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
-          },
-          borderRight: true
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
+          }
         },
         {
           Header: 'Tolerance Level (ppm)',
           accessor: 'tolerance'
         },
         {
-          Header: 'Residues Exceeding Tolerance',
+          Header: 'Residue as a % of Tolerance',
           accessor: d => d.residue_ppm / d.tolerance * 100,
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
@@ -142,7 +142,11 @@ export function IndividualSamplesTable ({ params }) {
         },
         {
           Header: 'Type of Tolerance',
-          accessor: ''
+          accessor: 'notes'
+        },
+        {
+          Header: 'AI Type',
+          accessor: 'ai_type'
         },
         {
           Header: ' Claim',
@@ -162,12 +166,23 @@ export function IndividualSamplesTable ({ params }) {
         {
           Header: 'Country/State',
           accessor: 'state_country',
-          borderLeft: true
+          borderRight: true
         }
   ]
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={2}/>
+      <Table
+        data={rows}
+        columns={columns}
+        params={params}
+        getCellProps={cellInfo => ({
+          style: {
+            color: cellInfo.column.Header == 'Residue as a % of Tolerance' && cellInfo.value >= 100 ? 'red' : null
+          }
+        })}
+        summary="true"
+        tableNum={2}
+      />
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

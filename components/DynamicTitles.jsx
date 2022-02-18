@@ -51,6 +51,13 @@ export default function Titles({ params, tableNum }) {
       default:
         return <th colSpan="9">No Title</th>;
     }
+  } else if (pageName == "/dri/fqpa_impacts") {
+    switch (tableNum) {
+      case 0:
+        return fqpaPageTitle((params = { params }));
+      default:
+        return <th colSpan="9">No Title</th>;
+    }
   } else if (pageName == "/dri/individual_samples") {
     switch (tableNum) {
       case 0:
@@ -186,11 +193,19 @@ function DomesticTitle3({ params }) {
   );
 }
 
+function fqpaPageTitle({ params }) {
+  return (
+    <div>
+      <h2 className={`${styles.title}`}>FQPA Impacts</h2>
+    </div>
+  );
+}
+
 function IndividualPageTitle({ params }) {
   return (
     <div>
-      <h2 className={`${styles.title} ${styles.center}`}>
-        Individual Positive Samples of {params[0].selected} tested in {params[3].selected}
+      <h2 className={`${styles.title}`}>
+        Individual Positive Samples of {params[0].selected} Tested in {params[3].selected}
       </h2>
     </div>
   );

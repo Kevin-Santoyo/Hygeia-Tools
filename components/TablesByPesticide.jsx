@@ -18,7 +18,8 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'Food',
-          accessor: 'commodity'
+          accessor: 'commodity',
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         }
       ]
     },

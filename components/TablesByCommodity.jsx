@@ -13,7 +13,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
         {
           Header: 'Analyte',
           accessor: 'pesticide',
-          width: 5
+          width: 5,
+          Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         }
       ]
     },
@@ -94,7 +95,8 @@ export function CRFCTable ({ data, params }) {
   const columns = useMemo(() => [
     {
         Header: 'Analyte',
-        accessor: 'pesticide'
+        accessor: 'pesticide',
+        Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
     },
     {
       Header: 'NOAEL (mg/kg/day)',

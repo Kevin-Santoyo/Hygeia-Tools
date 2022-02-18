@@ -7,7 +7,9 @@ import Titles from "./DynamicTitles";
 import Summary from "./Summary";
 import styles from "./Table.module.css";
 
-export default function Table({ columns, data, params, summary, tableNum }) {
+const defaultPropGetter = () => ({})
+
+export default function Table({ columns, data, params, summary, tableNum, getCellProps = defaultPropGetter }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       useControlledState: (state) => {
@@ -72,7 +74,9 @@ export default function Table({ columns, data, params, summary, tableNum }) {
                 {row.cells.map((cell) => {
                   //console.log('cell props: ', cell)
                   return (
-                    <td className={styles.cell} {...cell.getCellProps()}>
+                    <td className={styles.cell} {...cell.getCellProps([
+                      getCellProps(cell)
+                    ])}>
                       {cell.render("Cell")}
                     </td>
                   );

@@ -4,7 +4,6 @@
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  /*text-align: center;*/
 }
 
 .borderBottom {
@@ -76,13 +75,13 @@
 }
 
 .cell {
-  text-align: right;
+  text-align: center;
   padding: 4px;
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.cell:first-child {
-  text-align: left;
+.red {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .outputs {

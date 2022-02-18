@@ -12,7 +12,7 @@ export default async (req, res) => {
   }
   
   if (tableNum == 2) {
-    const rows = await db.select('sample_id', 'rpt_pest_name', 'residue_ppm', 'dri', 'tolerance', 'claim', 'sample_date', 'origin_desc', 'state_country')
+    const rows = await db.select('sample_id', 'rpt_pest_name', 'residue_ppm', 'dri', 'tolerance', 'claim', 'sample_date', 'origin_desc', 'state_country', 'ai_type', 'notes')
           .from('individual_samples')
           .where(params)
           .orderByRaw('MAX(dri) OVER(PARTITION BY sample_id) DESC, sample_id, dri DESC')
