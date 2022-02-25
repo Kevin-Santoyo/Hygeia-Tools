@@ -18,9 +18,9 @@ export default async (req, res) => {
   //if (validFields.indexOf(field) === -1) return res.json({ error: 'Invalid Field Specified' })
   if (validFields.indexOf(field) === -1) return res.json({ error: field })
   if (field == 'pdp_year') {
-    values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field, 'desc')
+    values = await db.from('form_individual').distinct(field).where(dependencies).orderBy(field, 'desc')
   } else {
-    values = await db.from('form_commodity').distinct(field).where(dependencies).orderBy(field)
+    values = await db.from('form_individual').distinct(field).where(dependencies).orderBy(field)
   }
   res.json(values.map(row => row[field]))
   // console.time('fetch origins')

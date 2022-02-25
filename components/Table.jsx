@@ -30,7 +30,6 @@ export default function Table({ columns, data, params, summary, tableNum, getCel
   let limits = columns.map((col) => {
     return col.accessor;
   });
-  console.log(columns)
   let csvData = data.map((dat) => {
     var obj = {};
     let i = 0;

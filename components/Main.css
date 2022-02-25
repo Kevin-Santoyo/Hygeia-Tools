@@ -1,8 +1,14 @@
 body {
     margin: 5px;
     position: relative;
-    min-width: 600px;
+    min-width: 300px;
+    font-family: Capriola;
 }
 .div {
     width: 100%;
+}
+
+@font-face {
+    font-family: 'Capriola';
+    src: local('Capriola'), url(../pages/fonts/Capriola-Regular.ttf) format('truetype');
 }

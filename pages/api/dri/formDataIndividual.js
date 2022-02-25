@@ -2,7 +2,7 @@ import db from '../../../lib/db.ts'
 
 export default async (req, res) => {
   //const values = await db.distinct(field).from('dri_rows').where(dependencies).orderBy(field)
-  const values = await db.distinct('commodity').from('form_commodity').orderBy('commodity')
+  const values = await db.distinct('commodity').from('form_individual').orderBy('commodity')
   //res.json(values.map(row => row[field]))
   console.log('form data')
   //console.log(values)

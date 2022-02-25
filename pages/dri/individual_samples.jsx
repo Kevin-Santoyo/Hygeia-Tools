@@ -3,14 +3,14 @@ import _, { constant, has } from 'lodash'
 import Header from '../../components/Header'
 import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
-import Parameter, { OriginParameter } from '../../components/Parameter'
+import Parameter, { FoodParameter, OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable, { CRFCTable } from '../../components/TablesByCommodity'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
 import AggregateSamplesTable, { IndividualSamplesTable } from '../../components/TablesIndividual'
+import Jumps from '../../components/Jumps'
 export default function IndividualSamplesScreen() {
 
   const [params, setParams] = useState([
@@ -111,40 +111,48 @@ export default function IndividualSamplesScreen() {
   useEffect(() => {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    var query2 = {
-      commodity: query.commodity,
+    var queryOverride = {
       pdp_year: query.pdp_year
     }
-    let pair
+    let pairCommodity
+    if (query.commodity == 'All Foods') {
+      
+    } else {
+      pairCommodity = {
+        commodity: query.commodity
+      }
+    }
+    queryOverride = {...queryOverride, ...pairCommodity};
+    let pairOrigin
     if (query.origin == 'All Samples' | query.origin == 'Combined Imports' | query.origin == 'Domestic Samples' | query.origin == 'Unknown') {
       if (query.origin == "Combined Imports") {
-        pair = {
+        pairOrigin = {
           origin: 2
         }
       } else if (query.origin == 'Domestic Samples') {
-        pair = {
+        pairOrigin = {
             origin: 1
         }
       } else if (query.origin == 'Unknown') {
-        pair = {
+        pairOrigin = {
             origin: 3
         }
       }
     } else {
-      pair = {
+      pairOrigin = {
         country_name: query.origin
       }
     }
-    query2 = {...query2, ...pair};
-    let pair2
+    queryOverride = {...queryOverride, ...pairOrigin};
+    let pairMarket
     if (query.market !== 'All Market Claims') {
-      pair2 = {
+      pairMarket = {
         claim: query.market
       }
-      query2 = {...query2, ...pair2};
+      queryOverride = {...queryOverride, ...pairMarket};
     }
     if (query.commodity && query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query2, form: 'Individual', tableNum: 1 }).then(val => {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'Individual', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -160,12 +168,15 @@ export default function IndividualSamplesScreen() {
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
-          if (param.field == 'origin') {
+           if (param.field == 'commodity') {
+             return <FoodParameter {...param} handleSelect={handleParamUpdate} key={param.field} />
+           } else if (param.field == 'origin') {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
         }
         )}
       </ParameterContainer>
+      <Jumps num="2"/>
       <TableContainer>
         <h4 className="title">Results</h4>
         <AggregateSamplesTable data={rows} params={params}/>

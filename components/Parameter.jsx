@@ -47,6 +47,19 @@ export default function Parameter({ label, field, options, selected, handleSelec
   );
 }
 
+export function FoodParameter({ label, field, options, selected, handleSelect }) {
+  const sumFoods = []
+  var newOptions = []
+  sumFoods.map((opt) => newOptions.push(opt))
+  options.map((opt) => newOptions.push(opt))
+  return (
+    <div className={styles.parameterWrapper}>
+      <div className={styles.title}>{label}</div>
+      <Select styles={selectStyles} value={{ value: selected, label: selected }} options={newOptions.map((opt) => ({ value: opt, label: opt }))} onChange={(val) => handleSelect(field, val.value)} menuIsOpen={true} />
+    </div>
+  );
+}
+
 export function OriginParameter({ label, field, options, selected, handleSelect, paramType }) {
   const noncountries = ["All Samples", "Domestic Samples", "Combined Imports"];
   var notcountries = options.filter((opt) => {

@@ -55,44 +55,50 @@ export default function AggregateSamplesTable ({ data, params }) {
 export function IndividualSamplesTable ({ params }) {
 
   var query = {
-    commodity: params[0].selected,
     pdp_year: params[3].selected
   }
-  let pair
+  let pairCommodity
+  if (params[0].selected == 'All Foods') {
+    
+  } else {
+    pairCommodity = {
+      commodity: params[0].selected
+    }
+  }
+  query = {...query, ...pairCommodity};
+  let pairOrigin
   if (params[1].selected == 'All Samples' | params[1].selected == 'Combined Imports' | params[1].selected == 'Domestic Samples' | params[1].selected == 'Unknown') {
     if (params[1].selected == "Combined Imports") {
-      pair = {
+      pairOrigin = {
         origin: 2
       }
     } else if (params[1].selected == 'Domestic Samples') {
-      pair = {
+      pairOrigin = {
           origin: 1
       }
     } else if (params[1].selected == 'Unknown') {
-      pair = {
+      pairOrigin = {
           origin: 3
       }
     }
   } else {
-    pair = {
+    pairOrigin = {
       country_name: params[1].selected
     }
   }
-  query = {...query, ...pair};
-  let pair2
+  query = {...query, ...pairOrigin};
+  let pairMarket
   if (params[2].selected !== 'All Market Claims') {
-    pair2 = {
+    pairMarket = {
       claim: params[2].selected
     }
-    query = {...query, ...pair2};
+    query = {...query, ...pairMarket};
   }
 
   const [rows, setRows] = useState([])
   useEffect(() => {
 
-    console.log(query);
-    if (query.commodity && query.pdp_year) {
-      console.log('success')
+    if (query.pdp_year) {
       fetchRows({ table: 'dri', params: query, form: 'Individual', tableNum: 2 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)

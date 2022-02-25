@@ -1,9 +1,9 @@
 .header {
-    border-top: 3px solid #4F868E;
+    margin: 10px;
 }
 
 .heading {
-    font-family: Arial;
+    font-family: Capriola;
     text-transform: uppercase;
     float: right;
     border-bottom: 2px solid #4F868E;
