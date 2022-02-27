@@ -7,7 +7,7 @@ import { fetchParamOptions, fetchRows, fetchFormData } from "../../lib/api";
 import TableContainer from "../../components/TableContainer";
 import PageTitle from "../../components/DynamicTitles";
 import DomesticTable1, { DomesticTable2, DomesticTable3 } from "../../components/TablesDomestic";
-export default function conventionalVSOrganicScreen() {
+export default function DomesticImportedScreen() {
   const [params, setParams] = useState([
     {
       field: "commodity",

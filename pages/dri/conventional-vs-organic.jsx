@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
-import _, { forEach } from 'lodash'
+import _ from 'lodash'
 import Header from '../../components/Header'
 import ParameterContainer from '../../components/ParameterContainer'
-import Parameter, { OriginParameter } from '../../components/Parameter'
+import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
 import ConventialOrganicTable1, { ConventialOrganicTable2, ConventialOrganicTable3, ConventialOrganicTable4 }from '../../components/TablesConventionalVSOrganic'
-import Methods from '../../components/Methods'
-import KeyFindings from '../../components/KeyFindings'
-import TableLinks from '../../components/TableLinks'
-import PageTitle, { DRITitleTable1 } from '../../components/DynamicTitles'
-export default function conventionalVSOrganicScreen() {
+import PageTitle from '../../components/DynamicTitles'
+export default function ConventionalOrganicScreen() {
 
     const [params, setParams] = useState([
         {
