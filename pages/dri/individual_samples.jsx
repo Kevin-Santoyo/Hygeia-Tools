@@ -9,7 +9,7 @@ import TableContainer from '../../components/TableContainer'
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import AggregateSamplesTable, { IndividualSamplesTable } from '../../components/TablesIndividual'
+import AggregateSamplesTable, { AltIndividualSamplesTable, IndividualSamplesTable } from '../../components/TablesIndividual'
 import Jumps from '../../components/Jumps'
 export default function IndividualSamplesScreen() {
 
@@ -176,12 +176,14 @@ export default function IndividualSamplesScreen() {
         }
         )}
       </ParameterContainer>
-      <Jumps num="2"/>
+      <Jumps num="3"/>
       <TableContainer>
         <h4 className="title">Results</h4>
         <AggregateSamplesTable data={rows} params={params}/>
         <Methods />
         <IndividualSamplesTable params={params}/>
+        <Methods />
+        <AltIndividualSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {

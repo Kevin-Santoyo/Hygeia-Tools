@@ -16,7 +16,7 @@ export default async (req, res) => {
           .from('individual_samples')
           .where(params)
           .orderByRaw('MAX(dri) OVER(PARTITION BY sample_id) DESC, sample_id, dri DESC')
-    console.log('resulting rows: ', rows)
+
     res.json(rows)
   } else if (tableNum == 1) {
     const rows = await db
@@ -27,6 +27,12 @@ export default async (req, res) => {
           .where(params)
           .groupByRaw('sample_id, claim, origin_desc, state_country')
           .orderBy('aggr_sample_dri', 'desc')
+    res.json(rows)
+  } else if (tableNum == 3) {
+    const rows = await db.select('sample_id', 'rpt_pest_name', 'residue_ppm', 'dri', 'tolerance', 'claim', 'sample_date', 'origin_desc', 'state_country', 'ai_type', 'notes')
+          .from('individual_samples')
+          .where(params)
+          .orderByRaw('dri DESC')
     res.json(rows)
   }
 }

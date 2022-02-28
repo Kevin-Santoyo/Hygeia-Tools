@@ -16,7 +16,7 @@
 .value {
     color: white;
     display: inline-block;
-    background-color: #335a42;
+    background-color: var(--brightGreen);
     width: auto;
     padding: 5px;
     margin: 2px 0;

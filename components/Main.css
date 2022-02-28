@@ -1,3 +1,15 @@
+:root {
+    --green: #5A685C;
+    --redOrange: #FF5224;
+    --yellow: #F1A00F;
+    --dustyPurple: #9490A4;
+    --blue: #4C86A0;
+    --brown: #7D4016;
+    --lightBlue: #C4CFDA;
+    --brightGreen: #83C336;
+    --oldGreen: #335a42;
+}
+
 body {
     margin: 5px;
     position: relative;

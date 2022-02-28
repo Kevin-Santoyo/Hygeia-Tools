@@ -90,7 +90,7 @@
 }
 
 .download {
-  background-color: #419639;
+  background-color: var(--brightGreen);
   color: white;
   border-radius: 0.5rem;
   padding: 5px 5px;

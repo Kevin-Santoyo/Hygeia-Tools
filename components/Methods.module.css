@@ -15,7 +15,7 @@
 }
 
 .link:hover, .link:focus {
-    color: #419639;
+    color: var(--brightGreen);
 }
 
 .list, .list li, .title {

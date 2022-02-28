@@ -66,6 +66,8 @@ export default function Titles({ params, tableNum }) {
         return IndividualTitle1((params = { params }));
       case 2:
         return IndividualTitle2((params = { params }));
+      case 3:
+        return IndividualTitle3((params = { params }));
       default:
         return null;
     }
@@ -236,6 +238,20 @@ function IndividualTitle2 ({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="11">
       Table 2: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
+    </th>
+  );
+}
+
+function IndividualTitle3 ({ params }) {
+  let claim = params[2].selected
+
+  if (claim == "All Market Claims") {
+    claim = "All"
+  }
+
+  return (
+    <th className={styles.TableTitle} colSpan="11">
+      Table 3: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values Ranked by DRI
     </th>
   );
 }
