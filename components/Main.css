@@ -24,3 +24,20 @@ body {
     font-family: 'Capriola';
     src: local('Capriola'), url(../pages/fonts/Capriola-Regular.ttf) format('truetype');
 }
+
+@font-face {
+    font-family: 'Lato';
+    src: local('Lato'), url(../pages/fonts/Lato-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 700;
+    src: local('Lato'), url(../pages/fonts/Lato-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 900;
+    src: local('Lato'), url(../pages/fonts/Lato-Black.ttf) format('truetype');
+}

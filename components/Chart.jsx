@@ -2,7 +2,6 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, T
 import { useRouter } from "next/router";
 import { Bar, Pie } from "react-chartjs-2";
 import styles from "./Chart.module.css";
-import TableContainer from "./TableContainer";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 

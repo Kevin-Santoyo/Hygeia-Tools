@@ -24,7 +24,8 @@ const selectStyles = {
   singleValue: () => ({
     backgroundColor: "#335a42",
     color: "white",
-    padding: "5px",
+    borderRadius: "4px",
+    padding: "5px 7px",
   }),
   // // input: (provided, state) => ({
   // //   backgroundColor: 'red'

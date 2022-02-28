@@ -71,6 +71,17 @@ export default function Titles({ params, tableNum }) {
       default:
         return null;
     }
+  } else if (pageName == "/dri/table5-6") {
+    switch (tableNum) {
+      case 0:
+        return Table56PageTitle((params = { params }));
+      case 1:
+        return Table56Title1((params = { params }));
+      case 2:
+        return Table56Title2((params = { params }));
+      default:
+        return null;
+    }
   } else return null;
 }
 
@@ -252,6 +263,32 @@ function IndividualTitle3 ({ params }) {
   return (
     <th className={styles.TableTitle} colSpan="11">
       Table 3: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values Ranked by DRI
+    </th>
+  );
+}
+
+function Table56PageTitle({ params }) {
+  return (
+    <div>
+      <h2 className={`${styles.title}`}>
+        DRI Reports 5 & 6 
+      </h2>
+    </div>
+  );
+}
+
+function Table56Title1({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="11">
+      Table 5: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across All Pesticides.
+    </th>
+  );
+}
+
+function Table56Title2({ params }) {
+  return (
+    <th className={styles.TableTitle} colSpan="11">
+      Table 6: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across All Foods.
     </th>
   );
 }
