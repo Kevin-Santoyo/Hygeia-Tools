@@ -8,7 +8,7 @@ import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
 import Methods from '../../components/Methods'
 import Jumps from '../../components/Jumps'
-import Table5, { Table6 } from '../../components/Tables56'
+import Table5, { Table6 } from '../../components/TablesReportsAggr'
 export default function Tables56Screen() {
 
   const [params, setParams] = useState([
@@ -131,7 +131,7 @@ export default function Tables56Screen() {
     queryOverride = {...queryOverride, ...pairMarket};
     queryOverride = {...queryOverride, ...pairOrigin};
     if (query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: 'dri', params: queryOverride, form: '56', tableNum: 1 }).then(val => {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'ReportsAggr', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })

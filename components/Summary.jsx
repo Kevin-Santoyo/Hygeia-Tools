@@ -43,6 +43,15 @@ export default function Summary({ data, tableNum }) {
       default:
         return null;
     }
+  } else if (localURL == "/dri/reports_aggr") {
+    switch (tableNum) {
+      case 1:
+        return summaryReport5(( data = { data }));
+      case 2:
+        return summaryReport6(( data = { data }));
+      default:
+        return null;
+    }
   } else {
     return null;
   }
@@ -410,6 +419,111 @@ function summaryDomestic2({ data }) {
   }
 }
 
-function summaryDomestic3({ data }) {
-  return null;
+function summaryReport5({ data }) {
+  let sumOfAvgSamples = 0
+  let totalPos = 0
+  let totalPosSampleDRIMean = 0
+  let total_fsdri = 0
+  let avgDRIDetected = 0
+  let numFoodsTested = 0
+  let avgDRIMeanPerFood = 0
+  let avgFSDRIPerFood = 0
+  data.forEach(row => {
+    sumOfAvgSamples = row.AvgOfTotal_Samples + sumOfAvgSamples
+    totalPos = row.SumOfNumber_Positives + totalPos
+    totalPosSampleDRIMean = row.SumOfDRI_Mean_Kid + totalPosSampleDRIMean
+    total_fsdri = row.SumOfFS_DRI_Kid + total_fsdri
+    numFoodsTested++
+  });
+  avgDRIDetected = totalPos / sumOfAvgSamples
+  avgDRIMeanPerFood = totalPosSampleDRIMean / numFoodsTested
+  avgFSDRIPerFood = total_fsdri / numFoodsTested
+  totalPos = <NumberFormat value={totalPos} displayType="text" thousandSeparator={true} />
+  sumOfAvgSamples = <NumberFormat value={sumOfAvgSamples} displayType="text" decimalScale={2} thousandSeparator={true} fixedDecimalScale="true"/>
+  totalPosSampleDRIMean = <NumberFormat value={totalPosSampleDRIMean} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  total_fsdri = <NumberFormat value={total_fsdri} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  avgDRIDetected = <NumberFormat value={avgDRIDetected} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  avgDRIMeanPerFood = <NumberFormat value={avgDRIMeanPerFood} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  avgFSDRIPerFood = <NumberFormat value={avgFSDRIPerFood} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  if (data.length > 0) {
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Sum of Average Number of Samples</td>
+          <td className={styles.cell} colSpan="2">{sumOfAvgSamples}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total Positives</td>
+          <td className={styles.cell} colSpan="2">{totalPos}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total Positive Sample DRI Mean</td>
+          <td className={styles.cell} colSpan="2">{totalPosSampleDRIMean}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total FS-DRI</td>
+          <td className={styles.cell} colSpan="2">{total_fsdri}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Average DRI Detections Per Sample</td>
+          <td className={styles.cell} colSpan="2">{avgDRIDetected}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Number of Foods Tested</td>
+          <td className={styles.cell} colSpan="2">{numFoodsTested}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Average DRI-Mean per Food Tested</td>
+          <td className={styles.cell} colSpan="2">{avgDRIMeanPerFood}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Average FS-DRI per Food Tested</td>
+          <td className={styles.cell} colSpan="2">{avgFSDRIPerFood}</td>
+          <td className={styles.cell} colSpan="4"></td>
+        </tr>
+      </>
+    )
+  } else return null;
+}
+
+function summaryReport6({ data }) {
+  let totalPos = 0
+  let totalDRIMean = 0
+  let totalFSDRI = 0
+  data.forEach(row => {
+    totalPos = row.SumOfNumber_Positives + totalPos
+    totalDRIMean = row.SumOfDRI_Mean_Kid + totalDRIMean
+    totalFSDRI = row.SumOfFS_DRI_Kid + totalFSDRI
+  })
+  totalPos = <NumberFormat value={totalPos} displayType="text" thousandSeparator={true}/>
+  totalDRIMean = <NumberFormat value={totalDRIMean} displayType="text" thousandSeparator={true}/>
+  totalFSDRI = <NumberFormat value={totalFSDRI} displayType="text" thousandSeparator={true}/>
+  if (data.length > 0) {
+    return (
+      <>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total Positives</td>
+          <td className={styles.cell} colSpan="2">{totalPos}</td>
+          <td className={styles.cell} colSpan="5"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total DRI-Mean</td>
+          <td className={styles.cell} colSpan="2">{totalDRIMean}</td>
+          <td className={styles.cell} colSpan="5"></td>
+        </tr>
+        <tr className={styles.totalRow}>
+          <td className={styles.cell} colSpan="3">Total FS-DRI</td>
+          <td className={styles.cell} colSpan="2">{totalFSDRI}</td>
+          <td className={styles.cell} colSpan="5"></td>
+        </tr>
+      </>
+    )
+  } else return null;
 }

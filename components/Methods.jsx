@@ -29,7 +29,7 @@ export default function Methods ({}) {
         <ul className={styles.list}>
             {
                 methodsArray.map((method) =>
-                    <li key={method.title}><a href={method.link} className={styles.link}>{method.title}</a></li>
+                    <li key={method.title}><a href={method.link} className={styles.link} target="_blank">{method.title}</a></li>
                 )
             }
         </ul>

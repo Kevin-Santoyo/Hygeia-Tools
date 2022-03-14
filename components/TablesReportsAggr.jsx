@@ -28,12 +28,15 @@ export default function Table5 ({ data, params }) {
             Header: 'Average Number of Samples per Pesticide',
             accessor: 'AvgOfTotal_Samples',
             Cell: ({ value }) => {
-                return <NumberFormat value={value} displayType="text" decimalScale={0} fixedDecimalScale="true"/>;
+                return <NumberFormat value={value} displayType="text" decimalScale={0} thousandSeparator={true} fixedDecimalScale="true"/>;
             }
         },
         {
             Header: 'Number of Positives',
-            accessor: 'SumOfNumber_Positives'
+            accessor: 'SumOfNumber_Positives',
+            Cell: ({ value }) => {
+                return <NumberFormat value={value} displayType="text" thousandSeparator={true}/>;
+            }
         },
         {
             Header: 'Average Number of Residues per Sample',
@@ -123,7 +126,7 @@ export function Table6 ({ params }) {
     const [rows, setRows] = useState([])
     useEffect(() => {
         if (query) {
-            fetchRows({ table: 'dri', params: query, form: '56', tableNum: 2 }).then(val => {
+            fetchRows({ table: 'dri', params: query, form: 'ReportsAggr', tableNum: 2 }).then(val => {
               console.log('fetched rows: ', val)
               setRows(val)
             })
@@ -160,11 +163,17 @@ export function Table6 ({ params }) {
         },
         {
             Header: 'Total Samples Across All Foods',
-            accessor: 'SumOfTotal_Samples'
+            accessor: 'SumOfTotal_Samples',
+            Cell: ({ value }) => {
+                return <NumberFormat value={value} displayType="text" thousandSeparator={true}/>;
+            }
         },
         {
             Header: 'Number of Positives',
-            accessor: 'SumOfNumber_Positives'
+            accessor: 'SumOfNumber_Positives',
+            Cell: ({ value }) => {
+                return <NumberFormat value={value} displayType="text" thousandSeparator={true}/>;
+            }
         },
         {
             Header: 'Percent Total Samples Positive',
@@ -205,7 +214,7 @@ export function Table6 ({ params }) {
     
     return (
       <>
-        <Table data={rows} columns={columns} params={params} tableNum={2} />
+        <Table data={rows} columns={columns} params={params} tableNum={2} summary="true"/>
         <style jsx>{`
           .title {
             font-family: Helvetica, Arial, sans-serif;

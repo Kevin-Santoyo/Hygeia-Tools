@@ -1,6 +1,13 @@
 .title {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Capriola', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 400;
     border-bottom: 4px solid var(--brightGreen);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.TableTitle {
+    font-family: 'Capriola', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 400;
     text-align: center;
 }

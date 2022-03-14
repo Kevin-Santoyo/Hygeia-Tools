@@ -19,10 +19,10 @@ const selectStyles = {
   }),
   option: (provided, { isSelected, isFocused }) => ({
     ...provided,
-    backgroundColor: isSelected ? "#335a42" : "white",
+    backgroundColor: isSelected ? "var(--green)" : "white",
   }),
   singleValue: () => ({
-    backgroundColor: "#335a42",
+    backgroundColor: "var(--green)",
     color: "white",
     borderRadius: "4px",
     padding: "5px 7px",
@@ -75,7 +75,6 @@ export function OriginParameter({ label, field, options, selected, handleSelect,
   });
   options = [];
   notcountries.map((loc) => options.push(loc));
-  options.push("Imports By Country");
   countries.map((loc) => options.push(loc));
   if (paramType == "Default") {
     return (
@@ -84,13 +83,7 @@ export function OriginParameter({ label, field, options, selected, handleSelect,
         <Select
           styles={selectStyles}
           value={{ value: selected, label: selected }}
-          options={options.map((opt) => {
-            if (opt == "Imports By Country") {
-              return { value: opt, label: opt, isDisabled: true };
-            } else {
-              return { value: opt, label: opt };
-            }
-          })}
+          options={options.map((opt) => { return { value: opt, label: opt } })}
           onChange={(val) => handleSelect(field, val.value)}
           menuIsOpen={true}
         />

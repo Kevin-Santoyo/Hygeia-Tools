@@ -71,14 +71,14 @@ export default function Titles({ params, tableNum }) {
       default:
         return null;
     }
-  } else if (pageName == "/dri/table5-6") {
+  } else if (pageName == "/dri/reports_aggr") {
     switch (tableNum) {
       case 0:
-        return Table56PageTitle((params = { params }));
+        return ReportsAggrPageTitle((params = { params }));
       case 1:
-        return Table56Title1((params = { params }));
+        return ReportsAggrTitle1((params = { params }));
       case 2:
-        return Table56Title2((params = { params }));
+        return ReportsAggrTitle2((params = { params }));
       default:
         return null;
     }
@@ -267,28 +267,40 @@ function IndividualTitle3 ({ params }) {
   );
 }
 
-function Table56PageTitle({ params }) {
+function ReportsAggrPageTitle({ params }) {
   return (
     <div>
       <h2 className={`${styles.title}`}>
-        DRI Reports 5 & 6 
+      Aggregate Sample DRI by Food & Pesticide 
       </h2>
     </div>
   );
 }
 
-function Table56Title1({ params }) {
+function ReportsAggrTitle1({ params }) {
+  let claim
+  if (params[1].selected == "All Market Claims") {
+    claim = "All"
+  } else {
+    claim = params[1].selected
+  }
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 5: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across All Pesticides.
+      Table 1: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across {claim} Pesticides.
     </th>
   );
 }
 
-function Table56Title2({ params }) {
+function ReportsAggrTitle2({ params }) {
+  let claim
+  if (params[1].selected == "All Market Claims") {
+    claim = "All"
+  } else {
+    claim = params[1].selected
+  }
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 6: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across All Foods.
+      Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across {claim} Foods.
     </th>
   );
 }
