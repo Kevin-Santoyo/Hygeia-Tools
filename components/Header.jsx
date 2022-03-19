@@ -7,7 +7,7 @@ export default function Header ({ title, system }) {
         <h1>{title}</h1>
         <h2>{system}</h2>
       </div>
-      <img src={'/images/logo.png'} />
+      <a href="../"><img src={'/images/logo.png'} /></a>
     </div>
   )
 }
