@@ -154,10 +154,10 @@ export default function Tables56Screen() {
         )}
       </ParameterContainer>
       <Jumps num="2"/>
+      <Methods />
       <TableContainer>
         <h4 className="title">Results</h4>
         <Table5 data={rows} params={params} />
-        <Methods />
         <Table6 params={params} />
       </TableContainer>
       <style jsx>{`

@@ -3,10 +3,14 @@
 }
 
 .heading {
-    font-family: Capriola;
     text-transform: uppercase;
     float: right;
-    border-bottom: 2px solid var(--brightGreen);
+    /*border-bottom: 2px solid var(--brightGreen);*/
     padding-right: 10px;
     text-align: right;
+}
+
+.heading h1, .heading h2 {
+    font-family: 'Lato';
+    font-weight: 900;
 }

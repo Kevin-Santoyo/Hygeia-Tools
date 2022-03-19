@@ -24,7 +24,7 @@ let methodsArray = [
 ]
 export default function Methods ({}) {
   return (
-    <div className={styles.box}>
+    <div className={styles.container}>
         <p className={styles.title}>Method Details:</p>
         <ul className={styles.list}>
             {

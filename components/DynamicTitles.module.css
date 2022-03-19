@@ -1,13 +1,13 @@
 .title {
-    font-family: 'Capriola', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 400;
-    border-bottom: 4px solid var(--brightGreen);
+    font-family: 'Lato', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 900;
+    /*border-bottom: 4px solid var(--brightGreen);*/
     text-align: center;
     font-size: 2rem;
 }
 
 .TableTitle {
-    font-family: 'Capriola', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 400;
+    font-family: 'Late', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
     text-align: center;
 }

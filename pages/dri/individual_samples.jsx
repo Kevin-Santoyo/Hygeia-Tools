@@ -18,19 +18,19 @@ export default function IndividualSamplesScreen() {
       field: 'commodity',
       label: 'Select Food:',
       options: ['Apples'],
-      selected: 'Greens, Collard'
+      selected: 'Apples'
     },
     {
       field: 'origin',
       label: 'Select Origin:',
-      options: ['Combined Imports'],
-      selected: 'Domestic Samples'
+      options: ['All Samples'],
+      selected: 'Combined Imports'
     },
     {
       field: 'market',
       label: 'Select Claim:',
       options: ['All Market Claims'],
-      selected: 'Organic'
+      selected: 'All Market Claims'
     },
     {
       field: 'pdp_year',

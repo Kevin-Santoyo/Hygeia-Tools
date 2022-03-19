@@ -218,7 +218,7 @@ function IndividualPageTitle({ params }) {
   return (
     <div>
       <h2 className={`${styles.title}`}>
-        Individual Positive Samples of {params[0].selected} Tested in {params[3].selected}
+        Individual Positive Samples of {params[0].selected} Tested by the US-PDP in {params[3].selected}
       </h2>
     </div>
   );
@@ -226,48 +226,44 @@ function IndividualPageTitle({ params }) {
 
 function IndividualTitle1 ({ params }) {
 
-  let claim = params[2].selected
+  let results = commodityClaimParse(params[0].selected, params[2].selected)
+  let claim = results[0]
+  let commodity = results[1]
 
-  if (claim == "All Market Claims") {
-    claim = "All"
-  }
 
   return (
     <th className={styles.TableTitle} colSpan="7">
-      Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {params[0].selected} in {params[3].selected}
+      Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {commodity} in {params[3].selected}
     </th>
   );
 }
 
 function IndividualTitle2 ({ params }) {
-  let claim = params[2].selected
-
-  if (claim == "All Market Claims") {
-    claim = "All"
-  }
+  let results = commodityClaimParse(params[0].selected, params[2].selected)
+  let claim = results[0]
+  let commodity = results[1]
 
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 2: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values
+      Table 2: All Analytes Found in Individual Samples of {claim} {commodity} in {params[3].selected}: Number of Residues Detected and DRI Values
     </th>
   );
 }
 
 function IndividualTitle3 ({ params }) {
-  let claim = params[2].selected
-
-  if (claim == "All Market Claims") {
-    claim = "All"
-  }
+  let results = commodityClaimParse(params[0].selected, params[2].selected)
+  let claim = results[0]
+  let commodity = results[1]
 
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 3: All Analytes Found in Individual Samples of {claim} {params[0].selected} in {params[3].selected}: Number of Residues Detected and DRI Values Ranked by DRI
+      Table 3: All Analytes Found in Individual Samples of {claim} {commodity} in {params[3].selected}: Number of Residues Detected and DRI Values Ranked by DRI
     </th>
   );
 }
 
 function ReportsAggrPageTitle({ params }) {
+  
   return (
     <div>
       <h2 className={`${styles.title}`}>
@@ -292,15 +288,40 @@ function ReportsAggrTitle1({ params }) {
 }
 
 function ReportsAggrTitle2({ params }) {
-  let claim
-  if (params[1].selected == "All Market Claims") {
-    claim = "All"
-  } else {
-    claim = params[1].selected
-  }
+  let results = originClaimParse(params[0].selected, params[1].selected)
+  let origin = results[0]
+  let claim = results[1]
   return (
     <th className={styles.TableTitle} colSpan="11">
       Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across {claim} Foods.
     </th>
   );
+}
+
+function commodityClaimParse(commodity, claim) {
+  if (commodity == "All Foods" && claim == "All Market Claims") {
+    claim = "All"
+    commodity = "Foods"
+  } else if (claim == "All Market Claims") {
+    claim = "All"
+    commodity = commodity
+  } else {
+    claim = claim
+    commodity = commodity
+  }
+  return [claim, commodity]
+}
+
+function originClaimParse(origin, claim) {
+  if (origin == "All Samples" && claim == "All Market Claims") {
+    claim = "All Market Claims"
+  } else if (claim == "All Market Claims" && origin == "Domestic Samples") {
+    claim = "All Domestic"
+  } else if (origin == "All Samples") {
+    claim = claim
+    origin = "All"
+  } else if (origin == "Domestic Samples") {
+    claim = "Domestic " + claim
+  }
+  return [origin, claim]
 }

@@ -503,8 +503,8 @@ function summaryReport6({ data }) {
     totalFSDRI = row.SumOfFS_DRI_Kid + totalFSDRI
   })
   totalPos = <NumberFormat value={totalPos} displayType="text" thousandSeparator={true}/>
-  totalDRIMean = <NumberFormat value={totalDRIMean} displayType="text" thousandSeparator={true}/>
-  totalFSDRI = <NumberFormat value={totalFSDRI} displayType="text" thousandSeparator={true}/>
+  totalDRIMean = <NumberFormat value={totalDRIMean} displayType="text" thousandSeparator={true} decimalScale={2} fixedDecimalScale="true"/>
+  totalFSDRI = <NumberFormat value={totalFSDRI} displayType="text" thousandSeparator={true} decimalScale={2} fixedDecimalScale="true"/>
   if (data.length > 0) {
     return (
       <>

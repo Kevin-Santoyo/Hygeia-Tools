@@ -46,7 +46,7 @@ export default function Table5 ({ data, params }) {
             }
         },
         {
-            Header: 'Positive Sample DRI',
+            Header: 'Positive Sample DRI-M',
             accessor: 'SumOfDRI_Mean_Kid',
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
