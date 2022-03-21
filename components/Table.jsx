@@ -2,20 +2,35 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { CSVLink } from "react-csv";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
 import Titles from "./DynamicTitles";
 import Summary from "./Summary";
 import styles from "./Table.module.css";
 
 const defaultPropGetter = () => ({})
 
-export default function Table({ columns, data, params, summary, tableNum, getCellProps = defaultPropGetter }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+export default function Table({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    pageOptions,
+    page,
+    state: { pageIndex, pageSize },
+    gotoPage,
+    previousPage,
+    nextPage,
+    setPageSize,
+    canPreviousPage,
+    canNextPage } = useTable(
     {
       useControlledState: (state) => {
         return useMemo(
           () => ({
             ...state,
+            pageSize: 250,
             columns: columns,
           }),
           [state, columns]
@@ -24,7 +39,7 @@ export default function Table({ columns, data, params, summary, tableNum, getCel
       columns,
       data,
     },
-    useSortBy
+    useSortBy, usePagination
   );
 
   let limits = columns.map((col) => {
@@ -41,11 +56,28 @@ export default function Table({ columns, data, params, summary, tableNum, getCel
     }
     return obj;
   });
-
   let id = `table${tableNum}`;
+  let rowData
+  let pageSizeOptions = [250]
+  if (paging) { rowData = page } else rowData = rows
 
   return (
     <>
+    {paging && 
+      <div className={styles.pages}>
+        <span>
+          Page{' '}
+          <em>
+            {pageIndex + 1} of {pageOptions.length}
+          </em>{' '}
+        </span>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          Previous
+        </button>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          Next
+        </button>
+      </div> }
       <table id={id} {...getTableProps()} className={styles.table}>
         <thead className={styles.tableHead}>
           <tr>
@@ -66,7 +98,7 @@ export default function Table({ columns, data, params, summary, tableNum, getCel
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rowData.map((row, i) => {
             prepareRow(row);
             return (
               <tr className={i % 2 === 0 ? styles.row : styles.rowOdd} {...row.getRowProps()}>

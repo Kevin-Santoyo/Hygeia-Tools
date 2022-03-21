@@ -109,6 +109,7 @@ export default function conventionalVSOrganicScreen() {
           <ParameterContainer>
           {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
           </ParameterContainer>
+          <Methods />
           <TableContainer>
             <h1 className="title">Results</h1>
             <FQPATable1a data={rows} params={params}/>

@@ -41,3 +41,19 @@ body {
     font-weight: 900;
     src: local('Lato'), url(../pages/fonts/Lato-Black.ttf) format('truetype');
 }
+
+.button {
+    margin-right: 5px;
+    background-color: var(--redOrange);
+    transition: background-color .2s ease;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 5px 5px;
+    min-width: 30px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: var(--yellow);
+}

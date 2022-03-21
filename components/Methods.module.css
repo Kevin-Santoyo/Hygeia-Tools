@@ -4,9 +4,6 @@
     background-color: #f7fafc;
     border: 1px solid rgb(226, 232, 240);
     border-radius: 0.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 }
 
 .container p {

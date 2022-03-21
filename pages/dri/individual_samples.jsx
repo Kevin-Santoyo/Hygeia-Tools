@@ -177,12 +177,11 @@ export default function IndividualSamplesScreen() {
         )}
       </ParameterContainer>
       <Jumps num="3"/>
+      <Methods />
       <TableContainer>
         <h4 className="title">Results</h4>
         <AggregateSamplesTable data={rows} params={params}/>
-        <Methods />
         <IndividualSamplesTable params={params}/>
-        <Methods />
         <AltIndividualSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`

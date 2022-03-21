@@ -14,11 +14,16 @@
   text-align: center;
 }
 
-.tableLinks a {
+/*.tableLinks a {
   padding: 5px 10px;
   margin-right: 5px;
   background-color: var(--redOrange);
+  transition: background-color .2s ease;
   color: white;
   text-decoration: none;
   border-radius: 3px;
 }
+
+.tableLinks a:hover {
+  background-color: var(--yellow);
+}*/

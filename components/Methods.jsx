@@ -25,7 +25,7 @@ let methodsArray = [
 export default function Methods ({}) {
   return (
     <div className={styles.container}>
-        <p className={styles.title}>Method Details:</p>
+        <span className={styles.title}>Method Details:</span>
         <ul className={styles.list}>
             {
                 methodsArray.map((method) =>

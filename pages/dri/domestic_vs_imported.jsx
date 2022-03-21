@@ -137,6 +137,7 @@ export default function DomesticImportedScreen() {
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />;
         })}
       </ParameterContainer>
+      <Methods />
       <TableContainer>
         <h1 className="title">Results</h1>
         <DomesticTable1 data={rows} params={params}/>

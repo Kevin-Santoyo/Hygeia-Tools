@@ -95,10 +95,22 @@
 
 .download {
   background-color: var(--redOrange);
+  transition: background-color .2s ease;
   color: white;
   border-radius: 0.5rem;
   padding: 5px 5px;
   min-width: 30px;
   text-align: center;
   text-decoration: none;
+}
+
+.download:hover {
+  background-color: var(--yellow);
+}
+
+.pages {
+  text-align: right;
+}
+.pages span {
+  padding-right: 5px;
 }

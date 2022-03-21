@@ -42,7 +42,7 @@ export default function AggregateSamplesTable ({ data, params }) {
   ]
   return (
     <>
-      <Table data={rows} columns={columns} params={params} tableNum={1}/>
+      <Table data={rows} columns={columns} params={params} paging="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -192,6 +192,7 @@ export function IndividualSamplesTable ({ params }) {
           }
         })}
         summary="true"
+        paging="true"
         tableNum={2}
       />
       <style jsx>{`
@@ -344,6 +345,7 @@ export function AltIndividualSamplesTable({ params }) {
           }
         })}
         summary="true"
+        paging="true"
         tableNum={3}
       />
       <style jsx>{`

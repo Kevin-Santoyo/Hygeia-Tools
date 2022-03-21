@@ -137,10 +137,10 @@ export default function ByPesticideScreen() {
         }
         )}
       </ParameterContainer>
+      <Methods />
       <TableContainer>
         <h1 className="title">Results</h1>
         <PesticideResidueAndRiskIndicatorsTable data={rows} params={params} />
-        <Methods />
         <KeyFindings data={rows} />
         <TableLinks />
       </TableContainer>
