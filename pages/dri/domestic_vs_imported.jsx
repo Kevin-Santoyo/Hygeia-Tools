@@ -3,6 +3,7 @@ import _, { forEach } from "lodash";
 import Header from "../../components/Header";
 import ParameterContainer from "../../components/ParameterContainer";
 import Parameter, { OriginParameter } from "../../components/Parameter";
+import Methods from "../../components/Methods";
 import { fetchParamOptions, fetchRows, fetchFormData } from "../../lib/api";
 import TableContainer from "../../components/TableContainer";
 import PageTitle from "../../components/DynamicTitles";
