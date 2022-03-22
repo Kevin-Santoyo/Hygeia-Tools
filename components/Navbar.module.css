@@ -1,0 +1,29 @@
+.container {
+    padding: 1px;
+    margin-top: 10px;
+    
+}
+
+.list, .list li {
+    display: inline;
+}
+
+.list {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+}
+
+
+.list li a {
+    background-color: var(--green);
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all ease .2s;
+}
+
+.list li a:hover {
+    color: black;
+    background-color: #f7fafc;
+}
