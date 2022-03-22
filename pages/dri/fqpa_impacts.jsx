@@ -6,8 +6,6 @@ import Parameter, { OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
 import Methods from '../../components/Methods'
-import KeyFindings from '../../components/KeyFindings'
-import TableLinks from '../../components/TableLinks'
 import PageTitle from '../../components/DynamicTitles'
 import FQPATable1a from '../../components/TablesFQPA'
 export default function conventionalVSOrganicScreen() {

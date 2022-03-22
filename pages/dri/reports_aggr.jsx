@@ -9,7 +9,6 @@ import TableContainer from '../../components/TableContainer'
 import Methods from '../../components/Methods'
 import Jumps from '../../components/Jumps'
 import Table5, { Table6 } from '../../components/TablesReportsAggr'
-import Navbar from '../../components/NavBar'
 export default function Tables56Screen() {
 
   const [params, setParams] = useState([
