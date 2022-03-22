@@ -1,5 +1,5 @@
 import styles from './Header.module.css'
-import Navbar from './NavBar'
+import Navbar from './NavBar.jsx'
 
 export default function Header ({ title, system }) {
   return (
