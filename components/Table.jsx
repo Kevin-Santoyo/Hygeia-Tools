@@ -58,26 +58,11 @@ export default function Table({ columns, data, params, summary, paging, tableNum
   });
   let id = `table${tableNum}`;
   let rowData
-  let pageSizeOptions = [250]
   if (paging) { rowData = page } else rowData = rows
 
   return (
     <>
-    {paging && 
-      <div className={styles.pages}>
-        <span>
-          Page{' '}
-          <em>
-            {pageIndex + 1} of {pageOptions.length}
-          </em>{' '}
-        </span>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
-        </button>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
-        </button>
-      </div> }
+    { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
       <table id={id} {...getTableProps()} className={styles.table}>
         <thead className={styles.tableHead}>
           <tr>
@@ -118,6 +103,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
           {summary == "true" && data.length > 0 && <Summary data={data} tableNum={tableNum} />}
         </tbody>
       </table>
+      { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
       <span className={styles.outputs}>
         Output Options:&nbsp;
           <CSVLink data={csvData} className={styles.download} filename="download.csv">
@@ -132,3 +118,25 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
 };
+
+function pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) {
+  return (
+    <>
+      <div className={styles.pages}>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          Previous
+        </button>
+        <span>
+          Page{' '}
+          <em>
+            {pageIndex + 1} of {pageOptions.length}
+          </em>{' '}
+        </span>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          Next
+        </button>
+        <a href="#"><button>Back to Top</button></a>
+      </div>
+    </>
+  )
+}

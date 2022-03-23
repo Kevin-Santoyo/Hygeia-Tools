@@ -4,23 +4,23 @@
     
 }
 
-.list, .list li {
-    display: inline;
-}
 
 .list {
     width: 100%;
-    display: inline-flex;
-    justify-content: center;
+    text-align: center;
 }
 
+.list li {
+    display: inline-block;
+}
 
 .list li a {
-    background-color: var(--green);
+    background-color: var(--redOrange);
     padding: 12px;
     color: white;
     text-decoration: none;
     transition: all ease .2s;
+    margin-right: 2px;
 }
 
 .list li a:hover {

@@ -8,6 +8,7 @@
     --lightBlue: #C4CFDA;
     --brightGreen: #83C336;
     --oldGreen: #335a42;
+    --innerContainer: #f7fafc;
 }
 
 body {
@@ -16,6 +17,16 @@ body {
     min-width: 300px;
     font-family: Lato;
 }
+
+a {
+    color: var(--redOrange);
+    transition: all .2 ease;
+}
+
+a:hover {
+    color: var(--yellow)
+}
+
 .div {
     width: 100%;
 }

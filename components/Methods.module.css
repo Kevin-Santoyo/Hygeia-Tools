@@ -21,16 +21,6 @@
     display: inline;
 }
 
-.link {
-    color: #2e6924;
-    transition: color .2s ease;
-    text-decoration: none;
-}
-
-.link:hover, .link:focus {
-    color: var(--brightGreen);
-}
-
 .list, .list li, .title {
     display: inline;
 }
