@@ -1,6 +1,6 @@
 import db from '../../../lib/db.ts'
 
-const validFields = ['origin', 'food', 'sub_food', 'country_name', 'claim', 'fsa_year', 'rpt_pest_name']
+const validFields = ['origin', 'food', 'sub_food', 'claim', 'fsa_year', 'rpt_pest_name']
 
 export default async (req, res) => {
   const field = req.query.field

@@ -1,7 +1,8 @@
 import styles from "./Navbar.module.css";
-import Link from 'next/link'
+import Link from 'next/link';
+import { useRouter } from "next/router";
 
-let navlinks = [
+let navlinksPDP = [
     {
         "title": "By Food",
         "link": "by_commodity"
@@ -28,7 +29,21 @@ let navlinks = [
     }
 ]
 
+let navlinksFSA = [
+    {
+        "title": "By Food",
+        "link": "by_food"
+    }
+]
+
+let navlinks = navlinksPDP
+
 export default function Navbar({}) {
+    console.log(useRouter())
+    let pageRoute = useRouter().route
+    if (pageRoute.includes('fsa')) {
+        navlinks = navlinksFSA
+    }
     return (
         <div className={styles.container}>
             <ul className={styles.list}>

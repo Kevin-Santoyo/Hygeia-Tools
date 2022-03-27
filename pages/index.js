@@ -38,7 +38,7 @@ const Index = () => {
         {/*    <Link href="/fsa/by_pesticide">By Pesticide</Link>*/}
         {/*  </li>*/}
         {/*</ul>*/}
-        DRI: <br/>
+        US-PDP: <br/>
         <ul>
           <li><Link href={"/dri/by_commodity"}>By Commodity</Link></li>
           <li><Link href={"/dri/by_pesticide"}>By Pesticide</Link></li>
@@ -47,6 +47,10 @@ const Index = () => {
           {/*<li><Link href={"/dri/fqpa_impacts"}>Overall Food Supply and DRI Trends</Link></li>*/}
           <li><Link href={"/dri/individual_samples"}>Individual Samples</Link></li>
           <li><Link href={"/dri/reports_aggr"}>Aggregate Sample DRI by Food & Pesticide</Link></li>
+        </ul>
+        UK-FSA <br/>
+        <ul>
+          <li><Link href={"/fsa/by_food"}>By Food</Link></li>
         </ul>
       </div>
       <style jsx global>{`
