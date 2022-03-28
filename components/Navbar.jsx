@@ -33,6 +33,9 @@ let navlinksFSA = [
     {
         "title": "By Food",
         "link": "by_food"
+    },{
+        "title": "By Pesticide",
+        "link": "by_pesticide"
     }
 ]
 
@@ -47,7 +50,6 @@ let switchDataFSA = {
 }
 let switchData = switchDataPDP
 export default function Navbar({}) {
-    console.log(useRouter())
     let pageRoute = useRouter().route
     if (pageRoute.includes('fsa')) {
         navlinks = navlinksFSA

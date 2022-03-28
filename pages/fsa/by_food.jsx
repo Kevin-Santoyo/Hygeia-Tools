@@ -116,7 +116,7 @@ export default function ByFSAFoodScreen () {
   useEffect(() => {
     // console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    let queryOverride = queryParse(query)
+    let queryOverride = queryParseFood(query)
     if (query.Food && query.Sub_Food && query.Claim && query.FSA_Year) {
       fetchRows({table: 'fsa', params: queryOverride, form: 'Food', tableNum: 1} ).then(val => {
         console.log('fetched rows: ', val)
@@ -149,7 +149,7 @@ export default function ByFSAFoodScreen () {
   )
 }
 
-export function queryParse( query ) {
+export function queryParseFood( query ) {
   let newQuery = {
     Food: query.Food,
     Sub_Food: query.Sub_Food,

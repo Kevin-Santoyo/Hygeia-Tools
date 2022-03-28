@@ -2,11 +2,17 @@ import { useMemo } from 'react'
 import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
-import { queryParse } from '../pages/fsa/by_food'
+import { queryParseFood } from '../pages/fsa/by_food'
 
 export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
+
+    var agg_dri = 0
+
+    data.forEach(function (row) {
+        agg_dri = row.FS_DRI_Kid + agg_dri
+    })
   
-  const columns = useMemo(() => [
+  const columns = [
     {
       Header: '  ',
       emptyHeader: true,
@@ -71,12 +77,15 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: d => parseFloat(d.per_agg_fsdri * 100).toFixed(2).concat('%'),
+          accessor: 'FS_DRI_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={(value / agg_dri)*100} displayType="text" decimalScale={2} suffix="%"/>
+          },
           borderRight: true
         }
       ]
     }
-  ], [])
+  ]
 
   return (
     <>
@@ -92,9 +101,9 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
 export function CRFCTable1 ({ data, params }) {
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    let queryOverride = queryParse(query)
+    let queryOverride = queryParseFood(query)
 
-  const columns = useMemo(() => [
+  const columns = [
     {
         Header: 'Analyte',
         accessor: 'Rpt_Pest_Name',
@@ -126,7 +135,7 @@ export function CRFCTable1 ({ data, params }) {
         return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
       },
     }
-  ], [])
+  ]
 
   return (
     <>

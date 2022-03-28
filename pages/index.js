@@ -29,15 +29,6 @@ const Index = () => {
   return (
     <>
       <div>
-        {/*UK-FSA: <br/>*/}
-        {/*<ul>*/}
-        {/*  <li>*/}
-        {/*    <Link href="/fsa/by_commodity">By Commodity</Link>*/}
-        {/*  </li>*/}
-        {/*  <li>*/}
-        {/*    <Link href="/fsa/by_pesticide">By Pesticide</Link>*/}
-        {/*  </li>*/}
-        {/*</ul>*/}
         US-PDP: <br/>
         <ul>
           <li><Link href={"/dri/by_commodity"}>By Commodity</Link></li>
@@ -51,6 +42,8 @@ const Index = () => {
         UK-FSA <br/>
         <ul>
           <li><Link href={"/fsa/by_food"}>By Food</Link></li>
+          
+          <li><Link href={"/fsa/by_pesticide"}>By Pesticide</Link></li>
         </ul>
       </div>
       <style jsx global>{`
