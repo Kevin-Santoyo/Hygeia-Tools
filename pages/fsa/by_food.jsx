@@ -16,13 +16,13 @@ export default function ByFSAFoodScreen () {
       field: 'Food',
       label: 'Food',
       options: ['Apples'],
-      selected: 'Asparagus'
+      selected: 'Apples'
     },
     {
       field: 'Sub_Food',
       label: 'Sub-Food',
       options: ['Cooking'],
-      selected: 'Not Specified'
+      selected: 'Cooking'
     },
     {
       field: 'Origin',
@@ -40,7 +40,7 @@ export default function ByFSAFoodScreen () {
       field: 'FSA_Year',
       label: 'Year',
       options: ['2021 Q1-Q2'],
-      selected: '2021 Q1-Q2'
+      selected: '2019'
     }
   ])
 
