@@ -7,6 +7,8 @@ import GraphicsTabs from './GraphicsTabs'
 
 export default function FSAConventionalTable1 ({ data, params }) {
   
+  console.log('Fetched rows table 1: ', data)
+
   const columns = useMemo(() => [
     {
       Header: ' ',
@@ -14,7 +16,7 @@ export default function FSAConventionalTable1 ({ data, params }) {
       columns: [
         {
           Header: ' ',
-          accessor: 'market'
+          accessor: 'Claim'
         },
         {
           Header: 'Total Samples',
@@ -88,7 +90,7 @@ export function FSAConventionalTable2 ({ params }){
 
     if (query.Food && query.Sub_Food && query.FSA_Year) {
       fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 2 }).then(val => {
-        console.log('fetched rows: ', val)
+        console.log('fetched rows table 2: ', val)
         setRows(val)
       })
     } else {
@@ -178,7 +180,7 @@ export function FSAConventionalTable3 ({ params }){
 
     if (query.Food && query.Sub_Food && query.FSA_Year) {
       fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 3 }).then(val => {
-        console.log('fetched rows: ', val)
+        console.log('fetched rows table 3: ', val)
         setRows(val)
       })
     } else {
@@ -191,12 +193,12 @@ export function FSAConventionalTable3 ({ params }){
   const columns = [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Post-Harvest Fungicide',
-          accessor: 'ph_fungicide',
+          accessor: 'PH_Fungicide',
           Cell: ({ value }) => {
             if (value) {
               return 'Yes'
@@ -205,11 +207,11 @@ export function FSAConventionalTable3 ({ params }){
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives'
+          accessor: 'Number_Positives'
         },
         {
           Header: 'Organic Mean of Positives (ppm',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
@@ -251,7 +253,7 @@ export function FSAConventionalTable3 ({ params }){
         },
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
@@ -281,7 +283,7 @@ export function FSAConventionalTable4 ({ params }){
 
     if (query.Food && query.Sub_Food && query.FSA_Year) {
       fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 4 }).then(val => {
-        console.log('fetched rows: ', val)
+        console.log('fetched rows table 4: ', val)
         setRows(val)
       })
     } else {
@@ -298,12 +300,12 @@ export function FSAConventionalTable4 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',
-          accessor: 'total_samples'
+          accessor: 'Total_Samples'
         },
         {
           Header: 'Percent Positive',
@@ -314,7 +316,7 @@ export function FSAConventionalTable4 ({ params }){
         },
         {
           Header: 'Mean of Positives (ppm)',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
@@ -327,14 +329,14 @@ export function FSAConventionalTable4 ({ params }){
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dri_kid',
+          accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true" />
           }
