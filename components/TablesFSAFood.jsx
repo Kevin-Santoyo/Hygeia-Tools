@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useState, useEffect } from 'react'
+import { fetchRows } from '../lib/api'
 import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
@@ -100,8 +101,23 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 }
 
 export function CRFCTable1 ({ data, params }) {
+  
+  const [rows, setRows] = useState([])
+  
+  useEffect(() => {
+    // console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     let queryOverride = queryParseFood(query)
+    if (query.Food && query.Sub_Food && query.Claim && query.FSA_Year) {
+      fetchRows({table: 'fsa', params: queryOverride, form: 'Food', tableNum: 2} ).then(val => {
+        console.log('fetched rows: ', val)
+        setRows(val)
+      })
+    } else {
+      console.log('not fetching rows. ', queryOverride)
+    }
+    // fetch()
+  }, [params])
 
   const columns = [
     {
@@ -111,15 +127,15 @@ export function CRFCTable1 ({ data, params }) {
     },
     {
       Header: 'NOAEL (mg/kg/day)',
-      accessor: 'chronic_noael'
+      accessor: 'Chronic_NOAEL_LOAEL_BMDL'
     },
     {
       Header: 'Standard Safety Factor',
-      accessor: 'chronic_sf'
+      accessor: 'Chronic_SF'
     },
     {
       Header: 'FQPA Safety Factor',
-      accessor: 'chronic_fqpa_sf'
+      accessor: 'Chronic_FQPA_SF'
     },
     {
       Header: 'cRfD or cPAD (mg/kg/day)',
@@ -139,7 +155,7 @@ export function CRFCTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} tableNum={2} />
+      <Table data={rows} columns={columns} params={params} tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;

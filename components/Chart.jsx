@@ -41,6 +41,8 @@ export default function Charts({ data, params, state }) {
       dataset2 = [data[0].avg_number_residues.toFixed(0), data[1].avg_number_residues.toFixed(0)]
       dataset3 = [pChar1, pChar2]
       dataset4 = [pChar3, pChar4]
+    } else if (pageName == "/fsa/conventional_vs_organic") {
+      
     }
     let barChart1Data = {
       labels: labels,

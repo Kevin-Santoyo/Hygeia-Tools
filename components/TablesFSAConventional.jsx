@@ -3,10 +3,9 @@ import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import KeyFindings from './KeyFindings'
-import Methods from './Methods'
 import GraphicsTabs from './GraphicsTabs'
 
-export default function ConventialOrganicTable1 ({ data, params }) {
+export default function FSAConventionalTable1 ({ data, params }) {
   
   const columns = useMemo(() => [
     {
@@ -69,7 +68,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
     <>
       <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
       <KeyFindings data={data} tableNum={1}/>
-      <GraphicsTabs data={data} params={params}/>
+      {/*<GraphicsTabs data={data} params={params}/>*/}
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -79,15 +78,16 @@ export default function ConventialOrganicTable1 ({ data, params }) {
   )
 }
 
-export function ConventialOrganicTable2 ({ params }){
+export function FSAConventionalTable2 ({ params }){
 
   const [rows, setRows] = useState([])
+
   useEffect(() => {
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 2 }).then(val => {
+    if (query.Food && query.Sub_Food && query.FSA_Year) {
+      fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 2 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -99,23 +99,23 @@ export function ConventialOrganicTable2 ({ params }){
   }, [params])
 
 
-  const columns = useMemo(() => [
+  const columns = [
     {
       Header: ' ',
       emptyHeader: true,
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',
-          accessor: 'total_samples'
+          accessor: 'Total_Samples'
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives'
+          accessor: 'Number_Positives'
         },
         {
           Header: 'Percent Positive',
@@ -126,7 +126,7 @@ export function ConventialOrganicTable2 ({ params }){
         },
         {
           Header: 'Mean of Positives (ppm)',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
@@ -139,21 +139,21 @@ export function ConventialOrganicTable2 ({ params }){
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dri_kid',
+          accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         }
       ]
     }
-  ])
+  ]
   
   return (
     <>
@@ -168,7 +168,7 @@ export function ConventialOrganicTable2 ({ params }){
   )
 }
 
-export function ConventialOrganicTable3 ({ params }){
+export function FSAConventionalTable3 ({ params }){
 
   const [rows, setRows] = useState([])
 
@@ -176,8 +176,8 @@ export function ConventialOrganicTable3 ({ params }){
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 3 }).then(val => {
+    if (query.Food && query.Sub_Food && query.FSA_Year) {
+      fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 3 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -188,11 +188,7 @@ export function ConventialOrganicTable3 ({ params }){
     // fetch()
   }, [params])
 
-  const columns = useMemo(() => [
-    {
-      Header: ' ',
-      emptyHeader: true,
-      columns: [
+  const columns = [
         {
           Header: 'Analyte',
           accessor: 'pesticide',
@@ -260,9 +256,7 @@ export function ConventialOrganicTable3 ({ params }){
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         }
-      ]
-    }
-  ])
+  ]
   
   return (
     <>
@@ -277,7 +271,7 @@ export function ConventialOrganicTable3 ({ params }){
   )
 }
 
-export function ConventialOrganicTable4 ({ params }){
+export function FSAConventionalTable4 ({ params }){
 
   const [rows, setRows] = useState([])
 
@@ -285,8 +279,8 @@ export function ConventialOrganicTable4 ({ params }){
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 4 }).then(val => {
+    if (query.Food && query.Sub_Food && query.FSA_Year) {
+      fetchRows({ table: 'fsa', params: query, form: 'Conventional', tableNum: 4 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -297,7 +291,7 @@ export function ConventialOrganicTable4 ({ params }){
     // fetch()
   }, [params])
 
-  const columns = useMemo(() => [
+  const columns = [
     {
       Header: ' ',
       emptyHeader: true,
@@ -347,7 +341,7 @@ export function ConventialOrganicTable4 ({ params }){
         }
       ]
     }
-  ])
+  ]
   
   return (
     <>

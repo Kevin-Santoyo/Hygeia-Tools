@@ -2,14 +2,11 @@ import { useEffect, useState } from 'react'
 import _ from 'lodash'
 import Header from '../../components/Header'
 import ParameterContainer from '../../components/ParameterContainer'
-import Parameter, { OriginParameter } from '../../components/Parameter'
+import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import ResidueAndRiskIndicatorsTable1, { CRFCTable1 } from '../../components/TablesFSAFood'
-import Methods from '../../components/Methods'
-import KeyFindings from '../../components/KeyFindings'
-import TableLinks from '../../components/TableLinks'
-export default function ByFSAFoodScreen () {
+export default function FSAFoodScreen () {
 
   const [params, setParams] = useState([
     {
@@ -137,7 +134,7 @@ export default function ByFSAFoodScreen () {
       <TableContainer>
         <h1 className="title">Results</h1>
         <ResidueAndRiskIndicatorsTable1 data={rows} params={params} />
-        <CRFCTable1 data={rows} params={params} />
+        <CRFCTable1 params={params} />
       </TableContainer>
       <style jsx>{`
         .title {
