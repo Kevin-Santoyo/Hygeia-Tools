@@ -12,29 +12,27 @@ import TableLinks from '../../components/TableLinks'
 import Titles from '../../components/DynamicTitles'
 export default function ByPesticideScreen() {
 
-  const noncountries = ['All Samples', 'Domestic Samples', 'Combined Imports']
-
   const [params, setParams] = useState([
     {
-      field: 'pesticide',
+      field: 'Rpt_Pest_Name',
       label: 'Analyte',
       options: ['Chlorpyrifos'],
       selected: 'Chlorpyrifos'
     },
     {
-      field: 'origin',
+      field: 'Origin',
       label: 'Origin',
       options: ['Combined Imports'],
       selected: 'Combined Imports'
     },
     {
-      field: 'market',
+      field: 'Claim',
       label: 'Claim',
       options: ['All Market Claims'],
       selected: 'All Market Claims'
     },
     {
-      field: 'pdp_year',
+      field: 'PDP_Year',
       label: 'Year',
       options: ['2018'],
       selected: 2018
@@ -78,25 +76,25 @@ export default function ByPesticideScreen() {
     //console.log(params)
     setParams([
       {
-        field: 'pesticide',
+        field: 'Rpt_Pest_Name',
         label: 'Analyte',
         options: foods.data,
         selected: null
       },
       {
-        field: 'origin',
+        field: 'Origin',
         label: 'Origin',
         options: ['Combined Imports'],
         selected: null
       },
       {
-        field: 'market',
+        field: 'Claim',
         label: 'Claim',
         options: ['All Market Claims'],
         selected: null
       },
       {
-        field: 'pdp_year',
+        field: 'PDP_Year',
         label: 'Year',
         options: [2016],
         selected: null
@@ -113,9 +111,10 @@ export default function ByPesticideScreen() {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     //console.log(query)
-    if (query.pesticide && query.origin && query.market && query.pdp_year) {
+    let queryOverride = queryParse(query)
+    if (query.Rpt_Pest_Name && query.Origin && query.Claim && query.PDP_Year) {
       console.log(query, 'query - by_pesticide')
-      fetchRows({ table: 'dri', params: query, form: 'Pesticide', tableNum: 1 }).then(val => {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'Pesticide', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -131,7 +130,7 @@ export default function ByPesticideScreen() {
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
-          if (param.field == 'origin') {
+          if (param.field == 'Origin') {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
         }
@@ -152,4 +151,43 @@ export default function ByPesticideScreen() {
       </style>
     </div>
   )
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    Rpt_Pest_Name: query.Rpt_Pest_Name,
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  let pairOrigin
+  if (query.Origin == "All Samples") {
+    pairOrigin = {
+      Origin: "All"
+    }
+  } else if (query.Origin == "Domestic Samples") {
+    pairOrigin = {
+      Origin: "Domestic"
+    }
+  } else if (query.Origin == "Combined Imports") {
+    pairOrigin = {
+      Origin: "Imported"
+    }
+  } else {
+    pairOrigin = {
+      Country_Name: query.Origin
+    }
+  }
+  newQuery = {...newQuery, ...pairClaim}
+  newQuery = {...newQuery, ...pairOrigin}
+
+  return newQuery
 }

@@ -69,14 +69,14 @@ function summaryPesticide({ data }) {
   var dri_kid = 0;
   var totalDetections = 0;
   data.forEach(function (row) {
-    total_samples = row.total_samples + total_samples;
-    total_num_pos = total_num_pos + row.number_positives;
-    total_drim = total_drim + row.dri_mean_kid;
-    total_fsdri = total_fsdri + row.fs_dri_kid;
+    total_samples = row.Total_Samples + total_samples;
+    total_num_pos = total_num_pos + row.Number_Positives;
+    total_drim = total_drim + row.DRI_Mean_Kid;
+    total_fsdri = total_fsdri + row.FS_DRI_Kid;
     total_percent = total_percent + row.per_agg_fsdri * 100;
     totalDetections++;
-    agg_dri = row.fs_dri_kid + agg_dri;
-    dri_kid = row.fs_dri_kid + dri_kid;
+    agg_dri = row.FS_DRI_Kid + agg_dri;
+    dri_kid = row.FS_DRI_Kid + dri_kid;
   });
   averageSamples = total_samples / totalDetections;
   averageResidues = (total_num_pos / total_samples).toFixed(2);
@@ -144,18 +144,18 @@ function summaryCommodity({ data }) {
   var dri_kid = 0;
   var totalDetections = 0;
   data.forEach(function (row) {
-    averageSamples = row.total_samples + averageSamples;
-    total_num_pos += row.number_positives;
-    total_drim += row.dri_mean_kid;
-    total_fsdri += row.fs_dri_kid;
-    total_percent += row.per_agg_fsdri * 100;
+    averageSamples = row.Total_Samples + averageSamples;
+    total_num_pos += row.Number_Positives;
+    total_drim += row.DRI_Mean_Kid;
+    total_fsdri += row.FS_DRI_Kid;
+    total_percent += row.FS_DRI_Kid;
     totalDetections++;
-    agg_dri = row.fs_dri_kid + agg_dri;
-    dri_kid = row.fs_dri_kid + dri_kid;
+    agg_dri = row.FS_DRI_Kid + agg_dri;
+    dri_kid = row.FS_DRI_Kid + dri_kid;
   });
   averageSamples = averageSamples / totalDetections;
   averageResidues = (total_num_pos / averageSamples).toFixed(2);
-  total_percent = total_percent;
+  total_percent = (total_percent / total_percent) * 100;
   averageSamples = averageSamples.toFixed(0);
   total_drim = total_drim.toFixed(5);
   return (
@@ -257,9 +257,9 @@ function summaryConventional2({ data }) {
   var dri_total = 0;
   var fsdri_total = 0;
   data.map((dat) => {
-    num_pos += dat.number_positives;
-    dri_total += dat.dri_mean_kid;
-    fsdri_total += dat.fs_dri_kid;
+    num_pos += dat.Number_Positives;
+    dri_total += dat.DRI_Mean_Kid;
+    fsdri_total += dat.FS_DRI_Kid;
   });
 
   return (
@@ -289,8 +289,8 @@ function summaryConventional3({ data }) {
   var res_over_thresh = 0;
   var num_inadvert_res = 0;
   data.map((dat) => {
-    num_pos += dat.number_positives;
-    dri_total += dat.dri_mean_kid;
+    num_pos += dat.Number_Positives;
+    dri_total += dat.DRI_Mean_Kid;
     res_over_thresh += dat.number_residues_exceed_at;
     num_inadvert_res += dat.number_inadvertent_residues;
   });
@@ -324,8 +324,8 @@ function summaryConventional4({ data }) {
   var dri_total = 0;
   var fsdri_total = 0;
   data.map((dat) => {
-    dri_total += dat.dri_mean_kid;
-    fsdri_total += dat.fs_dri_kid;
+    dri_total += dat.DRI_Mean_Kid;
+    fsdri_total += dat.FS_DRI_Kid;
   });
   return (
     <>
@@ -383,10 +383,10 @@ function summaryDomestic1({ data }) {
 
 function summaryDomestic2({ data }) {
   if (data.length > 0) {
-    let totalPositives = <NumberFormat value={data.reduce((a, b) => a + b.number_positives, 0)} displayType="text" />;
-    let totalDRI = <NumberFormat value={data.reduce((a, b) => a + b.dri_mean_kid, 0)} displayType="text" decimalScale={5} fixedDecimalScale="true" />;
-    let totalFS = <NumberFormat value={data.reduce((a, b) => a + b.fs_dri_kid, 0)} displayType="text" decimalScale={6} fixedDecimalScale="true" />;
-    let totalAggPer = <NumberFormat value={data.reduce((a, b) => a + b.per_agg_fsdri * 100, 0)} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%" />;
+    let totalPositives = <NumberFormat value={data.reduce((a, b) => a + b.Number_Positives, 0)} displayType="text" />;
+    let totalDRI = <NumberFormat value={data.reduce((a, b) => a + b.DRI_Mean_Kid, 0)} displayType="text" decimalScale={5} fixedDecimalScale="true" />;
+    let totalFS = <NumberFormat value={data.reduce((a, b) => a + b.FS_DRI_Kid, 0)} displayType="text" decimalScale={6} fixedDecimalScale="true" />;
+    let totalAggPer = <NumberFormat value={data.reduce((a, b) => a + b.Percent_FS_DRI_Kid, 0)} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%" />;
     return (
       <>
         <tr className={styles.totalRow}>

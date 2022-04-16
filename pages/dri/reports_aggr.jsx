@@ -13,19 +13,19 @@ export default function Tables56Screen() {
 
   const [params, setParams] = useState([
     {
-        field: 'origin',
+        field: 'Origin',
         label: 'Origin',
         options: ['All Samples'],
         selected: 'All Samples'
     },
     {
-        field: 'market',
+        field: 'Claim',
         label: 'Claim',
         options: ['All Market Claims'],
         selected: null
     },
     {
-        field: 'pdp_year',
+        field: 'PDP_Year',
         label: 'Year',
         options: ['2020'],
         selected: null
@@ -69,19 +69,19 @@ export default function Tables56Screen() {
     //console.log(params)
     setParams([
         {
-            field: 'origin',
+            field: 'Origin',
             label: 'Origin',
             options: ['All Samples'],
             selected: null
         },
         {
-            field: 'market',
+            field: 'Claim',
             label: 'Claim',
             options: ['All Market Claims'],
             selected: null
         },
         {
-            field: 'pdp_year',
+            field: 'PDP_Year',
             label: 'Year',
             options: ['2020'],
             selected: null
@@ -95,42 +95,11 @@ export default function Tables56Screen() {
   }, [])
   
   useEffect(() => {
-    //console.log('useEffect - params - fetch rows')
+    
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    var queryOverride = {
-        pdp_year: query.pdp_year
-      }
-    let pairOrigin
-    if (query.origin == 'All Samples') {
-        pairOrigin = {
-            origin: "All"
-        }
-    } else if (query.origin == 'Combined Imports') {
-        pairOrigin = {
-            origin: "Imported"
-        }
-    } else if (query.origin == 'Domestic Samples') {
-        pairOrigin = {
-            origin: "Domestic"
-        }
-    } else {
-        pairOrigin = {
-            country_name: query.origin
-        }
-    }
-    let pairMarket
-    if (query.market == 'All Market Claims') {
-        pairMarket = {
-            claim: "All"
-        }
-    } else {
-        pairMarket = {
-            claim: query.market
-        }
-    }
-    queryOverride = {...queryOverride, ...pairMarket};
-    queryOverride = {...queryOverride, ...pairOrigin};
-    if (query.origin && query.market && query.pdp_year) {
+
+    let queryOverride = queryParse(query)
+    if (query.Origin && query.Claim && query.PDP_Year) {
       fetchRows({ table: 'dri', params: queryOverride, form: 'ReportsAggr', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
@@ -138,7 +107,7 @@ export default function Tables56Screen() {
     } else {
       console.log('not fetching rows. ', query)
     }
-    // fetch()
+    
   }, [params])
 
   return (
@@ -147,7 +116,7 @@ export default function Tables56Screen() {
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
-          if (param.field == 'origin') {
+          if (param.field == 'Origin') {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
         }
@@ -170,4 +139,42 @@ export default function Tables56Screen() {
       </style>
     </div>
   )
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  let pairOrigin
+  if (query.Origin == "All Samples") {
+    pairOrigin = {
+      Origin: "All"
+    }
+  } else if (query.Origin == "Domestic Samples") {
+    pairOrigin = {
+      Origin: "Domestic"
+    }
+  } else if (query.Origin == "Combined Imports") {
+    pairOrigin = {
+      Origin: "Imported"
+    }
+  } else {
+    pairOrigin = {
+      Country_Name: query.Origin
+    }
+  }
+  newQuery = {...newQuery, ...pairClaim}
+  newQuery = {...newQuery, ...pairOrigin}
+
+  return newQuery
 }

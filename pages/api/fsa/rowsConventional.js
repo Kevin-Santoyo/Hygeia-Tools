@@ -47,7 +47,7 @@ export default async (req, res) => {
 
     const rows = await db.select().from('fsa_fs_dri_data_2022_1 as fsaDri')
       .leftJoin('UK_FSA_Pesticide_Risk_Factors as fsaRisk', 'fsaRisk.FSA_Pest_Name', 'fsaDri.Rpt_Pest_Name')
-      .where(params).andWhere('Origin', 'UK').andWhere('Claim', 'Organic')
+      .where(params).andWhere('Origin', 'UK').andWhere('Claim', 'Conventional')
       .orderBy('FS_DRI_Kid', 'desc')
 
     res.json(rows)

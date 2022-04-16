@@ -8,6 +8,16 @@ import NumberFormat from "react-number-format";
 import GraphicsTabs from "./GraphicsTabs";
 
 export default function DomesticTable1({ data, params }) {
+
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      avg_number_residues: dat.sum_number_positives/dat.avg_total_samples
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+
   const columns = useMemo(
     () => [
       {
@@ -16,11 +26,21 @@ export default function DomesticTable1({ data, params }) {
         columns: [
           {
             Header: " ",
-            accessor: "origin",
+            accessor: "Origin",
+            Cell: ({ value }) => {
+              if (value == "Domestic") {
+                return "Domestic Samples"
+              } else if (value == "Imported") {
+                return "Combined Imports"
+              }
+            }
           },
           {
             Header: "Total Samples",
             accessor: "avg_total_samples",
+            Cell: ({ value }) => {
+              return <NumberFormat value={value} displayType="text" decimalScale={0} fixedDecimalScale="true" />;
+            }
           },
           {
             Header: "Total Positives Found",
@@ -68,24 +88,26 @@ export default function DomesticTable1({ data, params }) {
   );
 
   const selectedOrigin = [params[1].selected];
-  data = data.filter((dat) => {
-    if (dat.origin == "Domestic Samples") {
+  newData = newData.filter((dat) => {
+    if (dat.Origin == "Domestic") {
       return dat;
-    } else if (dat.origin == selectedOrigin) {
+    } else if (dat.Origin == selectedOrigin) {
+      return dat;
+    } else if (selectedOrigin == "Combined Imports" && dat.Origin == "Imported") {
       return dat;
     }
   });
-  if (_.has(data, 1)) {
-    if (data[0].origin != "Domestic Samples") {
-      data.reverse();
+  if (_.has(newData, 1)) {
+    if (newData[0].Origin != "Domestic") {
+      newData.reverse();
     }
   }
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1} />
       <Methods />
-      <KeyFindings data={data} tableNum={1} params={params}/>
-      <GraphicsTabs data={data} params={params}/>
+      <KeyFindings data={newData} tableNum={1} params={params}/>
+      <GraphicsTabs data={newData} params={params}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -97,14 +119,16 @@ export default function DomesticTable1({ data, params }) {
 
 export function DomesticTable2({ params }) {
 
+
   const [rows, setRows] = useState([])
   useEffect(() => {
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Domestic', tableNum: 2 }).then(val => {
-        console.log('fetched rows: ', val)
+    let queryOverride = queryParse(query)
+    if (query.Commodity_Name && query.PDP_Year) {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'Domestic', tableNum: 2 }).then(val => {
+        console.log('fetched rows table 2: ', val)
         setRows(val)
       })
     } else {
@@ -114,6 +138,21 @@ export function DomesticTable2({ params }) {
     
   }, [params])
 
+  var agg_dri = 0
+
+  rows.forEach(function (row) {
+      agg_dri = row.FS_DRI_Kid + agg_dri
+  })
+
+  let newData = []
+  rows.forEach(dat => {
+    let key = {
+      Percent_FS_DRI_Kid: (dat.FS_DRI_Kid/agg_dri)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+
   const columns = useMemo(
     () => [
       {
@@ -122,27 +161,27 @@ export function DomesticTable2({ params }) {
         columns: [
           {
             Header: "Analyte",
-            accessor: "pesticide",
+            accessor: "Rpt_Pest_Name",
             Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
           },
           {
             Header: "Total Samples",
-            accessor: "total_samples",
+            accessor: "Total_Samples",
           },
           {
             Header: "Number of Positives",
-            accessor: "number_positives",
+            accessor: "Number_Positives",
           },
           {
             Header: "Percent Positive",
-            accessor: "percent_positive",
+            accessor: "Percent_Positive",
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
           },
           {
             Header: "Mean of Positives (ppm)",
-            accessor: "mean_positives",
+            accessor: "Mean_Positives",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />;
             },
@@ -155,7 +194,7 @@ export function DomesticTable2({ params }) {
         columns: [
           {
             Header: "DRI-M",
-            accessor: "dri_mean_kid",
+            accessor: "DRI_Mean_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
             },
@@ -163,14 +202,14 @@ export function DomesticTable2({ params }) {
           },
           {
             Header: "FS-DRI",
-            accessor: "fs_dri_kid",
+            accessor: "FS_DRI_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
             },
           },
           {
             Header: "% Aggregate FS-DRI",
-            accessor: "per_agg_fsdri",
+            accessor: "Percent_FS_DRI_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%"/>;
             },
@@ -184,7 +223,7 @@ export function DomesticTable2({ params }) {
   let rowCount = rows.length
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={2} />
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={2} />
       <KeyFindings tableNum={2} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
@@ -202,14 +241,9 @@ export function DomesticTable3({ params }) {
 
     console.log(params, 'table3 params')
     var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    
-    query = {
-      "commodity" : query.commodity,
-      "market" : query.market,
-      "pdp_year" : query.pdp_year,
-      "origin" : "Domestic Samples"
-    }
-    if (query.commodity && query.pdp_year) {
+
+    query = queryParseDomestic3(query)
+    if (query.Commodity_Name && query.PDP_Year) {
       fetchRows({ table: 'dri', params: query, form: 'Domestic', tableNum: 3 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
@@ -221,6 +255,21 @@ export function DomesticTable3({ params }) {
     
   }, [params])
 
+  var agg_dri = 0
+
+  rows.forEach(function (row) {
+    agg_dri = row.FS_DRI_Kid + agg_dri
+  })
+
+  let newData = []
+  rows.forEach(dat => {
+    let key = {
+      Percent_FS_DRI_Kid: (dat.FS_DRI_Kid/agg_dri)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+
   const columns = useMemo(
     () => [
       {
@@ -229,27 +278,27 @@ export function DomesticTable3({ params }) {
         columns: [
           {
             Header: "Analyte",
-            accessor: "pesticide",
+            accessor: "Rpt_Pest_Name",
             Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
           },
           {
             Header: "Total Samples",
-            accessor: "total_samples",
+            accessor: "Total_Samples",
           },
           {
             Header: "Number of Positives",
-            accessor: "number_positives",
+            accessor: "Number_Positives",
           },
           {
             Header: "Percent Positive",
-            accessor: "percent_positive",
+            accessor: "Percent_Positive",
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
           },
           {
             Header: "Mean of Positives (ppm)",
-            accessor: "mean_positives",
+            accessor: "Mean_Positives",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />;
             },
@@ -262,7 +311,7 @@ export function DomesticTable3({ params }) {
         columns: [
           {
             Header: "DRI-M",
-            accessor: "dri_mean_kid",
+            accessor: "DRI_Mean_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
             },
@@ -270,14 +319,14 @@ export function DomesticTable3({ params }) {
           },
           {
             Header: "FS-DRI",
-            accessor: "fs_dri_kid",
+            accessor: "FS_DRI_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
             },
           },
           {
             Header: "% Aggregate FS-DRI",
-            accessor: "per_agg_fsdri",
+            accessor: "Percent_FS_DRI_Kid",
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%"/>;
             },
@@ -288,10 +337,10 @@ export function DomesticTable3({ params }) {
     []
   );
 
-  let rowCount = rows.length
+  let rowCount = newData.length
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={3} />
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={3} />
       <KeyFindings tableNum={3} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
@@ -300,4 +349,67 @@ export function DomesticTable3({ params }) {
       `}</style>
     </>
   );
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    Commodity_Name: query.Commodity_Name,
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  let pairOrigin
+  if (query.Origin == "All Samples") {
+    pairOrigin = {
+      Origin: "All"
+    }
+  } else if (query.Origin == "Domestic Samples") {
+    pairOrigin = {
+      Origin: "Domestic"
+    }
+  } else if (query.Origin == "Combined Imports") {
+    pairOrigin = {
+      Origin: "Imported"
+    }
+  } else {
+    pairOrigin = {
+      Country_Name: query.Origin
+    }
+  }
+  newQuery = {...newQuery, ...pairClaim}
+  newQuery = {...newQuery, ...pairOrigin}
+
+  return newQuery
+}
+
+function queryParseDomestic3( query ) {
+  let newQuery = {
+    Commodity_Name: query.Commodity_Name,
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  let pairOrigin = {
+    Origin: "Domestic"
+  }
+  newQuery = {...newQuery, ...pairClaim}
+  newQuery = {...newQuery, ...pairOrigin}
+
+  return newQuery
 }

@@ -8,8 +8,17 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
   var agg_dri = 0
 
   data.forEach(function (row) {
-    agg_dri = row.fs_dri_kid + agg_dri
+      agg_dri = row.FS_DRI_Kid + agg_dri
   })
+
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      Percent_FS_DRI_Kid: (dat.FS_DRI_Kid/agg_dri)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
 
   var columns = [
     {
@@ -18,7 +27,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'Food',
-          accessor: 'commodity',
+          accessor: 'Commodity_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         }
       ]
@@ -29,16 +38,16 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'Total',
-          accessor: 'total_samples',
+          accessor: 'Total_Samples',
           borderLeft: true
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives'
+          accessor: 'Number_Positives'
         },
         {
           Header: 'Percent Positive',
-          accessor: 'percent_positive',
+          accessor: 'Percent_Positive',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           },
@@ -52,14 +61,14 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           },
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: 'crfc_kid',
+          accessor: 'cRfC_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           }
@@ -72,7 +81,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={5} fixedDecimalScale="true"/>
           },
@@ -80,17 +89,16 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
         },
         {
           Header: 'FS-DRI',
-          accessor: d => d.fs_dri_kid,
+          accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} />
           }
         },
         {
-          // TODO: Calc these in DB?
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: 'fs_dri_kid',
+          accessor: 'Percent_FS_DRI_Kid',
           Cell: ({ value }) => {
-            return <NumberFormat value={(value / agg_dri)*100} displayType="text" decimalScale={2} suffix="%"/>
+            return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
           }
         }
       ]
@@ -98,7 +106,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
   ]
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

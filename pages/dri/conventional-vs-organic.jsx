@@ -12,13 +12,13 @@ export default function ConventionalOrganicScreen() {
 
     const [params, setParams] = useState([
         {
-          field: 'commodity',
+          field: 'Commodity_Name',
           label: 'Food',
           options: ['Apples'],
           selected: 'Apples'
         },
         {
-          field: 'pdp_year',
+          field: 'PDP_Year',
           label: 'Year',
           options: ['2016'],
           selected: 2016
@@ -62,13 +62,13 @@ export default function ConventionalOrganicScreen() {
         //console.log(params)
         setParams([
           {
-            field: 'commodity',
+            field: 'Commodity_Name',
             label: 'Food',
             options: foods.data,
             selected: null
           },
           {
-            field: 'pdp_year',
+            field: 'PDP_Year',
             label: 'Origin',
             options: [2016],
             selected: null
@@ -85,7 +85,7 @@ export default function ConventionalOrganicScreen() {
         
         const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
         
-        if (query.commodity && query.pdp_year) {
+        if (query.Commodity_Name && query.PDP_Year) {
           fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 1 }).then(val => {
             console.log('fetched rows: ', val)
             setRows(val)

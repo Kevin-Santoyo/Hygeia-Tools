@@ -11,25 +11,25 @@ import DomesticTable1, { DomesticTable2, DomesticTable3 } from "../../components
 export default function DomesticImportedScreen() {
   const [params, setParams] = useState([
     {
-      field: "commodity",
+      field: "Commodity_Name",
       label: "Select Food:",
       options: ["Apples"],
       selected: "Apples",
     },
     {
-      field: "origin",
+      field: "Origin",
       label: "Select Origin:",
       options: ["Combined Imports"],
       selected: "Combined Imports",
     },
     {
-      field: "market",
+      field: "Claim",
       label: "Select Claim:",
       options: ["All Market Claims"],
       selected: "All Market Claims",
     },
     {
-      field: "pdp_year",
+      field: "PDP_Year",
       label: "Select Year:",
       options: ["2016"],
       selected: 2016,
@@ -73,25 +73,25 @@ export default function DomesticImportedScreen() {
     //console.log(params)
     setParams([
         {
-            field: 'commodity',
+            field: 'Commodity_Name',
             label: 'Food',
             options: foods.data,
             selected: null
           },
           {
-            field: 'origin',
+            field: 'Origin',
             label: 'Origin',
             options: ['Combined Imports'],
             selected: null
           },
           {
-            field: 'market',
+            field: 'Claim',
             label: 'Claim',
             options: ['All Market Claims'],
             selected: null
           },
           {
-            field: 'pdp_year',
+            field: 'PDP_Year',
             label: 'Year',
             options: ['2016'],
             selected: null
@@ -107,14 +107,9 @@ export default function DomesticImportedScreen() {
   useEffect(() => {
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]));
 
-    const query2 = {
-      "commodity" : query.commodity,
-      "market" : query.market,
-      "pdp_year" : query.pdp_year
-    }
-    console.log(query, 'main params')
-    if (query.commodity && query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: "dri", params: query2, form: "Domestic", tableNum: 1 }).then((val) => {
+    let queryOverride = queryParse(query)
+    if (query.Commodity_Name && query.Origin && query.Claim && query.PDP_Year) {
+      fetchRows({ table: "dri", params: queryOverride, form: "Domestic", tableNum: 1 }).then((val) => {
         console.log("fetched rows: ", val);
         setRows(val);
       });
@@ -133,7 +128,7 @@ export default function DomesticImportedScreen() {
       <PageTitle params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
-          if (param.field == "origin") {
+          if (param.field == "Origin") {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Domestic"/>;
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />;
         })}
@@ -154,4 +149,24 @@ export default function DomesticImportedScreen() {
       </style>
     </div>
   );
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    Commodity_Name: query.Commodity_Name,
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  newQuery = {...newQuery, ...pairClaim}
+
+  return newQuery
 }

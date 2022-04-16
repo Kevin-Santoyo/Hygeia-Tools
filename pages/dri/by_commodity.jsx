@@ -14,25 +14,25 @@ export default function ByCommodityScreen() {
 
   const [params, setParams] = useState([
     {
-      field: 'commodity',
+      field: 'Commodity_Name',
       label: 'Select Food:',
       options: ['Apples'],
       selected: 'Apples'
     },
     {
-      field: 'origin',
+      field: 'Origin',
       label: 'Select Origin:',
       options: ['Combined Imports'],
       selected: 'Combined Imports'
     },
     {
-      field: 'market',
+      field: 'Claim',
       label: 'Select Claim:',
       options: ['All Market Claims'],
       selected: 'All Market Claims'
     },
     {
-      field: 'pdp_year',
+      field: 'PDP_Year',
       label: 'Select Year:',
       options: ['2016'],
       selected: 2016
@@ -76,19 +76,19 @@ export default function ByCommodityScreen() {
     //console.log(params)
     setParams([
       {
-        field: 'commodity',
+        field: 'Commodity_Name',
         label: 'Food',
         options: foods.data,
         selected: null
       },
       {
-        field: 'origin',
+        field: 'Origin',
         label: 'Origin',
         options: ['Combined Imports'],
         selected: null
       },
       {
-        field: 'market',
+        field: 'Claim',
         label: 'Claim',
         options: ['All Market Claims'],
         selected: null
@@ -111,9 +111,10 @@ export default function ByCommodityScreen() {
     //console.log('useEffect - params - fetch rows')
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
+    let queryOverride = queryParse(query)
     //console.log(query)
-    if (query.commodity && query.origin && query.market && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Commodity', tableNum: 1 }).then(val => {
+    if (query.Commodity_Name && query.Origin && query.Claim && query.PDP_Year) {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'Commodity', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
@@ -129,7 +130,7 @@ export default function ByCommodityScreen() {
       <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map((param) => {
-          if (param.field == 'origin') {
+          if (param.field == 'Origin') {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
         }
@@ -153,4 +154,43 @@ export default function ByCommodityScreen() {
       </style>
     </div>
   )
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    Commodity_Name: query.Commodity_Name,
+    PDP_Year: query.PDP_Year
+  }
+  let pairClaim
+  if (query.Claim == "All Market Claims") {
+    pairClaim = {
+      Claim: "All"
+    }
+  } else {
+    pairClaim = {
+      Claim: query.Claim
+    }
+  }
+  let pairOrigin
+  if (query.Origin == "All Samples") {
+    pairOrigin = {
+      Origin: "All"
+    }
+  } else if (query.Origin == "Domestic Samples") {
+    pairOrigin = {
+      Origin: "Domestic"
+    }
+  } else if (query.Origin == "Combined Imports") {
+    pairOrigin = {
+      Origin: "Imported"
+    }
+  } else {
+    pairOrigin = {
+      Country_Name: query.Origin
+    }
+  }
+  newQuery = {...newQuery, ...pairClaim}
+  newQuery = {...newQuery, ...pairOrigin}
+
+  return newQuery
 }

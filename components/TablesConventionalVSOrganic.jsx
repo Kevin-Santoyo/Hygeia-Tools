@@ -7,6 +7,14 @@ import Methods from './Methods'
 import GraphicsTabs from './GraphicsTabs'
 
 export default function ConventialOrganicTable1 ({ data, params }) {
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      avg_number_residues: dat.sum_number_positives/dat.avg_total_samples
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
   
   const columns = useMemo(() => [
     {
@@ -15,11 +23,14 @@ export default function ConventialOrganicTable1 ({ data, params }) {
       columns: [
         {
           Header: ' ',
-          accessor: 'market'
+          accessor: 'Claim'
         },
         {
           Header: 'Total Samples',
-          accessor: 'avg_total_samples'
+          accessor: 'avg_total_samples',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={0}/>
+          }
         },
         {
             Header: 'Number of Residues Found',
@@ -29,7 +40,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
             Header: 'Average Number of Residues per Sample',
             accessor: 'avg_number_residues',
             Cell: ({ value }) => {
-              return <NumberFormat value={value} displayType="text"  decimalScale={2} fixedDecimalScale="true"/>
+              return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
             },
         },
         {
@@ -67,9 +78,9 @@ export default function ConventialOrganicTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
-      <KeyFindings data={data} tableNum={1}/>
-      <GraphicsTabs data={data} params={params}/>
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1} />
+      <KeyFindings data={newData} tableNum={1}/>
+      <GraphicsTabs data={newData} params={params}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -86,13 +97,13 @@ export function ConventialOrganicTable2 ({ params }){
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
+    if (query.Commodity_Name && query.PDP_Year) {
       fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 2 }).then(val => {
-        console.log('fetched rows: ', val)
+        console.log('fetched rows 2: ', val)
         setRows(val)
       })
     } else {
-      console.log('not fetching rows. ', query)
+      console.log('not fetching rows 2. ', query)
       setRows([])
     }
     
@@ -106,27 +117,27 @@ export function ConventialOrganicTable2 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',
-          accessor: 'total_samples'
+          accessor: 'Total_Samples'
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives'
+          accessor: 'Number_Positives'
         },
         {
           Header: 'Percent Positive',
-          accessor: 'percent_positive',
+          accessor: 'Percent_Positive',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />
           }
         },
         {
           Header: 'Mean of Positives (ppm)',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
@@ -139,14 +150,14 @@ export function ConventialOrganicTable2 ({ params }){
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dri_kid',
+          accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
@@ -175,10 +186,10 @@ export function ConventialOrganicTable3 ({ params }){
   useEffect(() => {
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-
-    if (query.commodity && query.pdp_year) {
-      fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 3 }).then(val => {
-        console.log('fetched rows: ', val)
+    let queryOverride = queryParse(query)
+    if (query.Commodity_Name && query.PDP_Year) {
+      fetchRows({ table: 'dri', params: queryOverride, form: 'Conventional', tableNum: 3 }).then(val => {
+        console.log('fetched rows 3: ', val)
         setRows(val)
       })
     } else {
@@ -195,12 +206,12 @@ export function ConventialOrganicTable3 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Post-Harvest Fungicide',
-          accessor: 'ph_fungicide',
+          accessor: 'PH_Fungicide',
           Cell: ({ value }) => {
             if (value) {
               return 'Yes'
@@ -209,25 +220,25 @@ export function ConventialOrganicTable3 ({ params }){
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives'
+          accessor: 'Number_Positives'
         },
         {
           Header: 'Organic Mean of Positives (ppm',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'Tolerance or Action Level (ppm)',
-          accessor: 'tolerance',
+          accessor: 'Tolerance_Level',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'Action Threshold (AT) (5% of Tolerance)',
-          accessor: 'action_threshold',
+          accessor: 'AT',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true" />
           }
@@ -241,7 +252,7 @@ export function ConventialOrganicTable3 ({ params }){
         },
         {
           Header: 'Conventional Mean of Positives (ppm)',
-          accessor: 'conventional_mean_residue',
+          accessor: 'Conv_Mean_Res',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" defaultValue={0} />
           }
@@ -255,7 +266,7 @@ export function ConventialOrganicTable3 ({ params }){
         },
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
@@ -285,7 +296,7 @@ export function ConventialOrganicTable4 ({ params }){
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    if (query.commodity && query.pdp_year) {
+    if (query.Commodity_Name && query.PDP_Year) {
       fetchRows({ table: 'dri', params: query, form: 'Conventional', tableNum: 4 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
@@ -304,23 +315,23 @@ export function ConventialOrganicTable4 ({ params }){
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
           Header: 'Total Samples',
-          accessor: 'total_samples'
+          accessor: 'Total_Samples'
         },
         {
           Header: 'Percent Positive',
-          accessor: 'percent_positive',
+          accessor: 'Percent_Positive',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           }
         },
         {
           Header: 'Mean of Positives (ppm)',
-          accessor: 'mean_positives',
+          accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
           }
@@ -333,14 +344,14 @@ export function ConventialOrganicTable4 ({ params }){
       columns: [
         {
           Header: 'DRI-M',
-          accessor: 'dri_mean_kid',
+          accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         },
         {
           Header: 'FS-DRI',
-          accessor: 'fs_dri_kid',
+          accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true" />
           }
@@ -360,4 +371,12 @@ export function ConventialOrganicTable4 ({ params }){
       `}</style>
     </>
   )
+}
+
+function queryParse( query ) {
+  let newQuery = {
+    "pdpDRI.Commodity_Name": query.Commodity_Name,
+    "pdpDRI.PDP_Year": query.PDP_Year
+  }
+  return newQuery
 }

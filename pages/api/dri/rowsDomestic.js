@@ -12,29 +12,21 @@ export default async (req, res) => {
   }
 
   if (tableNum == 1) {
-    const rows = await db
-      .select()
-      .from("commodity_summary AS c_s", "commodity_pesticide AS c_p", "commodity AS c", "pesticide AS p")
-      .where(params)
-      .andWhereNot('origin', 'All Samples')
+    const rows = await db.distinct('Origin')
+      .avg('Total_Samples as avg_total_samples')
+      .sum('Number_Positives as sum_number_positives')
+      .sum('FS_DRI_Kid as sum_dri_fs')
+      .sum('DRI_Mean_Kid as sum_dri_mean')
+      .from('PDP_FS_DRI_Dataset_v2022_2')
+      .where(params).andWhereNot('Origin', 'All')
+      .groupBy('Origin')
 
     res.json(rows);
-  } else if (tableNum == 2) {
+  } else if (tableNum == 2 || tableNum == 3) {
 
-    const rows = await db.select().from("commodity_pesticide AS c_p")
-      .leftJoin('commodity as c', 'c.commodity_id', 'c_p.commodity_id')
-      .leftJoin('pesticide as p', 'p.pesticide_id', 'c_p.pesticide_id')
+    const rows = await db.select().from('PDP_FS_DRI_Dataset_v2022_2')
       .where(params)
-      .orderBy('per_agg_fsdri', 'desc')
-
-    res.json(rows);
-  } else if (tableNum == 3) {
-
-    const rows = await db.select().from("commodity_pesticide AS c_p")
-      .leftJoin('commodity as c', 'c.commodity_id', 'c_p.commodity_id')
-      .leftJoin('pesticide as p', 'p.pesticide_id', 'c_p.pesticide_id')
-      .where(params)
-      .orderBy('per_agg_fsdri', 'desc')
+      .orderBy('FS_DRI_Kid', 'desc')
 
     res.json(rows);
   } else if (tableNum == 4) {

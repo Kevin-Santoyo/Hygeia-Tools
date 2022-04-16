@@ -62,7 +62,7 @@ export function FoodParameter({ label, field, options, selected, handleSelect })
 }
 
 export function OriginParameter({ label, field, options, selected, handleSelect, paramType }) {
-  const noncountries = ["All Samples", "Domestic Samples", "Combined Imports"];
+  const noncountries = ["All Samples", "Domestic Samples", "Combined Imports", "Multiple Countries"];
   var notcountries = options.filter((opt) => {
     if (noncountries.indexOf(opt) !== -1) {
       return opt;

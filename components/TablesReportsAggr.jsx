@@ -16,13 +16,13 @@ export default function Table5 ({ data, params }) {
     var columns = [
         {
             Header: 'Food',
-            accessor: 'commodity',
+            accessor: 'Commodity_Name',
             Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>,
             borderLeft: true
         },
         {
             Header: 'PDP Year',
-            accessor: 'pdp_year'
+            accessor: 'PDP_Year'
         },
         {
             Header: 'Average Number of Samples per Pesticide',
@@ -89,40 +89,9 @@ export default function Table5 ({ data, params }) {
   
 export function Table6 ({ params }) {
 
-    var query = {
-        pdp_year: params[2].selected
-      }
-    let pairOrigin
-    if (params[0].selected == 'All Samples') {
-        pairOrigin = {
-            origin: "All"
-        }
-    } else if (params[0].selected == 'Combined Imports') {
-        pairOrigin = {
-            origin: "Imported"
-        }
-    } else if (params[0].selected == 'Domestic Samples') {
-        pairOrigin = {
-            origin: "Domestic"
-        }
-    } else {
-        pairOrigin = {
-            country_name: params[0].selected
-        }
-    }
-    let pairMarket
-    if (params[1].selected == 'All Market Claims') {
-        pairMarket = {
-            claim: "All"
-        }
-    } else {
-        pairMarket = {
-            claim: params[1].selected
-        }
-    }
-    query = {...query, ...pairMarket};
-    query = {...query, ...pairOrigin};
+    var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     
+    query = queryParse(query)
     const [rows, setRows] = useState([])
     useEffect(() => {
         if (query) {
@@ -148,18 +117,18 @@ export function Table6 ({ params }) {
     var columns = [
         {
             Header: 'Analyte',
-            accessor: 'pesticide',
+            accessor: 'Rpt_Pest_Name',
             Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>,
             borderLeft: true
         },
         {
             Header: 'Family of Chemistry',
-            accessor: 'foc',
+            accessor: 'FOC_Name_Website',
             Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>,
         },
         {
             Header: 'PDP Year',
-            accessor: 'pdp_year'
+            accessor: 'PDP_Year'
         },
         {
             Header: 'Total Samples Across All Foods',
@@ -223,3 +192,41 @@ export function Table6 ({ params }) {
       </>
     )
 }
+
+function queryParse( query ) {
+    let newQuery = {
+      PDP_Year: query.PDP_Year
+    }
+    let pairClaim
+    if (query.Claim == "All Market Claims") {
+      pairClaim = {
+        Claim: "All"
+      }
+    } else {
+      pairClaim = {
+        Claim: query.Claim
+      }
+    }
+    let pairOrigin
+    if (query.Origin == "All Samples") {
+      pairOrigin = {
+        Origin: "All"
+      }
+    } else if (query.Origin == "Domestic Samples") {
+      pairOrigin = {
+        Origin: "Domestic"
+      }
+    } else if (query.Origin == "Combined Imports") {
+      pairOrigin = {
+        Origin: "Imported"
+      }
+    } else {
+      pairOrigin = {
+        Country_Name: query.Origin
+      }
+    }
+    newQuery = {...newQuery, ...pairClaim}
+    newQuery = {...newQuery, ...pairOrigin}
+  
+    return newQuery
+  }

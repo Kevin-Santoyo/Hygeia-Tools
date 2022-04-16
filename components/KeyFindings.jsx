@@ -34,11 +34,9 @@ export default function KeyFindings({ data, tableNum, food, params, rowCount }) 
           return KeyDomestic1((obj = { obj }));
         case 2:
           obj = { rowCount: rowCount, food: params[0].selected, origin: params[1].selected };
-          console.log(obj, "key findings top");
           return KeyDomestic2((obj = { obj }));
         case 3:
           obj = { rowCount: rowCount, food: params[0].selected, origin: params[1].selected };
-          console.log(obj, "key findings top");
           return KeyDomestic3((obj = { obj }));
         default:
           return KeyDefault();
@@ -63,20 +61,26 @@ function KeyDefault() {
 function KeyCommodities({ data }) {
   var analyte, analytePercentage, topThree, meanAnalyte, meanPPM, meanPCT, reSort;
   var lessThan1 = 0;
-  analyte = _.get(data[0], "pesticide", "loading");
-  analytePercentage = parseFloat((_.get(data[0], "per_agg_fsdri", "loading") * 100).toFixed(2).concat("%"));
-  topThree = parseFloat((_.get(data[0], "per_agg_fsdri", 0) + _.get(data[1], "per_agg_fsdri", 0) + _.get(data[2], "per_agg_fsdri", 0)) * 100)
+  var agg_dri = 0
+
+  data.forEach(function (row) {
+      agg_dri = row.FS_DRI_Kid + agg_dri
+  })
+
+  analyte = _.get(data[0], "Rpt_Pest_Name", "loading");
+  analytePercentage = parseFloat((_.get(data[0], "FS_DRI_Kid", "loading")/agg_dri * 100).toFixed(2));
+  topThree = parseFloat((_.get(data[0], "FS_DRI_Kid", 0)/agg_dri + _.get(data[1], "FS_DRI_Kid", 0)/agg_dri + _.get(data[2], "FS_DRI_Kid", 0)/agg_dri) * 100)
     .toFixed(2)
     .concat("%");
   data.map((row) => {
-    if (row.per_agg_fsdri < 0.01) {
+    if (row.FS_DRI_Kid/agg_dri < 0.01) {
       lessThan1++;
     }
   });
-  reSort = _.orderBy(data, "mean_positives", "desc");
-  meanAnalyte = _.get(reSort[0], "pesticide", "loading");
-  meanPPM = parseFloat(_.get(reSort[0], "mean_positives", "loading")).toFixed(3);
-  meanPCT = parseFloat(_.get(reSort[0], "percent_positive", 0) * 100)
+  reSort = _.orderBy(data, "Mean_Positives", "desc");
+  meanAnalyte = _.get(reSort[0], "Rpt_Pest_Name", "loading");
+  meanPPM = parseFloat(_.get(reSort[0], "Mean_Positives", "loading")).toFixed(3);
+  meanPCT = parseFloat(_.get(reSort[0], "Percent_Positive", 0) * 100)
     .toFixed(1)
     .concat("%");
 
@@ -85,7 +89,7 @@ function KeyCommodities({ data }) {
       <h4 className={styles.title}>Key Findings</h4>
       <ul>
         <li>
-          {analyte} accounts for {analytePercentage} of total FS-DRI risk across all pesticides detected.
+          {analyte} accounts for {analytePercentage}% of total FS-DRI risk across all pesticides detected.
         </li>
         <li>The top three active ingredients accounts for {topThree} of total, aggregate FS-DRI risk.</li>
         <li>Residues of {lessThan1} pesticides account for less than 1% of total, aggregate FS-DRI risk.</li>
@@ -112,32 +116,32 @@ function KeyPesticides({ data }) {
   var i = 0;
   var topThreeFSDRI = 0;
   data.map((row) => {
-    dri_mean_kid = row.dri_mean_kid + dri_mean_kid;
-    fs_dri_kid = row.fs_dri_kid + fs_dri_kid;
-    total_samples = row.total_samples + total_samples;
-    agg_dri = row.fs_dri_kid + agg_dri;
-    if (row.number_positives) {
-      num_pos = row.number_positives + num_pos;
+    dri_mean_kid = row.DRI_Mean_Kid + dri_mean_kid;
+    fs_dri_kid = row.FS_DRI_Kid + fs_dri_kid;
+    total_samples = row.Total_Samples + total_samples;
+    agg_dri = row.FS_DRI_Kid + agg_dri;
+    if (row.Number_Positives) {
+      num_pos = row.Number_Positives + num_pos;
       totalDetections++;
     }
-    if (row.total_foods > total_foods) {
-      total_foods = row.total_foods;
+    if (row.Total_Foods > total_foods) {
+      total_foods = row.Total_Foods;
     }
-    if (row.dri_mean_kid > 0.1) {
+    if (row.DRI_Mean_Kid > 0.1) {
       num_threshhold++;
     }
     if (i < 3) {
-      topThreeFSDRI += row.fs_dri_kid;
+      topThreeFSDRI += row.FS_DRI_Kid;
       i++;
     }
   });
   topThree = ((topThreeFSDRI / agg_dri) * 100).toFixed(2).concat("%");
   agg_dri_m_times = (dri_mean_kid / fs_dri_kid).toFixed(0);
   total_perc_pos = ((num_pos / total_samples) * 100).toFixed(1).concat("%");
-  agg_dri = ((_.get(data[0], "fs_dri_kid", 1) / agg_dri) * 100).toFixed(2).concat("%");
-  var pesticide = _.get(data[0], "pesticide", "loading");
-  var commodity = _.get(data[0], "commodity", "loading");
-  var pdp_year = _.get(data[0], "pdp_year", 0);
+  agg_dri = ((_.get(data[0], "FS_DRI_Kid", 1) / agg_dri) * 100).toFixed(2).concat("%");
+  var pesticide = _.get(data[0], "Rpt_Pest_Name", "loading");
+  var commodity = _.get(data[0], "Commodity_Name", "loading");
+  var pdp_year = _.get(data[0], "PDP_Year", 0);
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>Key Findings</h4>
@@ -165,7 +169,7 @@ function KeyPesticides({ data }) {
 
 function KeyConventional1({ data }) {
   if (data.length > 1) {
-    let food = data[0].commodity;
+    let food = data[0].Commodity_Name;
     let organic_percentage = <NumberFormat value={data[1].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />;
     let conventional_percentage = <NumberFormat value={data[0].per_zero_residues * 100} displayType="text" decimalScale={1} suffix="%" />;
     let avg_sample_residue = <NumberFormat value={data[0].avg_number_residues / data[1].avg_number_residues} displayType="text" decimalScale={1} />;
@@ -241,22 +245,22 @@ function KeyConventional3({ data }) {
     let totalLegal = 0;
     let totalPesticides = data.length;
     data.map((dat) => {
-      if (dat.ph_fungicide) {
-        phTotalPositives += dat.number_positives;
+      if (dat.PH_Fungicide) {
+        phTotalPositives += dat.Number_Positives;
       }
-      if (dat.dri_mean_kid > 0.1) {
+      if (dat.DRI_Mean_Kid > 0.1) {
         totalOverDRI += 1;
       }
-      totalLegal += dat.organic_legal;
+      totalLegal += dat.NOP_Approved;
       resOverAction += dat.number_residues_exceed_at;
-      totalPositives += dat.number_positives;
+      totalPositives += dat.Number_Positives;
       totalInadvertent += dat.number_inadvertent_residues;
     });
     let totalPercentage = <NumberFormat value={(phTotalPositives / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let threshPercentage = <NumberFormat value={(resOverAction / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let driPercentage = <NumberFormat value={(totalOverDRI / totalPositives) * 100} displayType="text" decimalScale={1} suffix="%" />;
     let legalPercentage = <NumberFormat value={(totalLegal / totalPesticides) * 100} displayType="text" decimalScale={1} suffix="%" />;
-    let food = data[0].commodity;
+    let food = data[0].Commodity_Name;
     if (totalOverDRI == 1) {
       totalOverDRI = String(totalOverDRI).concat(" residue");
     } else {
@@ -300,8 +304,8 @@ function KeyConventional4({ data }) {
     let totalSamples = 0;
     let totalPositives = 0;
     data.map((obj) => {
-      totalSamples += obj.total_samples;
-      totalPositives += obj.number_positives;
+      totalSamples += obj.Total_Samples;
+      totalPositives += obj.Number_Positives;
     });
     let averageResidue = <NumberFormat value={totalPositives / (totalSamples / length)} displayType="text" decimalScale={2} />;
     return (
@@ -371,7 +375,6 @@ function KeyDomestic1({ obj }) {
 }
 
 function KeyDomestic2({ obj }) {
-  console.log(obj, "key findings test");
   if (obj.rowCount > -0) {
     let origin;
     if (obj.origin == "Combined Imports") {

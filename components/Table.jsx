@@ -49,10 +49,21 @@ export default function Table({ columns, data, params, summary, paging, tableNum
     var obj = {};
     let i = 0;
     while (i < columns.length) {
-      var header = columns[i].Header;
-      var key = columns[i].accessor;
-      obj[header] = dat[key];
-      i++;
+      if (columns[i].emptyHeader || columns[i].groupHeader) {
+        let j = 0;
+        while (j < columns[i].columns.length) {
+          var header = columns[i].columns[j].Header;
+          var key = columns[i].columns[j].accessor;
+          obj[header] = dat[key];
+          j++;
+        }
+        i++;
+      } else {
+        var header = columns[i].Header;
+        var key = columns[i].accessor;
+        obj[header] = dat[key];
+        i++;
+      }
     }
     return obj;
   });

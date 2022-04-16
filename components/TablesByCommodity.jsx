@@ -3,15 +3,30 @@ import Table from './Table'
 import NumberFormat from 'react-number-format'
 
 export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
-  
-  const columns = useMemo(() => [
+
+  var agg_dri = 0
+
+  data.forEach(function (row) {
+      agg_dri = row.FS_DRI_Kid + agg_dri
+  })
+
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      Percent_FS_DRI_Kid: (dat.FS_DRI_Kid/agg_dri)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+
+  const columns = [
     {
       Header: '  ',
       emptyHeader: true,
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'pesticide',
+          accessor: 'Rpt_Pest_Name',
           width: 5,
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         }
@@ -24,16 +39,19 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
       columns: [
         {
           Header: 'Total',
-          accessor: 'total_samples',
+          accessor: 'Total_Samples',
           borderLeft: true
         },
         {
           Header: 'Number of Positives',
-          accessor: 'number_positives',
+          accessor: 'Number_Positives',
         },
         {
           Header: 'Percent Positive',
-          accessor: d => parseFloat(d.percent_positive * 100).toFixed(1).concat('%'),
+          accessor: 'Percent_Positive',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale={true} suffix="%"/>
+          },
           borderRight: true
         }
       ]
@@ -44,12 +62,18 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: d => parseFloat(d.mean_positives).toFixed(3),
+          accessor: 'Mean_Positives',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
+          },
           borderLeft: true
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: d => parseFloat(d.crfc_kid).toFixed(3),
+          accessor: 'cRfC_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
+          },
           borderRight: true
         }
       ]
@@ -60,25 +84,34 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
       columns: [
         {
           Header: 'DRI-M',
-          accessor: d => parseFloat(d.dri_mean_kid).toFixed(5),
+          accessor: 'DRI_Mean_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
+          },
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: d => parseFloat(d.fs_dri_kid).toFixed(5),
+          accessor: 'FS_DRI_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
+          }
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: d => parseFloat(d.per_agg_fsdri * 100).toFixed(2).concat('%'),
+          accessor: 'Percent_FS_DRI_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
+          },
           borderRight: true
         }
       ]
     }
-  ], [])
+  ]
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -93,7 +126,7 @@ export function CRFCTable ({ data, params }) {
   const columns = useMemo(() => [
     {
         Header: 'Analyte',
-        accessor: 'pesticide',
+        accessor: 'Rpt_Pest_Name',
         Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
     },
     {
@@ -117,7 +150,7 @@ export function CRFCTable ({ data, params }) {
     },
     {
       Header: 'cRfC (ppm)',
-      accessor: 'crfc_kid',
+      accessor: 'cRfC_Kid',
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
       },

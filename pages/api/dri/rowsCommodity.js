@@ -10,11 +10,11 @@ export default async (req, res) => {
     params = {}
   }
   
-  const rows = await db.select().from('commodity_pesticide AS c_p')
-                        .leftJoin('commodity as c', 'c.commodity_id', 'c_p.commodity_id')
-                        .leftJoin('pesticide as p', 'p.pesticide_id', 'c_p.pesticide_id')
+  const rows = await db.select().from('PDP_FS_DRI_Dataset_v2022_2 AS c_p')
+                        .leftJoin('commodity_2022 as c', 'c.commodity_code', 'c_p.Commodity_Code')
+                        .leftJoin('pesticide_2022 as p', 'p.pesticide_code', 'c_p.Pest_Code')
                         .where(params)
-                        .orderBy('per_agg_fsdri', 'desc')
+                        .orderBy('FS_DRI_Kid', 'desc')
   console.log('resulting rows: ', rows)
   
   res.json(rows)
