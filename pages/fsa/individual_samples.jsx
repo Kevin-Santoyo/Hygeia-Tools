@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
-import _ from 'lodash'
+import _, { constant, has } from 'lodash'
 import Header from '../../components/Header'
+import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
-import Parameter from '../../components/Parameter'
+import Parameter, { FoodParameter, OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
-import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable1, { CRFCTable1 } from '../../components/TablesFSAFood'
-export default function FSAFoodScreen () {
+import TableContainer from '../../components/TableContainer'
+import Methods from '../../components/Methods'
+import AggregateSamplesTable, { AltIndividualSamplesTable, IndividualSamplesTable } from '../../components/TablesFSAIndividual'
+import Jumps from '../../components/Jumps'
+export default function IndividualSamplesScreen() {
 
   const [params, setParams] = useState([
     {
@@ -24,8 +27,8 @@ export default function FSAFoodScreen () {
     {
       field: 'Origin',
       label: 'Origin',
-      options: ['All Samples'],
-      selected: 'All Samples'
+      options: ['UK'],
+      selected: 'UK'
     },
     {
       field: 'Claim',
@@ -36,20 +39,19 @@ export default function FSAFoodScreen () {
     {
       field: 'FSA_Year',
       label: 'Year',
-      options: ['2021 Q1-Q2'],
-      selected: '2019'
+      options: ['2021'],
+      selected: '2021'
     }
   ])
 
-  // TODO: DRY
   const [rows, setRows] = useState([])
 
   const handleParamUpdate = async (field, selected) => {
-    
+    // console.log('update fields after ', field)
     console.time('fetch params: ' + field)
     const newParams = _.cloneDeep(params)
 
-    
+    //console.log(newParams)
 
     const idx = _.findIndex(newParams, (param) => param.field === field)
 
@@ -58,19 +60,25 @@ export default function FSAFoodScreen () {
     for (let i = idx + 1; i < newParams.length; i++) {
       const dependencies = _.fromPairs(_.slice(newParams, 0, i).map(dep => [dep.field, dep.selected]))
       const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'fsa', form: 'Food' })
-
+      //console.log('options')
+      //console.log(options)
       newParams[i].options = options
       if (newParams[i].options.indexOf(newParams[i].selected) === -1) newParams[i].selected = newParams[i].options[0]
     }
 
+    //console.log('new params: ', newParams)
     setParams(newParams)
     console.timeEnd('fetch params: ' + field)
   }
 
   const getFormData = async () => {
-    
+    //console.log('getFormData')
     const foods = await fetchFormData({ table: 'fsa', form: 'Food' })
+    //console.log(foods)
 
+    //console.log(foods.data)
+
+    //console.log(params)
     setParams([
       {
         field: 'Food',
@@ -87,7 +95,7 @@ export default function FSAFoodScreen () {
       {
         field: 'Origin',
         label: 'Origin',
-        options: ['All Samples'],
+        options: ['UK'],
         selected: null
       },
       {
@@ -99,7 +107,7 @@ export default function FSAFoodScreen () {
       {
         field: 'FSA_Year',
         label: 'Year',
-        options: ['2019'],
+        options: ['2021'],
         selected: null
       }
     ])
@@ -111,35 +119,48 @@ export default function FSAFoodScreen () {
   }, [])
 
   useEffect(() => {
-    // console.log('useEffect - params - fetch rows')
-    console.log(params, 'Params')
-    const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    let queryOverride = queryParseFood(query)
-    if (query.Food && query.Sub_Food && query.Claim && query.FSA_Year) {
-      fetchRows({table: 'fsa', params: queryOverride, form: 'Food', tableNum: 1} ).then(val => {
+    
+    var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
+    
+    query = queryParse(query)
+    if (query.Food && query.Sub_Food && (query.Origin || query.Country) && query.Year) {
+      fetchRows({ table: 'fsa', params: query, form: 'Individual', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
       })
     } else {
-      console.log('not fetching rows. ', queryOverride)
+      console.log('not fetching rows. ', query)
     }
     // fetch()
   }, [params])
 
   return (
     <div>
-      <Header title="DRI Analytical System" system="UK-FSA DRI"/>
+      <Header title="DRI Analytical System" system="UK-FSA DRI" />
+      <Titles params={params} tableNum={0} />
       <ParameterContainer>
-        {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
+        {params.map((param) => {
+           if (param.field == 'commodity') {
+             return <FoodParameter {...param} handleSelect={handleParamUpdate} key={param.field} />
+           } else if (param.field == 'origin') {
+            return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
+          } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
+        }
+        )}
       </ParameterContainer>
+      <Jumps num="3"/>
+      <Methods />
       <TableContainer>
-        <h1 className="title">Results</h1>
-        <ResidueAndRiskIndicatorsTable1 data={rows} params={params} />
-        <CRFCTable1 params={params} />
-      </TableContainer>
+        <h4 className="title">Results</h4>
+        <AggregateSamplesTable data={rows} params={params}/>
+{        //<IndividualSamplesTable params={params}/>
+        //<AltIndividualSamplesTable params={params}/>
+           }     </TableContainer>
       <style jsx>{`
         .title {
-          font-family: Helvetica, Arial, sans-serif;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 2em;
+          margin: 0
         }
       `}
       </style>
@@ -147,37 +168,36 @@ export default function FSAFoodScreen () {
   )
 }
 
-export function queryParseFood( query ) {
+function queryParse(query) {
   let newQuery = {
     Food: query.Food,
     Sub_Food: query.Sub_Food,
-    FSA_Year: query.FSA_Year
+    Year: query.FSA_Year
   }
   let pairClaim
-  if (query.Claim == "All Market Claims") {
+  if (query.Claim == "All Market Claims") {} 
+  else {
     pairClaim = {
-      Claim: "All"
+      Market_Claim: query.Claim
     }
-  } else {
-    pairClaim = {
-      Claim: query.Claim
-    }
+    newQuery = {...newQuery, ...pairClaim}
   }
   let pairOrigin
-  if (query.Origin == "All Samples") {
-    pairOrigin = {
-      Origin: "All"
-    }
-  } else if (query.Origin == "Non-EC" || query.Origin == "Imports" || query.Origin == "UK" || query.Origin == "EC") {
-    pairOrigin = {
-      Origin: query.Origin
+  if (query.Origin == "Imports" || query.Origin == "UK" || query.Origin == "EC" || query.Origin == "Non-EC") {
+    if (query.Origin == "UK") {
+      pairOrigin = {
+        Origin: "UK Domestic"
+      }
+    } else {
+      pairOrigin = {
+        Origin: query.Origin
+      }
     }
   } else {
     pairOrigin = {
-      Country_Name: query.Origin
+      Country: query.Origin
     }
   }
-  newQuery = {...newQuery, ...pairClaim}
   newQuery = {...newQuery, ...pairOrigin}
 
   return newQuery

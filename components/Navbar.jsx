@@ -37,11 +37,18 @@ let navlinksFSA = [
     {
         "title": "By Pesticide",
         "link": "by_pesticide"
-    }
-    ,
+    },
     {
         "title": "Conventional VS Organic",
         "link": "conventional_vs_organic"
+    },
+    {
+        "title": "Domestic VS Imported",
+        "link": "domestic_vs_imported"
+    },
+    {
+        "title": "Individual Samples",
+        "link": "individual_samples"
     }
 ]
 

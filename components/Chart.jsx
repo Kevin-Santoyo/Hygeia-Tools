@@ -42,7 +42,10 @@ export default function Charts({ data, params, state }) {
       dataset3 = [pChar1, pChar2]
       dataset4 = [pChar3, pChar4]
     } else if (pageName == "/fsa/conventional_vs_organic") {
-      
+      chartText = ['Conventional Samples', 'Organic Samples']
+    } else if (pageName == "/fsa/domestic_vs_imported") {
+      chartText = ['Domestic Samples', 'Imported Samples']
+      return null
     }
     let barChart1Data = {
       labels: labels,

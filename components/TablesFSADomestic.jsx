@@ -14,6 +14,12 @@ export default function DomesticTable1({ data, params }) {
     let key = {
       avg_number_residues: dat.sum_number_positives/dat.avg_total_samples
     }
+    if (dat.Country_Name) {
+      let key2 = {
+        Origin: dat.Country_Name
+      }
+      dat = {...dat, ...key2}
+    }
     dat = {...dat,...key}
     newData.push(dat)
   });
@@ -28,9 +34,9 @@ export default function DomesticTable1({ data, params }) {
             Header: " ",
             accessor: "Origin",
             Cell: ({ value }) => {
-              if (value == "Domestic") {
+              if (value == "UK") {
                 return "Domestic Samples"
-              } else if (value == "Imported") {
+              } else if (value == "Imports") {
                 return "Combined Imports"
               } else return value
             }
@@ -87,18 +93,18 @@ export default function DomesticTable1({ data, params }) {
     []
   );
 
-  const selectedOrigin = [params[1].selected];
+  var selectedOrigin = [params[2].selected];
+
   newData = newData.filter((dat) => {
-    if (dat.Origin == "Domestic") {
+    if (dat.Origin == "UK") {
       return dat;
     } else if (dat.Origin == selectedOrigin) {
       return dat;
-    } else if (selectedOrigin == "Combined Imports" && dat.Origin == "Imported") {
-      return dat;
     }
   });
+
   if (_.has(newData, 1)) {
-    if (newData[0].Origin != "Domestic") {
+    if (newData[0].Origin != "UK") {
       newData.reverse();
     }
   }
@@ -125,14 +131,14 @@ export function DomesticTable2({ params }) {
 
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    let queryOverride = queryParse(query)
-    if (query.Commodity_Name && query.PDP_Year) {
-      fetchRows({ table: 'dri', params: queryOverride, form: 'Domestic', tableNum: 2 }).then(val => {
-        console.log('fetched rows table 2: ', val)
+    let queryOverride = queryParse2(query)
+    if (query.Food && query.Sub_Food && query.Origin && query.Claim && query.FSA_Year) {
+      fetchRows({ table: 'fsa', params: queryOverride, form: 'Domestic', tableNum: 2 }).then(val => {
+        console.log('fetched rows: Table 2: ', val, ' with params ', queryOverride)
         setRows(val)
       })
     } else {
-      console.log('not fetching rows. ', query)
+      console.log('not fetching rows.  Table 2: ', query)
       setRows([])
     }
     
@@ -174,7 +180,7 @@ export function DomesticTable2({ params }) {
           },
           {
             Header: "Percent Positive",
-            accessor: "Percent_Positive",
+            accessor: "%Pos",
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
@@ -241,14 +247,14 @@ export function DomesticTable3({ params }) {
 
     var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
 
-    query = queryParseDomestic3(query)
-    if (query.Commodity_Name && query.PDP_Year) {
-      fetchRows({ table: 'dri', params: query, form: 'Domestic', tableNum: 3 }).then(val => {
-        console.log('fetched rows: ', val)
+    query = queryParse3(query)
+    if (query.Food && query.Sub_Food && query.Origin && query.Claim && query.FSA_Year) {
+      fetchRows({ table: 'fsa', params: query, form: 'Domestic', tableNum: 3 }).then(val => {
+        console.log('fetched rows: Table 3: ', val)
         setRows(val)
       })
     } else {
-      console.log('not fetching rows. ', query)
+      console.log('not fetching rows. Table 3: ', query)
       setRows([])
     }
     
@@ -290,7 +296,7 @@ export function DomesticTable3({ params }) {
           },
           {
             Header: "Percent Positive",
-            accessor: "Percent_Positive",
+            accessor: "%Pos",
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
@@ -350,10 +356,11 @@ export function DomesticTable3({ params }) {
   );
 }
 
-function queryParse( query ) {
+function queryParse2( query ) {
   let newQuery = {
-    Commodity_Name: query.Commodity_Name,
-    PDP_Year: query.PDP_Year
+    Food: query.Food,
+    Sub_Food: query.Sub_Food,
+    FSA_Year: query.FSA_Year
   }
   let pairClaim
   if (query.Claim == "All Market Claims") {
@@ -366,17 +373,9 @@ function queryParse( query ) {
     }
   }
   let pairOrigin
-  if (query.Origin == "All Samples") {
+  if (query.Origin == "Imports" || query.Origin == "UK" || query.Origin == "EC" || query.Origin == "Non-EC") {
     pairOrigin = {
-      Origin: "All"
-    }
-  } else if (query.Origin == "Domestic Samples") {
-    pairOrigin = {
-      Origin: "Domestic"
-    }
-  } else if (query.Origin == "Combined Imports") {
-    pairOrigin = {
-      Origin: "Imported"
+      Origin: query.Origin
     }
   } else {
     pairOrigin = {
@@ -389,10 +388,11 @@ function queryParse( query ) {
   return newQuery
 }
 
-function queryParseDomestic3( query ) {
+function queryParse3( query ) {
   let newQuery = {
-    Commodity_Name: query.Commodity_Name,
-    PDP_Year: query.PDP_Year
+    Food: query.Food,
+    Sub_Food: query.Sub_Food,
+    FSA_Year: query.FSA_Year
   }
   let pairClaim
   if (query.Claim == "All Market Claims") {
@@ -405,7 +405,7 @@ function queryParseDomestic3( query ) {
     }
   }
   let pairOrigin = {
-    Origin: "Domestic"
+    Origin: "UK"
   }
   newQuery = {...newQuery, ...pairClaim}
   newQuery = {...newQuery, ...pairOrigin}

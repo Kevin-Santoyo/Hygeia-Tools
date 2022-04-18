@@ -7,8 +7,15 @@ import GraphicsTabs from './GraphicsTabs'
 
 export default function FSAConventionalTable1 ({ data, params }) {
   
-  console.log('Fetched rows table 1: ', data)
-
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      avg_number_residues: dat.sum_number_positives/dat.avg_total_samples
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+  
   const columns = useMemo(() => [
     {
       Header: ' ',
@@ -68,8 +75,8 @@ export default function FSAConventionalTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1} />
-      <KeyFindings data={data} tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1} />
+      <KeyFindings data={newData} tableNum={1}/>
       {/*<GraphicsTabs data={data} params={params}/>*/}
       <style jsx>{`
         .title {
@@ -121,7 +128,7 @@ export function FSAConventionalTable2 ({ params }){
         },
         {
           Header: 'Percent Positive',
-          accessor: 'percent_positive',
+          accessor: '%Pos',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />
           }
@@ -309,7 +316,7 @@ export function FSAConventionalTable4 ({ params }){
         },
         {
           Header: 'Percent Positive',
-          accessor: 'percent_positive',
+          accessor: '%Pos',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           }

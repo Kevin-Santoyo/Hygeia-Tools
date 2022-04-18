@@ -30,8 +30,8 @@ export default function FSAPesticideScreen () {
     {
       field: 'FSA_Year',
       label: 'Year',
-      options: ['2021 Q1-Q2'],
-      selected: '2021 Q1-Q2'
+      options: ['2021'],
+      selected: '2021'
     }
   ])
 
@@ -87,7 +87,7 @@ export default function FSAPesticideScreen () {
       {
         field: 'FSA_Year',
         label: 'Year',
-        options: ['2019'],
+        options: ['2021'],
         selected: null
       }
     ])

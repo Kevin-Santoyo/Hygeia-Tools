@@ -10,7 +10,7 @@ export default async (req, res) => {
     params = {}
   }
   
-  const rows = await db.select().from('fsa_fs_dri_data_2022_1')
+  const rows = await db.select().from('FSA_FS_DRI_Dataset_v2022_2')
                         .where(params)
                         .orderBy('FS_DRI_Kid', 'desc')
   console.log('resulting rows: ', rows)

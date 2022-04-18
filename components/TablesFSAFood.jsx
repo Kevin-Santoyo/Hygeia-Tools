@@ -7,11 +7,20 @@ import { queryParseFood } from '../pages/fsa/by_food'
 
 export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
-    var agg_dri = 0
+  var agg_dri = 0
 
-    data.forEach(function (row) {
-        agg_dri = row.FS_DRI_Kid + agg_dri
-    })
+  data.forEach(function (row) {
+      agg_dri = row.FS_DRI_Kid + agg_dri
+  })
+  
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      Percent_FS_DRI_Kid: (dat.FS_DRI_Kid/agg_dri)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
   
   const columns = [
     {
@@ -42,7 +51,10 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
         },
         {
           Header: 'Percent Positive',
-          accessor: d => parseFloat(d.percent_positive * 100).toFixed(1).concat('%'),
+          accessor: '%Pos',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale={true} suffix="%" />
+          },
           borderRight: true
         }
       ]
@@ -53,12 +65,18 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
       columns: [
         {
           Header: 'Mean Residue (ppm)',
-          accessor: d => parseFloat(d.Mean_Positives).toFixed(3),
+          accessor: 'Mean_Positives',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
+          },
           borderLeft: true
         },
         {
           Header: 'cRfC (ppm)',
-          accessor: d => parseFloat(d.cRfC_Kid).toFixed(3),
+          accessor: 'cRfC_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
+          },
           borderRight: true
         }
       ]
@@ -69,18 +87,24 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
       columns: [
         {
           Header: 'DRI-M',
-          accessor: d => parseFloat(d.DRI_Mean_Kid).toFixed(5),
+          accessor: 'DRI_Mean_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
+          },
           borderLeft: true
         },
         {
           Header: 'FS-DRI',
-          accessor: d => parseFloat(d.FS_DRI_Kid).toFixed(5),
+          accessor: 'FS_DRI_Kid',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
+          },
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
-          accessor: 'FS_DRI_Kid',
+          accessor: 'Percent_FS_DRI_Kid',
           Cell: ({ value }) => {
-            return <NumberFormat value={(value / agg_dri)*100} displayType="text" decimalScale={2} suffix="%"/>
+            return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
           },
           borderRight: true
         }
@@ -90,7 +114,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

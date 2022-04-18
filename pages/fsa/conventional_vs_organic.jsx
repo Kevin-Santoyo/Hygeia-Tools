@@ -24,7 +24,7 @@ export default function FSAConventionalOrganicScreen () {
     {
       field: 'FSA_Year',
       label: 'Year',
-      options: ['2021 Q1-Q2'],
+      options: ['2021'],
       selected: '2019'
     }
   ])
