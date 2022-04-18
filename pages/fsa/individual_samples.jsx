@@ -123,7 +123,7 @@ export default function IndividualSamplesScreen() {
     var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     
     query = queryParse(query)
-    if (query.Food && query.Sub_Food && (query.Origin || query.Country) && query.Year) {
+    if (query.Food && query.Sub_Food && query.Year) {
       fetchRows({ table: 'fsa', params: query, form: 'Individual', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
@@ -188,17 +188,20 @@ function queryParse(query) {
       pairOrigin = {
         Origin: "UK Domestic"
       }
+      newQuery = {...newQuery, ...pairOrigin}
     } else {
       pairOrigin = {
         Origin: query.Origin
       }
+      newQuery = {...newQuery, ...pairOrigin}
     }
-  } else {
+  } else if (query.Origin == "All Samples") {}
+    else {
     pairOrigin = {
       Country: query.Origin
     }
+    newQuery = {...newQuery, ...pairOrigin}
   }
-  newQuery = {...newQuery, ...pairOrigin}
 
   return newQuery
 }
