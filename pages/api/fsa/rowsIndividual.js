@@ -25,14 +25,14 @@ export default async (req, res) => {
     const rows = await db.select('Sample_Id', 'Rpt_Pest_Name', 'DRI', 'MRL', 'Market_Claim', 'Origin', 'Country', 'AI_Type')
           .from('UK_FSA_Individual_Sample_Detail')
           .where(params)
-          .orderByRaw('MAX(DRI) OVER(PARTITION BY Sample_Id) DESC, Sample_Id, DRI DESC')
+          .orderByRaw('MAX("DRI") OVER(PARTITION BY "Sample_Id") DESC, "Sample_Id", "DRI" DESC')
 
     res.json(rows)
   } else if (tableNum == 3) {
     const rows = await db.select('Sample_Id', 'Rpt_Pest_Name', 'DRI', 'MRL', 'Market_Claim', 'Origin', 'Country', 'AI_Type')
           .from('UK_FSA_Individual_Sample_Detail')
           .where(params)
-          .orderByRaw('dri DESC')
+          .orderByRaw('DRI DESC')
     res.json(rows)
   }
 }

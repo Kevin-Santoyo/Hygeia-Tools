@@ -4,6 +4,7 @@ import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import moment from 'moment'
+import { queryParseIndividualFSA } from '../pages/fsa/individual_samples'
 
 export default function AggregateSamplesTable ({ data, params }) {
   
@@ -56,8 +57,8 @@ export function IndividualSamplesTable ({ params }) {
   useEffect(() => {
     var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     
-
-    if (query.FSA_Year) {
+    query = queryParseIndividualFSA(query)
+    if (query.Food && query.Sub_Food) {
       fetchRows({ table: 'fsa', params: query, form: 'Individual', tableNum: 2 }).then(val => {
         console.log('fetched rows: ', val)
         setRows(val)
@@ -72,12 +73,12 @@ export function IndividualSamplesTable ({ params }) {
   var columns = [
       {
           Header: 'Sample ID',
-          accessor: 'sample_id',
+          accessor: 'Sample_Id',
           borderLeft: true
         },
         {
           Header: 'Analyte',
-          accessor: 'rpt_pest_name',
+          accessor: 'Rpt_Pest_Name',
           Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
@@ -89,14 +90,14 @@ export function IndividualSamplesTable ({ params }) {
         },
         {
           Header: 'DRI',
-          accessor: 'dri',
+          accessor: 'DRI',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           }
         },
         {
           Header: 'Tolerance Level (ppm)',
-          accessor: 'tolerance'
+          accessor: 'MRL'
         },
         {
           Header: 'Residue as a % of Tolerance',
@@ -111,31 +112,31 @@ export function IndividualSamplesTable ({ params }) {
           Cell: ({ value }) => {
             if (value == 'PP') {
               return 'PH'
-            } else return value
+            } else return null
           }
         },
         {
           Header: 'AI Type',
-          accessor: 'ai_type'
+          accessor: 'AI_Type'
         },
         {
           Header: ' Claim',
-          accessor: 'claim'
+          accessor: 'Market_Claim'
         },
         {
           Header: 'Sample Date',
           accessor: 'sample_date',
-          Cell: ({ value }) => {
-            return moment(value).format('MM/DD/YYYY');
-          }
+        //  Cell: ({ value }) => {
+          //  return moment(value).format('MM/DD/YYYY');
+          //}
         },
         {
           Header: 'Origin',
-          accessor: 'origin_desc'
+          accessor: 'Origin'
         },
         {
           Header: 'Country/State',
-          accessor: 'state_country',
+          accessor: 'Country',
           borderRight: true
         }
   ]

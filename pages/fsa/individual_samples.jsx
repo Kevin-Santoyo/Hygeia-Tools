@@ -122,7 +122,7 @@ export default function IndividualSamplesScreen() {
     
     var query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     
-    query = queryParse(query)
+    query = queryParseIndividualFSA(query)
     if (query.Food && query.Sub_Food && query.Year) {
       fetchRows({ table: 'fsa', params: query, form: 'Individual', tableNum: 1 }).then(val => {
         console.log('fetched rows: ', val)
@@ -153,8 +153,8 @@ export default function IndividualSamplesScreen() {
       <TableContainer>
         <h4 className="title">Results</h4>
         <AggregateSamplesTable data={rows} params={params}/>
-{        //<IndividualSamplesTable params={params}/>
-        //<AltIndividualSamplesTable params={params}/>
+        <IndividualSamplesTable params={params}/>
+        {//<AltIndividualSamplesTable params={params}/>
            }     </TableContainer>
       <style jsx>{`
         .title {
@@ -168,7 +168,7 @@ export default function IndividualSamplesScreen() {
   )
 }
 
-function queryParse(query) {
+export function queryParseIndividualFSA(query) {
   let newQuery = {
     Food: query.Food,
     Sub_Food: query.Sub_Food,
