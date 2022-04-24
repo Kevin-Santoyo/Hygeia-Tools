@@ -10,6 +10,9 @@ import Methods from '../../components/Methods'
 import AggregateSamplesTable, { AltIndividualSamplesTable, IndividualSamplesTable } from '../../components/TablesIndividual'
 import Jumps from '../../components/Jumps'
 export default function IndividualSamplesScreen() {
+  useEffect(() => {
+    document.title = "Individual Samples | US-PDP"
+  }, [])
 
   const [params, setParams] = useState([
     {
@@ -38,14 +41,22 @@ export default function IndividualSamplesScreen() {
     }
   ])
 
+  const [params2, setParams2] = useState([
+    {
+      field: 'foc',
+      label: 'Family of Chemistry',
+      options: [''],
+      selected: 'All'
+    }
+  ])
+
   const [rows, setRows] = useState([])
 
   const handleParamUpdate = async (field, selected) => {
-    // console.log('update fields after ', field)
+    
     console.time('fetch params: ' + field)
     const newParams = _.cloneDeep(params)
-
-    //console.log(newParams)
+    
 
     const idx = _.findIndex(newParams, (param) => param.field === field)
 
@@ -54,25 +65,19 @@ export default function IndividualSamplesScreen() {
     for (let i = idx + 1; i < newParams.length; i++) {
       const dependencies = _.fromPairs(_.slice(newParams, 0, i).map(dep => [dep.field, dep.selected]))
       const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'dri', form: 'Individual' })
-      //console.log('options')
-      //console.log(options)
+      
       newParams[i].options = options
       if (newParams[i].options.indexOf(newParams[i].selected) === -1) newParams[i].selected = newParams[i].options[0]
     }
-
-    //console.log('new params: ', newParams)
+    
     setParams(newParams)
     console.timeEnd('fetch params: ' + field)
   }
 
   const getFormData = async () => {
-    //console.log('getFormData')
+    
     const foods = await fetchFormData({ table: 'dri', form: 'Individual' })
-    //console.log(foods)
-
-    //console.log(foods.data)
-
-    //console.log(params)
+    console.log(foods, 'DATA')
     setParams([
       {
         field: 'commodity',
@@ -106,8 +111,23 @@ export default function IndividualSamplesScreen() {
     getFormData()
   }, [])
 
+  const getFocData = async() => {
+    const foc = ['One', 'Two', 'Three']
+    setParams2([
+      {
+        field: 'foc',
+        label: 'Family of Chemistry',
+        options: foc,
+        selected: 'All'
+      }
+    ])
+  }
   useEffect(() => {
-    //console.log('useEffect - params - fetch rows')
+    getFocData()
+  }, [])
+
+  useEffect(() => {
+    
     const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
     var queryOverride = {
       pdp_year: query.pdp_year
@@ -157,7 +177,7 @@ export default function IndividualSamplesScreen() {
     } else {
       console.log('not fetching rows. ', query)
     }
-    // fetch()
+    
   }, [params])
 
   return (
@@ -171,8 +191,13 @@ export default function IndividualSamplesScreen() {
            } else if (param.field == 'origin') {
             return <OriginParameter {...param} handleSelect={handleParamUpdate} key={param.field} paramType="Default"/>
           } else return <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />
+        })
         }
-        )}
+        {
+          params2.map((param) => {
+            return <Parameter {...param} handleSelect='' key={param.field} />
+          })
+        }
       </ParameterContainer>
       <Jumps num="3"/>
       <Methods />

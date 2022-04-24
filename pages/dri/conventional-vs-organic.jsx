@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
 import Header from '../../components/Header'
+import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter from '../../components/Parameter'
 import Methods from '../../components/Methods'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer from '../../components/TableContainer'
 import ConventialOrganicTable1, { ConventialOrganicTable2, ConventialOrganicTable3, ConventialOrganicTable4 }from '../../components/TablesConventionalVSOrganic'
-import PageTitle from '../../components/DynamicTitles'
 export default function ConventionalOrganicScreen() {
+  useEffect(() => {
+    document.title = "Conventional vs Organic | US-PDP"
+  }, [])
 
     const [params, setParams] = useState([
         {
@@ -102,24 +105,25 @@ export default function ConventionalOrganicScreen() {
       return (
         <div className='div'>
         <Header title="DRI Analytical System" system="US-PDP DRI" />
-          <PageTitle params={params} tableNum={0} />
-          <ParameterContainer>
+        <Titles params={params} tableNum={0} />
+        <ParameterContainer>
           {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
-          </ParameterContainer>
-          <Methods />
-          <TableContainer>
-            <h1 className="title">Results</h1>
-            <ConventialOrganicTable1 data={rows} params={params}/>
-            <ConventialOrganicTable2 params={params} />
-            <ConventialOrganicTable3 params={params} />
-            <ConventialOrganicTable4 params={params} />
-          </TableContainer>
-          <style jsx>{`
+        </ParameterContainer>
+        <Methods />
+        <TableContainer>
+          <h1 className="title">Results</h1>
+          <ConventialOrganicTable1 data={rows} params={params}/>
+          <ConventialOrganicTable2 params={params} />
+          <ConventialOrganicTable3 params={params} />
+          <ConventialOrganicTable4 params={params} />
+        </TableContainer>
+        <style jsx>
+          {`
             .title {
               font-family: Helvetica, Arial, sans-serif;
             }
           `}
-          </style>
+        </style>
         </div>
       )
 }

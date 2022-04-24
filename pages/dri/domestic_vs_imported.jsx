@@ -9,6 +9,10 @@ import TableContainer from "../../components/TableContainer";
 import PageTitle from "../../components/DynamicTitles";
 import DomesticTable1, { DomesticTable2, DomesticTable3 } from "../../components/TablesDomestic";
 export default function DomesticImportedScreen() {
+  useEffect(() => {
+    document.title = "Domestic vs Imported | US-PDP"
+  }, [])
+
   const [params, setParams] = useState([
     {
       field: "Commodity_Name",

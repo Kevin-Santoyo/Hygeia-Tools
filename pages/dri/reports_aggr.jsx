@@ -10,6 +10,9 @@ import Methods from '../../components/Methods'
 import Jumps from '../../components/Jumps'
 import Table5, { Table6 } from '../../components/TablesReportsAggr'
 export default function Tables56Screen() {
+  useEffect(() => {
+    document.title = "Aggregate Reports | US-PDP"
+  }, [])
 
   const [params, setParams] = useState([
     {

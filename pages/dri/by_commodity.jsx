@@ -11,6 +11,9 @@ import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
 export default function ByCommodityScreen() {
+  useEffect(() => {
+    document.title = "By Food | US-PDP"
+  }, [])
 
   const [params, setParams] = useState([
     {

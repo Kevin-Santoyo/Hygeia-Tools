@@ -9,7 +9,10 @@ import TableContainer from '../../components/TableContainer'
 import Methods from '../../components/Methods'
 import AggregateSamplesTable, { AltIndividualSamplesTable, IndividualSamplesTable } from '../../components/TablesFSAIndividual'
 import Jumps from '../../components/Jumps'
-export default function IndividualSamplesScreen() {
+export default function FSAIndividualSamplesScreen() {
+  useEffect(() => {
+    document.title = "Individual Samples | UK-FSA"
+  }, [])
 
   const [params, setParams] = useState([
     {

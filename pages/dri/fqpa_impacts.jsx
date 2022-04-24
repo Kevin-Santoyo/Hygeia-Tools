@@ -9,6 +9,9 @@ import Methods from '../../components/Methods'
 import PageTitle from '../../components/DynamicTitles'
 import FQPATable1a from '../../components/TablesFQPA'
 export default function conventionalVSOrganicScreen() {
+  useEffect(() => {
+    document.title = "FQPA Impacts | US-PDP"
+  }, [])
 
     const [params, setParams] = useState([
         {

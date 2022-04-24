@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
 import Header from '../../components/Header'
+import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import ResidueAndRiskIndicatorsTable1, { CRFCTable1 } from '../../components/TablesFSAFood'
 export default function FSAFoodScreen () {
+  useEffect(() => {
+    document.title = "By Food | UK-FSA"
+  }, [])
 
   const [params, setParams] = useState([
     {
@@ -129,6 +133,7 @@ export default function FSAFoodScreen () {
   return (
     <div>
       <Header title="DRI Analytical System" system="UK-FSA DRI"/>
+      <Titles params={params} tableNum={0} />
       <ParameterContainer>
         {params.map(param => <Parameter {...param} handleSelect={handleParamUpdate} key={param.field} />)}
       </ParameterContainer>

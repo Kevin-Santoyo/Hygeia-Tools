@@ -8,7 +8,11 @@ import { fetchParamOptions, fetchRows, fetchFormData } from "../../lib/api";
 import TableContainer from "../../components/TableContainer";
 import PageTitle from "../../components/DynamicTitles";
 import DomesticTable1, { DomesticTable2, DomesticTable3 } from "../../components/TablesFSADomestic";
-export default function DomesticImportedScreen() {
+export default function FSADomesticImportedScreen() {
+  useEffect(() => {
+    document.title = "Domestic vs Imported | UK-FSA"
+  }, [])
+
   const [params, setParams] = useState([
     {
       field: 'Food',

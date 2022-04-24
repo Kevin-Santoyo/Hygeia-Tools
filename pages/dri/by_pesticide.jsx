@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import _, { forEach } from 'lodash'
 import Header from '../../components/Header'
+import Titles from '../../components/DynamicTitles'
 import ParameterContainer from '../../components/ParameterContainer'
 import Parameter, { OriginParameter } from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
@@ -9,8 +10,10 @@ import PesticideResidueAndRiskIndicatorsTable from '../../components/TablesByPes
 import Methods from '../../components/Methods'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
-import Titles from '../../components/DynamicTitles'
 export default function ByPesticideScreen() {
+  useEffect(() => {
+    document.title = "By Pesticide | US-PDP"
+  }, [])
 
   const [params, setParams] = useState([
     {
