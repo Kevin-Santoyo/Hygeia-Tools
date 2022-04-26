@@ -42,9 +42,6 @@ export default function Table({ columns, data, params, summary, paging, tableNum
     useSortBy, usePagination
   );
 
-  let limits = columns.map((col) => {
-    return col.accessor;
-  });
   let csvData = data.map((dat) => {
     var obj = {};
     let i = 0;

@@ -9,9 +9,9 @@ export default function KeyFindings({ data, tableNum, food, params, rowCount }) 
   const localURL = useRouter().route;
   let obj;
   try {
-    if (localURL == "/dri/by_pesticide") {
+    if (localURL == "/dri/by_pesticide" || localURL == "/fsa/by_pesticide") {
       return KeyPesticides((data = { data }));
-    } else if (localURL == "/dri/by_commodity") {
+    } else if (localURL == "/dri/by_commodity" || localURL == "/fsa/by_food") {
       return KeyCommodities((data = { data }));
     } else if (localURL == "/dri/conventional-vs-organic") {
       switch (tableNum) {
@@ -102,6 +102,7 @@ function KeyCommodities({ data }) {
 }
 
 function KeyPesticides({ data }) {
+  var localURL = useRouter().route
   var agg_dri_m_times = 0;
   var num_threshhold = 0;
   var totalDetections = 0;
@@ -115,6 +116,7 @@ function KeyPesticides({ data }) {
   var topThree = 0;
   var i = 0;
   var topThreeFSDRI = 0;
+  let FSACommodity
   data.map((row) => {
     dri_mean_kid = row.DRI_Mean_Kid + dri_mean_kid;
     fs_dri_kid = row.FS_DRI_Kid + fs_dri_kid;
@@ -139,21 +141,25 @@ function KeyPesticides({ data }) {
   agg_dri_m_times = (dri_mean_kid / fs_dri_kid).toFixed(0);
   total_perc_pos = ((num_pos / total_samples) * 100).toFixed(1).concat("%");
   agg_dri = ((_.get(data[0], "FS_DRI_Kid", 1) / agg_dri) * 100).toFixed(2).concat("%");
+  if (data[0].Food) {
+    FSACommodity = data[0].Food + ', ' + data[0].Sub_Food
+    data[0].Food = FSACommodity
+  }
   var pesticide = _.get(data[0], "Rpt_Pest_Name", "loading");
-  var commodity = _.get(data[0], "Commodity_Name", "loading");
-  var pdp_year = _.get(data[0], "PDP_Year", 0);
+  var commodity = _.get(data[0], (localURL == "/dri/by_pesticide" ? "Commodity_Name" : "Food"), "loading");
+  var Year = _.get(data[0], (localURL == "/dri/by_pesticide" ? "PDP_Year" : "FSA_Year"), 0);
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>Key Findings</h4>
       <ul>
         <li>
-          {commodity} accounted for {agg_dri} of aggregate {pesticide} FS-DRI risks based on residues found in all foods tested by PDP in {pdp_year}.
+          {commodity} accounted for {agg_dri} of aggregate {pesticide} FS-DRI risks based on residues found in all foods tested by PDP in {Year}.
         </li>
         <li>
-          The top three foods accounted for {topThree} of {pesticide}'s aggregate FS-DRI risk accross all foods tested in {pdp_year}
+          The top three foods accounted for {topThree} of {pesticide}'s aggregate FS-DRI risk accross all foods tested in {Year}
         </li>
         <li>
-          {pesticide} was found in {totalDetections} out of {total_foods} crops/foods tested for {pesticide} residues in {pdp_year}.
+          {pesticide} was found in {totalDetections} out of {total_foods} crops/foods tested for {pesticide} residues in {Year}.
         </li>
         <li>
           Of the crops with one or more reported residue of {pesticide}, only {total_perc_pos} of samples contained a quantifiable residue of {pesticide}.

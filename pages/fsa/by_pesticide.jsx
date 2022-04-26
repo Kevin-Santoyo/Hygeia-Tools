@@ -7,6 +7,8 @@ import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import FSAPesticideResidueAndRiskIndicatorsTable from '../../components/TablesFSAPesticide'
+import KeyFindings from '../../components/KeyFindings'
+import TableLinks from '../../components/TableLinks'
 export default function FSAPesticideScreen () {
   useEffect(() => {
     document.title = "By Pesticide | UK-FSA"
@@ -127,6 +129,8 @@ export default function FSAPesticideScreen () {
       <TableContainer>
         <h1 className="title">Results</h1>
         <FSAPesticideResidueAndRiskIndicatorsTable data={rows} params={params} />
+        <KeyFindings data={rows} />
+        <TableLinks />
       </TableContainer>
       <style jsx>{`
         .title {

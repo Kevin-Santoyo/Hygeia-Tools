@@ -11,6 +11,15 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
     agg_dri = row.FS_DRI_Kid + agg_dri
   })
 
+  let newData = []
+  data.forEach(dat => {
+    let key = {
+      percent_positive: (dat.Number_Positives/dat.Total_Samples)*100
+    }
+    dat = {...dat,...key}
+    newData.push(dat)
+  });
+
   var columns = [
     {
       Header: ' ',
@@ -45,7 +54,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
           Header: 'Percent Positive',
           accessor: 'percent_positive',
           Cell: ({ value }) => {
-            return <NumberFormat value={value*100} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
+            return <NumberFormat value={value} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           },
           borderRight: true
         }
@@ -103,7 +112,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
   ]
   return (
     <>
-      <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

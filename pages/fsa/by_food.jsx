@@ -7,6 +7,8 @@ import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
 import ResidueAndRiskIndicatorsTable1, { CRFCTable1 } from '../../components/TablesFSAFood'
+import KeyFindings from '../../components/KeyFindings'
+import TableLinks from '../../components/TableLinks'
 export default function FSAFoodScreen () {
   useEffect(() => {
     document.title = "By Food | UK-FSA"
@@ -140,6 +142,8 @@ export default function FSAFoodScreen () {
       <TableContainer>
         <h1 className="title">Results</h1>
         <ResidueAndRiskIndicatorsTable1 data={rows} params={params} />
+        <KeyFindings data={rows} />
+        <TableLinks />
         <CRFCTable1 params={params} />
       </TableContainer>
       <style jsx>{`

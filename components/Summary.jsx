@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 
 export default function Summary({ data, tableNum }) {
   var localURL = useRouter().route;
-  if (localURL == "/dri/by_pesticide") {
+  if (localURL == "/dri/by_pesticide" || localURL == "/fsa/by_pesticide") {
     switch (tableNum) {
       case 1:
         return summaryPesticide((data = { data }));
       default:
         return null;
     }
-  } else if (localURL == "/dri/by_commodity") {
+  } else if (localURL == "/dri/by_commodity" || localURL == "/fsa/by_food") {
     switch (tableNum) {
       case 1:
         return summaryCommodity((data = { data }));
@@ -58,6 +58,7 @@ export default function Summary({ data, tableNum }) {
 }
 
 function summaryPesticide({ data }) {
+  var localURL = useRouter().route
   var averageSamples = 0;
   var total_samples = 0;
   var total_num_pos = 0;
@@ -87,6 +88,7 @@ function summaryPesticide({ data }) {
     <>
       <tr className={styles.totalRow}>
         <td className={styles.cell}>Total Number of Samples</td>
+        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
         <td className={styles.cell}>{<NumberFormat value={total_samples} displayType="text" thousandSeparator="," />}</td>
         <td className={styles.cell}></td>
         <td className={styles.cell}></td>
@@ -98,6 +100,7 @@ function summaryPesticide({ data }) {
       </tr>
       <tr className={styles.totalRow}>
         <td className={styles.cell}>Total Positives and Aggregate DRI</td>
+        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
         <td className={styles.cell}></td>
         <td className={styles.cell}>{total_num_pos}</td>
         <td className={styles.cell}></td>
@@ -109,6 +112,7 @@ function summaryPesticide({ data }) {
       </tr>
       <tr className={styles.totalRow}>
         <td className={styles.cell}>Average Residues Detected per Sample</td>
+        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
         <td className={styles.cell}></td>
         <td className={styles.cell}>{averageResidues}</td>
         <td className={styles.cell}></td>
@@ -120,6 +124,7 @@ function summaryPesticide({ data }) {
       </tr>
       <tr className={styles.totalRow}>
         <td className={styles.cell}>Number of Foods with Residues</td>
+        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
         <td className={styles.cell}>{totalDetections}</td>
         <td className={styles.cell}></td>
         <td className={styles.cell}></td>

@@ -114,7 +114,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} tableNum={1} summary="true"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
