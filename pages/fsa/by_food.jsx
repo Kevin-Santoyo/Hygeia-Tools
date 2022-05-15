@@ -6,7 +6,7 @@ import ParameterContainer from '../../components/ParameterContainer'
 import Parameter from '../../components/Parameter'
 import { fetchParamOptions, fetchRows, fetchFormData } from '../../lib/api'
 import TableContainer                      from '../../components/TableContainer'
-import ResidueAndRiskIndicatorsTable1, { CRFCTable1 } from '../../components/TablesFSAFood'
+import ResidueAndRiskIndicatorsTable1, { CRFCTable1, CRFCTable2 } from '../../components/TablesFSAFood'
 import KeyFindings from '../../components/KeyFindings'
 import TableLinks from '../../components/TableLinks'
 export default function FSAFoodScreen () {
@@ -145,6 +145,8 @@ export default function FSAFoodScreen () {
         <KeyFindings data={rows} />
         <TableLinks />
         <CRFCTable1 params={params} />
+        
+        <CRFCTable2 params={params} />
       </TableContainer>
       <style jsx>{`
         .title {
