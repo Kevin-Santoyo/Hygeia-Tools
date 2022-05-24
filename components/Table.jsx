@@ -1,6 +1,6 @@
 import _ from "lodash";
 import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { CSVLink } from "react-csv";
 import { useTable, useSortBy, usePagination, useFlexLayout } from "react-table";
 import Titles from "./DynamicTitles";
@@ -64,6 +64,8 @@ export default function Table({ columns, data, params, summary, paging, tableNum
     }
     return obj;
   });
+  let tableTitle = useRef(null)
+  let tables = useRef(null)
   let id = `table${tableNum}`;
   let rowData
   if (paging) { rowData = page } else rowData = rows
@@ -71,9 +73,9 @@ export default function Table({ columns, data, params, summary, paging, tableNum
   return (
     <>
     { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <table id={id} {...getTableProps()} className={styles.table}>
+      <table id={id} {...getTableProps()} className={styles.table} ref={tables}>
         <thead className={styles.tableHead}>
-          <tr>
+          <tr ref={tableTitle}>
             <Titles params={params} tableNum={tableNum} />
           </tr>
           {headerGroups.map((headerGroup) => (
@@ -114,9 +116,9 @@ export default function Table({ columns, data, params, summary, paging, tableNum
       { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
       <span className={styles.outputs}>
         Output Options:&nbsp;
-          <CSVLink data={csvData} className={styles.download} filename="download.csv">
-            csv
-          </CSVLink>
+          <CSVLink data={csvData} className={styles.download} filename={getCSVFileName(tableTitle)}>
+            CSV
+          </CSVLink>&nbsp;
       </span>
     </>
   );
@@ -186,6 +188,8 @@ export function Table2({ columns, data, params, summary, paging, tableNum, getCe
     }
     return obj;
   });
+  const tableTitle = useRef(null)
+
   let id = `table${tableNum}`;
   let rowData
   if (paging) { rowData = page } else rowData = rows
@@ -196,7 +200,9 @@ export function Table2({ columns, data, params, summary, paging, tableNum, getCe
       <div id={id} {...getTableProps()} className={styles.table}>
         <div className={styles.tableHead}>
           <div>
+          <div ref={tableTitle}>
             <Titles params={params} tableNum={tableNum} />
+          </div>
           </div>
           {headerGroups.map((headerGroup) => (
             <div {...headerGroup.getHeaderGroupProps()}>
@@ -236,7 +242,7 @@ export function Table2({ columns, data, params, summary, paging, tableNum, getCe
       { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
       <span className={styles.outputs}>
         Output Options:&nbsp;
-          <CSVLink data={csvData} className={styles.download} filename="download.csv">
+          <CSVLink data={csvData} className={styles.download} filename={getCSVFileName(tableTitle)}>
             csv
           </CSVLink>
       </span>
@@ -269,4 +275,16 @@ function pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPrevio
       </div>
     </>
   )
+}
+
+
+function getCSVFileName( tableTitle ) {
+  let title
+  if (tableTitle.current == null) {
+    return null
+  } else {
+    title = tableTitle.current.innerText
+  }
+  title += ".csv"
+  return title
 }

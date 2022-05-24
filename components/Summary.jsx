@@ -449,47 +449,49 @@ function summaryReport5({ data }) {
   total_fsdri = <NumberFormat value={total_fsdri} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
   avgDRIDetected = <NumberFormat value={avgDRIDetected} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
   avgDRIMeanPerFood = <NumberFormat value={avgDRIMeanPerFood} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
-  avgFSDRIPerFood = <NumberFormat value={avgFSDRIPerFood} displayType="text" decimalScale={2} fixedDecimalScale="true"/>
+  avgFSDRIPerFood = <NumberFormat value={avgFSDRIPerFood} displayType="text" decimalScale={4} fixedDecimalScale="true"/>
   if (data.length > 0) {
     return (
       <>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Sum of Average Number of Samples</td>
-          <td className={styles.cell} colSpan="2">{sumOfAvgSamples}</td>
-          <td className={styles.cell} colSpan="4"></td>
+          <td className={styles.cell} colSpan="1">Sum of Average Number of Samples</td>
+          <td className={styles.cell}></td>
+          <td className={styles.cell}>{sumOfAvgSamples}</td>
+          <td className={styles.cell} colSpan="6"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total Positives</td>
+          <td className={styles.cell} colSpan="1">Total Positives</td>
+          <td className={styles.cell} colSpan="2"></td>
           <td className={styles.cell} colSpan="2">{totalPos}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total Positive Sample DRI Mean</td>
+          <td className={styles.cell} colSpan="1">Total Positive Sample DRI Mean</td>
           <td className={styles.cell} colSpan="2">{totalPosSampleDRIMean}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total FS-DRI</td>
+          <td className={styles.cell} colSpan="1">Total FS-DRI</td>
           <td className={styles.cell} colSpan="2">{total_fsdri}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Average DRI Detections Per Sample</td>
+          <td className={styles.cell} colSpan="1">Average DRI Detections Per Sample</td>
           <td className={styles.cell} colSpan="2">{avgDRIDetected}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Number of Foods Tested</td>
+          <td className={styles.cell} colSpan="1">Number of Foods Tested</td>
           <td className={styles.cell} colSpan="2">{numFoodsTested}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Average DRI-Mean per Food Tested</td>
+          <td className={styles.cell} colSpan="1">Average DRI-Mean per Food Tested</td>
           <td className={styles.cell} colSpan="2">{avgDRIMeanPerFood}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>
         <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Average FS-DRI per Food Tested</td>
+          <td className={styles.cell} colSpan="1">Average FS-DRI per Food Tested</td>
           <td className={styles.cell} colSpan="2">{avgFSDRIPerFood}</td>
           <td className={styles.cell} colSpan="4"></td>
         </tr>

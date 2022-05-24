@@ -70,6 +70,15 @@ export function IndividualSamplesTable ({ params }) {
     
   }, [params])
 
+  let newData = []
+  rows.forEach(row => {
+    let key = {
+      MRLPercentage: (row.Concentration / row.MRL) * 100
+    }
+    row = {...row,...key}
+    newData.push(row)
+  });
+
   var columns = [
       {
           Header: 'Sample ID',
@@ -83,7 +92,7 @@ export function IndividualSamplesTable ({ params }) {
         },
         {
           Header: 'Residue Level (ppm)',
-          accessor: 'residue_ppm',
+          accessor: 'Concentration',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
@@ -96,23 +105,14 @@ export function IndividualSamplesTable ({ params }) {
           }
         },
         {
-          Header: 'Tolerance Level (ppm)',
+          Header: 'MRL Level (ppm)',
           accessor: 'MRL'
         },
         {
-          Header: 'Residue as a % of Tolerance',
-          accessor: d => d.residue_ppm / d.tolerance * 100,
+          Header: 'Residue as a % of MRL',
+          accessor: 'MRLPercentage',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-          }
-        },
-        {
-          Header: 'Type of Tolerance',
-          accessor: 'notes',
-          Cell: ({ value }) => {
-            if (value == 'PP') {
-              return 'PH'
-            } else return null
           }
         },
         {
@@ -143,7 +143,7 @@ export function IndividualSamplesTable ({ params }) {
   return (
     <>
       <Table
-        data={rows}
+        data={newData}
         columns={columns}
         params={params}
         getCellProps={cellInfo => ({

@@ -194,9 +194,9 @@ export default function IndividualSamplesScreen() {
         })
         }
         {
-          params2.map((param) => {
-            return <Parameter {...param} handleSelect='' key={param.field} />
-          })
+          //params2.map((param) => {
+            //return <Parameter {...param} handleSelect='' key={param.field} />
+          //})
         }
       </ParameterContainer>
       <Jumps num="3"/>

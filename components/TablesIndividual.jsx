@@ -140,19 +140,19 @@ export function IndividualSamplesTable ({ params }) {
           accessor: 'tolerance'
         },
         {
+          Header: 'Type of Tolerance',
+          accessor: 'notes',
+          Cell: ({ value }) => {
+            if (value == 'PP' || value == 'PH') {
+              return 'Post-Harvest'
+            } else return value
+          }
+        },
+        {
           Header: 'Residue as a % of Tolerance',
           accessor: d => d.residue_ppm / d.tolerance * 100,
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-          }
-        },
-        {
-          Header: 'Type of Tolerance',
-          accessor: 'notes',
-          Cell: ({ value }) => {
-            if (value == 'PP') {
-              return 'PH'
-            } else return value
           }
         },
         {
