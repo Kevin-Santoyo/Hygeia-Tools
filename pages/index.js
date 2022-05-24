@@ -43,7 +43,7 @@ const Index = () => {
         <ul>
           <li><Link href={"/fsa/by_food"}>By Food</Link></li>
           <li><Link href={"/fsa/by_pesticide"}>By Pesticide</Link></li>
-          <li><Link href={"/fsa/convention_vs_organic"}>Conventional VS Organic</Link></li>
+          <li><Link href={"/fsa/conventional_vs_organic"}>Conventional VS Organic</Link></li>
           <li><Link href={"/fsa/domestic_vs_imported"}>Domestic VS Imported</Link></li>
           <li><Link href={"/fsa/individual_samples"}>Individual Samples</Link></li>
         </ul>
