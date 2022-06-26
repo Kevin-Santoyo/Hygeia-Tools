@@ -14,6 +14,11 @@
     display: inline-block;
 }
 
+.active {
+    background-color: #f7fafc !important;
+    color: black !important;
+}
+
 .list li a {
     background-color: var(--redOrange);
     padding: 12px;

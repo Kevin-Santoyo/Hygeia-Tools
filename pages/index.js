@@ -33,8 +33,8 @@ const Index = () => {
         <ul>
           <li><Link href={"/dri/by_commodity"}>By Commodity</Link></li>
           <li><Link href={"/dri/by_pesticide"}>By Pesticide</Link></li>
-          <li><Link href={"/dri/conventional-vs-organic"}>Conventional VS Organic</Link></li>
-          <li><Link href={"/dri/domestic_vs_imported"}>Domestic VS Imported</Link></li>
+          <li><Link href={"/dri/conventional-vs-organic"}>Conventional vs. Organic</Link></li>
+          <li><Link href={"/dri/domestic_vs_imported"}>Domestic vs. Imported</Link></li>
           {/*<li><Link href={"/dri/fqpa_impacts"}>Overall Food Supply and DRI Trends</Link></li>*/}
           <li><Link href={"/dri/individual_samples"}>Individual Samples</Link></li>
           <li><Link href={"/dri/reports_aggr"}>Aggregate Sample DRI by Food & Pesticide</Link></li>
@@ -43,8 +43,8 @@ const Index = () => {
         <ul>
           <li><Link href={"/fsa/by_food"}>By Food</Link></li>
           <li><Link href={"/fsa/by_pesticide"}>By Pesticide</Link></li>
-          <li><Link href={"/fsa/conventional_vs_organic"}>Conventional VS Organic</Link></li>
-          <li><Link href={"/fsa/domestic_vs_imported"}>Domestic VS Imported</Link></li>
+          <li><Link href={"/fsa/conventional_vs_organic"}>Conventional vs. Organic</Link></li>
+          <li><Link href={"/fsa/domestic_vs_imported"}>Domestic vs. Imported</Link></li>
           <li><Link href={"/fsa/individual_samples"}>Individual Samples</Link></li>
         </ul>
       </div>

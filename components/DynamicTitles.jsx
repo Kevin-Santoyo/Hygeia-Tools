@@ -57,13 +57,6 @@ export default function Titles({ params, tableNum }) {
       default:
         return <th colSpan="9">No Title</th>;
     }
-  } else if (pageName == "/dri/fqpa_impacts") {
-    switch (tableNum) {
-      case 0:
-        return fqpaPageTitle((params = { params }));
-      default:
-        return <th colSpan="9">No Title</th>;
-    }
   } else if (pageName == "/dri/individual_samples" || pageName == "/fsa/individual_samples") {
     params = paramsParse(params)
     switch (tableNum) {
@@ -96,10 +89,11 @@ function CommodityPageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk by Commodity: {params.origin} of {params.food}, {params.claim}, {params.year}
+      Aggregate Dietary Risk Index of Across All Pesticides by Food
       </h2>
     </div>
   );
+  // OLD TITLE: Dietary Risk by Commodity: {params.origin} of {params.food}, {params.claim}, {params.year}
 }
 
 function CommodityTitle1({ params }) {
@@ -122,10 +116,11 @@ function PesticidePageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk by Pesticide: All Foods Tested by PDP, {params.claim}, {params.origin}, {params.year}
+      Aggregate Dietary Risk Index of Across All Foods by Pesticide
       </h2>
     </div>
   );
+  // OLD TITLE: Dietary Risk by Pesticide: All Foods Tested by PDP, {params.claim}, {params.origin}, {params.year}
 }
 
 function PesticideTitle1({ params }) {
@@ -140,10 +135,11 @@ function ConOrgPageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk in Conventional and Organic Foods: {params.dataset} Samples of {params.food} in Domestically Grown Crops, {params.year}
+      Comparison of U.S. Domestic Conventional vs. Organic Dietary Risk Indicators
       </h2>
     </div>
   );
+  // OLD TITLE: Dietary Risk in Conventional and Organic Foods: {params.dataset} Samples of {params.food} in Domestically Grown Crops, {params.year}
 }
 
 function ConOrgTitle1({ params }) {
@@ -182,10 +178,11 @@ function DomesticPageTitle({ params }) {
   return (
     <div>
       <h2 className={styles.title}>
-        Dietary Risk Indicators for Domestically Grown and {params.origin} of {params.food}: {params.claim} Samples of {params.food}, {params.year}
+      Comparison of Domestic vs. Imported Dietary Risk Indicators
       </h2>
     </div>
   );
+  // OLD TITLE: Dietary Risk Indicators for Domestically Grown and {params.origin} of {params.food}: {params.claim} Samples of {params.food}, {params.year}
 }
 
 function DomesticTitle1({ params }) {
@@ -209,14 +206,6 @@ function DomesticTitle3({ params }) {
     <th className={styles.TableTitle} colSpan="7">
       Table 3: Pesticide Residues Detected in Domestic Samples of {params.claim} {params.food}, {params.year}: Ranked by Share of Aggregate FS-DRI
     </th>
-  );
-}
-
-function fqpaPageTitle({ params }) {
-  return (
-    <div>
-      <h2 className={`${styles.title}`}>FQPA Impacts</h2>
-    </div>
   );
 }
 
@@ -286,7 +275,7 @@ function ReportsAggrTitle1({ params }) {
   }
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 1: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across {claim} Pesticides.
+      Table 1: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Pesticides
     </th>
   );
 }
@@ -297,7 +286,7 @@ function ReportsAggrTitle2({ params }) {
   let claim = results[1]
   return (
     <th className={styles.TableTitle} colSpan="11">
-      Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) across {claim} Foods.
+      Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Foods
     </th>
   );
 }

@@ -143,7 +143,6 @@ export default function FSAFoodScreen () {
         <h1 className="title">Results</h1>
         <ResidueAndRiskIndicatorsTable1 data={rows} params={params} />
         <KeyFindings data={rows} />
-        <TableLinks />
         <CRFCTable1 params={params} />
         
         <CRFCTable2 params={params} />

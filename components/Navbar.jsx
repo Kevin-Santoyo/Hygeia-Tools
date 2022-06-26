@@ -5,50 +5,61 @@ import { useRouter } from "next/router";
 let navlinksPDP = [
     {
         "title": "By Food",
-        "link": "by_commodity"
+        "link": "by_commodity",
+        "url": "/dri/by_commodity"
     },
     {
         "title": "By Pesticide",
-        "link": "by_pesticide"
+        "link": "by_pesticide",
+        "url": "/dri/by_pesticide"
     },
     {
-        "title": "Conventional VS Organic",
-        "link": "conventional-vs-organic"
+        "title": "Conventional vs. Organic",
+        "link": "conventional-vs-organic",
+        "url": "/dri/conventional-vs-organic"
     },
     {
-        "title": "Domestic VS Imported",
-        "link": "domestic_vs_imported"
+        "title": "Domestic vs. Imported",
+        "link": "domestic_vs_imported",
+        "url": "/dri/domestic_vs_imported"
     },
     {
         "title": "Individual Samples",
-        "link": "individual_samples"
+        "link": "individual_samples",
+        "url": "/dri/individual_samples"
     },
     {
         "title": "Aggregate Sample DRI",
-        "link": "reports_aggr"
+        "link": "reports_aggr",
+        "url": "/dri/reports_aggr"
     }
 ]
 
 let navlinksFSA = [
     {
         "title": "By Food",
-        "link": "by_food"
+        "link": "by_food",
+        "url": "/fsa/by_food"
     },
     {
         "title": "By Pesticide",
-        "link": "by_pesticide"
+        "link": "by_pesticide",
+        "url": "/fsa/by_pesticide"
     },
     {
-        "title": "Conventional VS Organic",
-        "link": "conventional_vs_organic"
+        "title": "Conventional vs. Organic",
+        "link": "conventional_vs_organic",
+        "url": "/fsa/conventional_vs_organic"
     },
     {
-        "title": "Domestic VS Imported",
-        "link": "domestic_vs_imported"
+        "title": "Domestic vs. Imported",
+        "link": "domestic_vs_imported",
+        "url": "/fsa/domestic_vs_imported"
     },
     {
         "title": "Individual Samples",
-        "link": "individual_samples"
+        "link": "individual_samples",
+        "url": "/fsa/individual_samples"
     }
 ]
 
@@ -60,12 +71,17 @@ export default function Navbar({}) {
     } else {
         navlinks = navlinksPDP
     }
+
     return (
         <div className={styles.container}>
             <ul className={styles.list}>
             {
                 navlinks.map((item) =>
-                    <li key={item.title}><Link href={item.link}><a>{item.title}</a></Link></li>
+                    <li key={item.title}>
+                        <Link href={item.link}>
+                            <a className={pageRoute == item.url ? styles.active : styles.notActive}>{item.title}</a>
+                        </Link>
+                    </li>
                 )
             }
         </ul>

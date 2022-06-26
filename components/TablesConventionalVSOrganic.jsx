@@ -18,8 +18,8 @@ export default function ConventialOrganicTable1 ({ data, params }) {
   
   const columns = useMemo(() => [
     {
-      Header: ' ',
-      emptyHeader: true,
+      Header: 'Pesticide Residue Statistics',
+      groupHeader: true,
       columns: [
         {
           Header: ' ',
@@ -112,8 +112,8 @@ export function ConventialOrganicTable2 ({ params }){
 
   const columns = useMemo(() => [
     {
-      Header: ' ',
-      emptyHeader: true,
+      Header: 'Pesticide Residue Statistics',
+      groupHeader: true,
       columns: [
         {
           Header: 'Analyte',
@@ -200,10 +200,10 @@ export function ConventialOrganicTable3 ({ params }){
   }, [params])
 
   const columns = useMemo(() => [
-    {
-      Header: ' ',
-      emptyHeader: true,
-      columns: [
+    //{
+      //Header: ' ',
+      //emptyHeader: true,
+      //columns: [
         {
           Header: 'Analyte',
           accessor: 'Rpt_Pest_Name',
@@ -271,8 +271,8 @@ export function ConventialOrganicTable3 ({ params }){
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
           }
         }
-      ]
-    }
+      //]
+    //}
   ])
   
   return (
@@ -310,8 +310,8 @@ export function ConventialOrganicTable4 ({ params }){
 
   const columns = useMemo(() => [
     {
-      Header: ' ',
-      emptyHeader: true,
+      Header: 'Pesticide Residue Statistics',
+      groupHeader: true,
       columns: [
         {
           Header: 'Analyte',

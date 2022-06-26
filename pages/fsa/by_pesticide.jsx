@@ -130,7 +130,6 @@ export default function FSAPesticideScreen () {
         <h1 className="title">Results</h1>
         <FSAPesticideResidueAndRiskIndicatorsTable data={rows} params={params} />
         <KeyFindings data={rows} />
-        <TableLinks />
       </TableContainer>
       <style jsx>{`
         .title {
