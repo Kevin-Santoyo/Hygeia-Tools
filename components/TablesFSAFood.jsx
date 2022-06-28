@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { fetchRows } from '../lib/api'
 import _ from 'lodash'
-import Table, { Table2 } from './Table'
+import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { queryParseFood } from '../pages/fsa/by_food'
 
@@ -244,7 +244,7 @@ export function CRFCTable2 ({ data, params }) {
 
   return (
     <>
-      <Table2 data={rows} columns={columns} params={params} tableNum={2} />
+      <Table data={rows} columns={columns} params={params} tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;

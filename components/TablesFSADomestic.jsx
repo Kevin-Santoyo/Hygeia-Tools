@@ -27,8 +27,8 @@ export default function DomesticTable1({ data, params }) {
   const columns = useMemo(
     () => [
       {
-        Header: " ",
-        emptyHeader: true,
+        Header: "Pesticide Residue Statistics",
+        groupHeader: true,
         columns: [
           {
             Header: " ",
@@ -162,8 +162,8 @@ export function DomesticTable2({ params }) {
   const columns = useMemo(
     () => [
       {
-        Header: " ",
-        emptyHeader: true,
+        Header: "Pesticide Residue Statistics",
+        groupHeader: true,
         columns: [
           {
             Header: "Analyte",
@@ -278,8 +278,8 @@ export function DomesticTable3({ params }) {
   const columns = useMemo(
     () => [
       {
-        Header: " ",
-        emptyHeader: true,
+        Header: "Pesticide Residue Statistics",
+        groupHeader: true,
         columns: [
           {
             Header: "Analyte",

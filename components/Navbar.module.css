@@ -1,17 +1,16 @@
 .container {
     padding: 1px;
-    margin-top: 10px;
-    
+    float: right;
 }
 
 
 .list {
     width: 100%;
-    text-align: center;
 }
 
 .list li {
     display: inline-block;
+    text-align: center;
 }
 
 .active {
@@ -26,6 +25,7 @@
     text-decoration: none;
     transition: all ease .2s;
     margin-right: 2px;
+    border-radius: 4px;
 }
 
 .list li a:hover {

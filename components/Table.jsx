@@ -9,7 +9,7 @@ import styles from "./Table.module.css";
 
 const defaultPropGetter = () => ({})
 
-export default function Table({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
+export function Table3({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -124,7 +124,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
   );
 }
 
-export function Table2({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
+export default function Table({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
   const {
     getTableProps,
     getTableBodyProps,

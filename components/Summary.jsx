@@ -86,54 +86,54 @@ function summaryPesticide({ data }) {
   total_drim = total_drim.toFixed(5);
   return (
     <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Total Number of Samples</td>
-        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
-        <td className={styles.cell}>{<NumberFormat value={total_samples} displayType="text" thousandSeparator="," />}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Total Positives and Aggregate DRI</td>
-        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{total_num_pos}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{total_drim}</td>
-        <td className={styles.cell}>{total_fsdri.toFixed(5)}</td>
-        <td className={styles.cell}>{total_percent.toFixed(2).concat("%")}</td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Average Residues Detected per Sample</td>
-        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{averageResidues}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Number of Foods with Residues</td>
-        {localURL == "/fsa/by_pesticide" && <td className={styles.cell}></td>}
-        <td className={styles.cell}>{totalDetections}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Total Number of Samples</div>
+        {localURL == "/fsa/by_pesticide" && <div className={styles.summaryCell}></div>}
+        <div className={styles.summaryCell}>{<NumberFormat value={total_samples} displayType="text" thousandSeparator="," />}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Total Positives and Aggregate DRI</div>
+        {localURL == "/fsa/by_pesticide" && <div className={styles.summaryCell}></div>}
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{total_num_pos}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{total_drim}</div>
+        <div className={styles.summaryCell}>{total_fsdri.toFixed(5)}</div>
+        <div className={styles.summaryCell}>{total_percent.toFixed(2).concat("%")}</div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Average Residues Detected per Sample</div>
+        {localURL == "/fsa/by_pesticide" && <div className={styles.summaryCell}></div>}
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{averageResidues}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Number of Foods with Residues</div>
+        {localURL == "/fsa/by_pesticide" && <div className={styles.summaryCell}></div>}
+        <div className={styles.summaryCell}>{totalDetections}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
     </>
   );
 }
@@ -165,50 +165,50 @@ function summaryCommodity({ data }) {
   total_drim = total_drim.toFixed(5);
   return (
     <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Average Number of Samples</td>
-        <td className={styles.cell}>{averageSamples}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Total Positives and Aggregate DRI</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{total_num_pos}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{total_drim}</td>
-        <td className={styles.cell}>{total_fsdri.toFixed(5)}</td>
-        <td className={styles.cell}>{total_percent.toFixed(2).concat("%")}</td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Average Residues Detected per Sample</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}>{averageResidues}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Number of Analytes Detected</td>
-        <td className={styles.cell}>{totalDetections}</td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-        <td className={styles.cell}></td>
-      </tr>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Average Number of Samples</div>
+        <div className={styles.summaryCell}>{averageSamples}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Total Positives and Aggregate DRI</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{total_num_pos}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{total_drim}</div>
+        <div className={styles.summaryCell}>{total_fsdri.toFixed(5)}</div>
+        <div className={styles.summaryCell}>{total_percent.toFixed(2).concat("%")}</div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Average Residues Detected per Sample</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}>{averageResidues}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Number of Analytes Detected</div>
+        <div className={styles.summaryCell}>{totalDetections}</div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+        <div className={styles.summaryCell}></div>
+      </div>
     </>
   );
 }
@@ -221,37 +221,37 @@ function summaryConventional1({ data }) {
     let fsRatio = data[0].sum_dri_fs / data[1].sum_dri_fs;
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Ratio of Conventional to Organic</td>
-          <td className={styles.cell}>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Ratio of Conventional to Organic</div>
+          <div className={styles.summaryCell}>
             <NumberFormat value={totalRatio} displayType="text" decimalScale={1} />
-          </td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>
+          </div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>
             <NumberFormat value={residueRatio} displayType="text" decimalScale={2} />
-          </td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>
+          </div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>
             <NumberFormat value={driRatio} displayType="text" decimalScale={2} />
-          </td>
-          <td className={styles.cell}>
+          </div>
+          <div className={styles.summaryCell}>
             <NumberFormat value={fsRatio} displayType="text" decimalScale={2} />
-          </td>
-        </tr>
+          </div>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Ratio of Conventional to Organic</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Ratio of Conventional to Organic</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+        </div>
       </>
     );
   }
@@ -269,21 +269,21 @@ function summaryConventional2({ data }) {
 
   return (
     <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Totals:</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Totals:</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={num_pos} displayType="text" />
-        </td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-        </td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={fsdri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-        </td>
-      </tr>
+        </div>
+      </div>
     </>
   );
 }
@@ -301,26 +301,26 @@ function summaryConventional3({ data }) {
   });
   return (
     <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Totals:</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Totals:</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={num_pos} displayType="text" />
-        </td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={res_over_thresh} displayType="text" />
-        </td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={num_inadvert_res} displayType="text" />
-        </td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-        </td>
-      </tr>
+        </div>
+      </div>
     </>
   );
 }
@@ -334,18 +334,18 @@ function summaryConventional4({ data }) {
   });
   return (
     <>
-      <tr className={styles.totalRow}>
-        <td className={styles.cell}>Totals:</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>--</td>
-        <td className={styles.cell}>
+      <div className={styles.totalRow}>
+        <div className={styles.summaryCell}>Totals:</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>--</div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={dri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-        </td>
-        <td className={styles.cell}>
+        </div>
+        <div className={styles.summaryCell}>
           <NumberFormat value={fsdri_total} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-        </td>
-      </tr>
+        </div>
+      </div>
     </>
   );
 }
@@ -358,29 +358,29 @@ function summaryDomestic1({ data }) {
     let ratioFS = <NumberFormat value={data[0].sum_dri_fs / data[1].sum_dri_fs} displayType="text" decimalScale={4} />;
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Ratio of Domestic to Imported</td>
-          <td className={styles.cell}>{ratioTotal}</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>{ratioAvgRes}</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>{ratioDRI}</td>
-          <td className={styles.cell}>{ratioFS}</td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Ratio of Domestic to Imported</div>
+          <div className={styles.summaryCell}>{ratioTotal}</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>{ratioAvgRes}</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>{ratioDRI}</div>
+          <div className={styles.summaryCell}>{ratioFS}</div>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Ratio of Domestic to Imported</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Ratio of Domestic to Imported</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+        </div>
       </>
     );
   }
@@ -394,31 +394,31 @@ function summaryDomestic2({ data }) {
     let totalAggPer = <NumberFormat value={data.reduce((a, b) => a + b.Percent_FS_DRI_Kid, 0)} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%" />;
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Totals:</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>{totalPositives}</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>{totalDRI}</td>
-          <td className={styles.cell}>{totalFS}</td>
-          <td className={styles.cell}>{totalAggPer}</td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Totals:</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>{totalPositives}</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>{totalDRI}</div>
+          <div className={styles.summaryCell}>{totalFS}</div>
+          <div className={styles.summaryCell}>{totalAggPer}</div>
+        </div>
       </>
     );
   } else {
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell}>Totals:</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-          <td className={styles.cell}>--</td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell}>Totals:</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+          <div className={styles.summaryCell}>--</div>
+        </div>
       </>
     );
   }
@@ -453,48 +453,48 @@ function summaryReport5({ data }) {
   if (data.length > 0) {
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Sum of Average Number of Samples</td>
-          <td className={styles.cell}></td>
-          <td className={styles.cell}>{sumOfAvgSamples}</td>
-          <td className={styles.cell} colSpan="6"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Total Positives</td>
-          <td className={styles.cell} colSpan="2"></td>
-          <td className={styles.cell} colSpan="2">{totalPos}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Total Positive Sample DRI Mean</td>
-          <td className={styles.cell} colSpan="2">{totalPosSampleDRIMean}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Total FS-DRI</td>
-          <td className={styles.cell} colSpan="2">{total_fsdri}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Average DRI Detections Per Sample</td>
-          <td className={styles.cell} colSpan="2">{avgDRIDetected}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Number of Foods Tested</td>
-          <td className={styles.cell} colSpan="2">{numFoodsTested}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Average DRI-Mean per Food Tested</td>
-          <td className={styles.cell} colSpan="2">{avgDRIMeanPerFood}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="1">Average FS-DRI per Food Tested</td>
-          <td className={styles.cell} colSpan="2">{avgFSDRIPerFood}</td>
-          <td className={styles.cell} colSpan="4"></td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Sum of Average Number of Samples</div>
+          <div className={styles.summaryCell}></div>
+          <div className={styles.summaryCell}>{sumOfAvgSamples}</div>
+          <div className={styles.summaryCell} colSpan="6"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Total Positives</div>
+          <div className={styles.summaryCell} colSpan="2"></div>
+          <div className={styles.summaryCell} colSpan="2">{totalPos}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Total Positive Sample DRI Mean</div>
+          <div className={styles.summaryCell} colSpan="2">{totalPosSampleDRIMean}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Total FS-DRI</div>
+          <div className={styles.summaryCell} colSpan="2">{total_fsdri}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Average DRI Detections Per Sample</div>
+          <div className={styles.summaryCell} colSpan="2">{avgDRIDetected}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Number of Foods Tested</div>
+          <div className={styles.summaryCell} colSpan="2">{numFoodsTested}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Average DRI-Mean per Food Tested</div>
+          <div className={styles.summaryCell} colSpan="2">{avgDRIMeanPerFood}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="1">Average FS-DRI per Food Tested</div>
+          <div className={styles.summaryCell} colSpan="2">{avgFSDRIPerFood}</div>
+          <div className={styles.summaryCell} colSpan="4"></div>
+        </div>
       </>
     )
   } else return null;
@@ -515,21 +515,21 @@ function summaryReport6({ data }) {
   if (data.length > 0) {
     return (
       <>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total Positives</td>
-          <td className={styles.cell} colSpan="2">{totalPos}</td>
-          <td className={styles.cell} colSpan="5"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total DRI-Mean</td>
-          <td className={styles.cell} colSpan="2">{totalDRIMean}</td>
-          <td className={styles.cell} colSpan="5"></td>
-        </tr>
-        <tr className={styles.totalRow}>
-          <td className={styles.cell} colSpan="3">Total FS-DRI</td>
-          <td className={styles.cell} colSpan="2">{totalFSDRI}</td>
-          <td className={styles.cell} colSpan="5"></td>
-        </tr>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="3">Total Positives</div>
+          <div className={styles.summaryCell} colSpan="2">{totalPos}</div>
+          <div className={styles.summaryCell} colSpan="5"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="3">Total DRI-Mean</div>
+          <div className={styles.summaryCell} colSpan="2">{totalDRIMean}</div>
+          <div className={styles.summaryCell} colSpan="5"></div>
+        </div>
+        <div className={styles.totalRow}>
+          <div className={styles.summaryCell} colSpan="3">Total FS-DRI</div>
+          <div className={styles.summaryCell} colSpan="2">{totalFSDRI}</div>
+          <div className={styles.summaryCell} colSpan="5"></div>
+        </div>
       </>
     )
   } else return null;

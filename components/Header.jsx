@@ -6,11 +6,11 @@ import Link from 'next/link'
 export default function Header ({ title, system }) {
   let pageRoute = useRouter().route
   let pdp = {
-    "title": "Switch to PDP Data",
+    "title": "Switch to US-PDP Data",
     "link": "../dri/by_commodity"
   }
   let fsa = {
-    "title": "Switch to FSA Data",
+    "title": "Switch to UK-FSA Data",
     "link": "../fsa/by_food"
   }
   let switchData

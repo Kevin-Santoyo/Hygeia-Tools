@@ -14,13 +14,16 @@
   composes: header-title;
   border: 2px solid black;
   padding: 1rem 0;
+  text-align: center;
 }
 
 .columnHeader {
   composes: header-title borderBottom;
   margin: -1px;
   padding: 0;
-  padding: 1rem
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 .columnHeaderLeft {
@@ -55,13 +58,19 @@
 .table thead tr:nth-child(n + 2) th {
   font-size: 0.9rem;
 }
-.tableHead {
+.tableHead {position: sticky;
+    top: 0;
+    background-color: #fff;
   padding: 0;
   border-bottom: 1px solid black;
 }
 
 .row {
   font-size: 16px;
+}
+
+.row .cell:first-child {
+  text-align: left;
 }
 
 .rowOdd {
@@ -72,6 +81,23 @@
 .totalRow {
   background-color: #5e6a71;
   color: #FFF;
+  display: flex;
+  flex: 1 0 auto;
+  min-width: 0px;
+  padding: 3px 0;
+}
+
+.totalRow .summaryCell:first-child {
+  text-align: left;
+  margin-left: 2px;
+}
+
+.summaryCell {
+  box-sizing: border-box;
+  flex: 150 0 auto;
+  min-width: 0px;
+  width: 150px;
+  text-align: center;
 }
 
 .cell {

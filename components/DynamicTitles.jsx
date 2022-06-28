@@ -1,7 +1,7 @@
 import styles from "./DynamicTitles.module.css";
 import { useRouter } from "next/router";
-let pdpData = 'US PDP'
-let fsaData = 'UK FSA'
+let pdpData = 'US-PDP'
+let fsaData = 'UK-FSA'
 
 export default function Titles({ params, tableNum }) {
   const pageName = useRouter().route;
@@ -15,7 +15,7 @@ export default function Titles({ params, tableNum }) {
       case 2:
         return CommodityTitle2((params = { params }));
       default:
-        return <th colSpan="9">No Title</th>;
+        return <div colSpan="9">No Title</div>;
     }
   } else if (pageName == "/dri/by_pesticide" || pageName == "/fsa/by_pesticide") {
     params = paramsParse(params)
@@ -25,7 +25,7 @@ export default function Titles({ params, tableNum }) {
       case 1:
         return PesticideTitle1((params = { params }));
       default:
-        return <th colSpan="9">No Title</th>;
+        return <div colSpan="9">No Title</div>;
     }
   } else if (pageName == "/dri/conventional-vs-organic" || pageName == "/fsa/conventional_vs_organic") {
     params = paramsParse(params)
@@ -41,7 +41,7 @@ export default function Titles({ params, tableNum }) {
       case 4:
         return ConOrgTitle4((params = { params }));
       default:
-        return <th colSpan="9">No Title</th>;
+        return <div colSpan="9">No Title</div>;
     }
   } else if (pageName == "/dri/domestic_vs_imported" || pageName == "/fsa/domestic_vs_imported") {
     params = paramsParse(params)
@@ -55,7 +55,7 @@ export default function Titles({ params, tableNum }) {
       case 3:
         return DomesticTitle3((params = { params }));
       default:
-        return <th colSpan="9">No Title</th>;
+        return <div colSpan="9">No Title</div>;
     }
   } else if (pageName == "/dri/individual_samples" || pageName == "/fsa/individual_samples") {
     params = paramsParse(params)
@@ -98,17 +98,17 @@ function CommodityPageTitle({ params }) {
 
 function CommodityTitle1({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="9">
+    <div className={styles.TableTitle} colSpan="9">
       Table 1: Pesticide Residue and Risk Indicators in {params.food} Ranked by Percent of Aggregate FS-DRI: {params.claim}, {params.origin} Tested by {params.dataset} in {params.year}
-    </th>
+    </div>
   );
 }
 
 function CommodityTitle2({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="9">
+    <div className={styles.TableTitle} colSpan="9">
       Table 2: Calculation of the Chronic Reference Concentration (cRfC) by Pesticide, Active Ingredient for {params.origin} {params.food}, {params.year}, Tested by {params.dataset}
-    </th>
+    </div>
   );
 }
 
@@ -125,9 +125,9 @@ function PesticidePageTitle({ params }) {
 
 function PesticideTitle1({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="9">
+    <div className={styles.TableTitle} colSpan="9">
       Table 1: {params.pesticide} Pesticide Residue and Risk Indicators in {params.origin} of {params.claim} Samples Tested by the {params.dataset} in {params.year}: Ranked by Food Share of Aggregate FS-DRI
-    </th>
+    </div>
   );
 }
 
@@ -144,33 +144,33 @@ function ConOrgPageTitle({ params }) {
 
 function ConOrgTitle1({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 1: Pesticide Residues and Risk Indicators in Domestically Grown Samples of {params.food}, {params.year}
-    </th>
+    </div>
   );
 }
 
 function ConOrgTitle2({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 2: Pesticide Residues Detected in Organically Grown {params.food}, {params.year}
-    </th>
+    </div>
   );
 }
 
 function ConOrgTitle3({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="10">
+    <div className={styles.TableTitle} colSpan="10">
       Table 3: Residues Detected in Organic Samples: Compliance With National Organic Program Rule Provisions Governing Pesticide Residues in {params.food}, {params.year}
-    </th>
+    </div>
   );
 }
 
 function ConOrgTitle4({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="6">
+    <div className={styles.TableTitle} colSpan="6">
       Table 4: Pesticide Residues Detected in Domestic Samples {params.food} Conventionally Grown {params.year}
-    </th>
+    </div>
   );
 }
 
@@ -187,25 +187,25 @@ function DomesticPageTitle({ params }) {
 
 function DomesticTitle1({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 1: Pesticide Residue and Risk Indicators in Domestic Samples and {params.origin} of {params.claim} {params.food}, {params.year}
-    </th>
+    </div>
   );
 }
 
 function DomesticTitle2({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 2: Pesticide Residues Detected in {params.origin} of {params.claim} {params.food}, {params.year}
-    </th>
+    </div>
   );
 }
 
 function DomesticTitle3({ params }) {
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 3: Pesticide Residues Detected in Domestic Samples of {params.claim} {params.food}, {params.year}: Ranked by Share of Aggregate FS-DRI
-    </th>
+    </div>
   );
 }
 
@@ -225,9 +225,9 @@ function IndividualTitle1 ({ params }) {
   let commodity = results[1]
 
   return (
-    <th className={styles.TableTitle} colSpan="7">
+    <div className={styles.TableTitle} colSpan="7">
       Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {commodity} in {params.year}
-    </th>
+    </div>
   );
 }
 
@@ -237,9 +237,9 @@ function IndividualTitle2 ({ params }) {
   let commodity = results[1]
 
   return (
-    <th className={styles.TableTitle} colSpan="11">
+    <div className={styles.TableTitle} colSpan="11">
       Table 2: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values
-    </th>
+    </div>
   );
 }
 
@@ -249,9 +249,9 @@ function IndividualTitle3 ({ params }) {
   let commodity = results[1]
 
   return (
-    <th className={styles.TableTitle} colSpan="11">
+    <div className={styles.TableTitle} colSpan="11">
       Table 3: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values Ranked by DRI
-    </th>
+    </div>
   );
 }
 
@@ -274,9 +274,9 @@ function ReportsAggrTitle1({ params }) {
     claim = params[1].selected
   }
   return (
-    <th className={styles.TableTitle} colSpan="11">
+    <div className={styles.TableTitle} colSpan="11">
       Table 1: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Pesticides
-    </th>
+    </div>
   );
 }
 
@@ -285,9 +285,9 @@ function ReportsAggrTitle2({ params }) {
   let origin = results[0]
   let claim = results[1]
   return (
-    <th className={styles.TableTitle} colSpan="11">
+    <div className={styles.TableTitle} colSpan="11">
       Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Foods
-    </th>
+    </div>
   );
 }
 
