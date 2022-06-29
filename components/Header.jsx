@@ -22,12 +22,16 @@ export default function Header ({ title, system }) {
 
   return (
     <><div className={styles.header}>
+      <a href="../" className={styles.left}><img src={'/images/logo.png'} /></a>
       <div className={styles.heading}>
         <h1>{title}</h1>
         <h2>{system}</h2>
-        <p><Link href={switchData.link}><a>{switchData.title}</a></Link></p>
       </div>
-      <a href="../"><img src={'/images/logo.png'} /></a>
+      <div className={styles.right}>
+        <p><Link href={switchData.link}><a>{switchData.title}</a></Link></p>
+        <p><Link href=""><a>Methodology</a></Link></p>
+      </div>
+      
     </div>
     <Navbar />
     </>
