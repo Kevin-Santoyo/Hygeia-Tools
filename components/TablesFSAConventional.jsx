@@ -27,7 +27,10 @@ export default function FSAConventionalTable1 ({ data, params }) {
         },
         {
           Header: 'Total Samples',
-          accessor: 'avg_total_samples'
+          accessor: 'avg_total_samples',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text"  decimalScale={0} fixedDecimalScale="true"/>
+          },
         },
         {
             Header: 'Number of Residues Found',

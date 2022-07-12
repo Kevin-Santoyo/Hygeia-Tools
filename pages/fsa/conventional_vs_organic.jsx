@@ -49,7 +49,7 @@ export default function FSAConventionalOrganicScreen () {
 
     for (let i = idx + 1; i < newParams.length; i++) {
       const dependencies = _.fromPairs(_.slice(newParams, 0, i).map(dep => [dep.field, dep.selected]))
-      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'fsa', form: 'Food' })
+      const options = await fetchParamOptions({ field: newParams[i].field, dependencies, selected: newParams[i].selected, table: 'fsa', form: 'Conventional' })
 
       newParams[i].options = options
       if (newParams[i].options.indexOf(newParams[i].selected) === -1) newParams[i].selected = newParams[i].options[0]
@@ -61,7 +61,7 @@ export default function FSAConventionalOrganicScreen () {
 
   const getFormData = async () => {
     
-    const foods = await fetchFormData({ table: 'fsa', form: 'Food' })
+    const foods = await fetchFormData({ table: 'fsa', form: 'Conventional' })
 
     setParams([
       {

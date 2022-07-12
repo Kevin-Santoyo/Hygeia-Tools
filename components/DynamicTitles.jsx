@@ -226,7 +226,7 @@ function IndividualTitle1 ({ params }) {
 
   return (
     <div className={styles.TableTitle} colSpan="7">
-      Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {commodity} in {params.year}
+      Table 1. Summary Statistics on Aggregate Sample DRI and Number of Residues in Individual Samples of {claim} {commodity} in {params.year}, {params.origin}
     </div>
   );
 }
@@ -238,7 +238,7 @@ function IndividualTitle2 ({ params }) {
 
   return (
     <div className={styles.TableTitle} colSpan="11">
-      Table 2: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values
+      Table 2: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values, {params.origin}
     </div>
   );
 }
@@ -250,7 +250,7 @@ function IndividualTitle3 ({ params }) {
 
   return (
     <div className={styles.TableTitle} colSpan="11">
-      Table 3: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values Ranked by DRI
+      Table 3: All Analytes Found in Individual Samples of {claim} {commodity} in {params.year}: Number of Residues Detected and DRI Values Ranked by DRI, {params.origin}
     </div>
   );
 }
@@ -267,26 +267,18 @@ function ReportsAggrPageTitle({ params }) {
 }
 
 function ReportsAggrTitle1({ params }) {
-  let claim
-  if (params[1].selected == "All Market Claims") {
-    claim = "All"
-  } else {
-    claim = params[1].selected
-  }
+
   return (
     <div className={styles.TableTitle} colSpan="11">
-      Table 1: {params[0].selected}: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Pesticides
+      {params[0].selected}, {params[1].selected} Samples: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across Pesticides.
     </div>
   );
 }
 
 function ReportsAggrTitle2({ params }) {
-  let results = originClaimParse(params[0].selected, params[1].selected)
-  let origin = results[0]
-  let claim = results[1]
   return (
     <div className={styles.TableTitle} colSpan="11">
-      Table 2: {params[0].selected}: Aggregate Pesticide DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across {claim} Foods
+      {params[0].selected}, {params[1].selected} Samples: Aggregate Food DRI Values in {params[2].selected}, Ranked by FS-DRI (Highest to Lowest) Across Foods.
     </div>
   );
 }
