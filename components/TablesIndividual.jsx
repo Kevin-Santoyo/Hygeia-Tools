@@ -16,6 +16,10 @@ export default function AggregateSamplesTable ({ data, params }) {
           borderLeft: true
         },
         {
+          Header: 'Food',
+          accessor: 'commodity'
+        },
+        {
           Header: 'Claim',
           accessor: 'claim'
         },

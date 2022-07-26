@@ -26,8 +26,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
       columns: [
         {
           Header: 'Analyte',
-          accessor: 'Rpt_Pest_Name',
-          width: 5
+          accessor: 'Rpt_Pest_Name'
+          //width: 5
           //Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         }
       ]
