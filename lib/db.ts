@@ -17,9 +17,9 @@ types.setTypeParser(types.builtins.NUMERIC, (value: string) => {
 const db = knex({
   client: 'pg',
     connection: {
-    host: process.env.HOST_URL,
+    host: process.env.HTTP_HOST_URL,
     user: 'postgres',
-    password: process.env.PASSWORD,
+    password: process.env.HTTP_PASSWORD,
     database: 'postgres'
   }
 })

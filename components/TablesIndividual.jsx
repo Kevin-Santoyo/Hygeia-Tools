@@ -12,12 +12,18 @@ export default function AggregateSamplesTable ({ data, params }) {
   var columns = [
       {
           Header: 'Sample ID',
-          accessor: 'sample_id',
-          borderLeft: true
+          accessor: 'sample_id'
         },
         {
-          Header: 'Food',
-          accessor: 'commodity'
+          Header: 'Number of Residues',
+          accessor: 'num_res'
+        },
+        {
+          Header: 'Aggregate Sample DRI',
+          accessor: 'aggr_sample_dri',
+          Cell: ({ value }) => {
+            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
+          }
         },
         {
           Header: 'Claim',
@@ -30,18 +36,6 @@ export default function AggregateSamplesTable ({ data, params }) {
         {
           Header: 'Country/State',
           accessor: 'state_country'
-        },
-        {
-          Header: 'Number of Residues',
-          accessor: 'num_res'
-        },
-        {
-          Header: 'Aggregate Sample DRI',
-          accessor: 'aggr_sample_dri',
-          Cell: ({ value }) => {
-            return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
-          },
-          borderRight: true
         }
   ]
   return (
