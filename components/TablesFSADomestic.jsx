@@ -6,6 +6,7 @@ import KeyFindings from "./KeyFindings";
 import Methods from "./Methods";
 import NumberFormat from "react-number-format";
 import GraphicsTabs from "./GraphicsTabs";
+import decimalSort from './SortingMethods'
 
 export default function DomesticTable1({ data, params }) {
 
@@ -31,7 +32,7 @@ export default function DomesticTable1({ data, params }) {
         groupHeader: true,
         columns: [
           {
-            Header: " ",
+            Header: "Origin",
             accessor: "Origin",
             Cell: ({ value }) => {
               if (value == "UK") {
@@ -58,6 +59,7 @@ export default function DomesticTable1({ data, params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" />;
             },
+            sortType: decimalSort
           },
           {
             Header: "% Samples with Zero Residue",
@@ -78,6 +80,7 @@ export default function DomesticTable1({ data, params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} />;
             },
+            sortType: decimalSort,
             borderLeft: true,
           },
           {
@@ -86,6 +89,7 @@ export default function DomesticTable1({ data, params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} />;
             },
+            sortType: decimalSort
           },
         ],
       },
@@ -184,6 +188,7 @@ export function DomesticTable2({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
+            sortType: decimalSort
           },
           {
             Header: "Mean of Positives (ppm)",
@@ -191,6 +196,7 @@ export function DomesticTable2({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />;
             },
+            sortType: decimalSort
           },
         ],
       },
@@ -204,6 +210,7 @@ export function DomesticTable2({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
             },
+            sortType: decimalSort,
             borderLeft: true,
           },
           {
@@ -212,6 +219,7 @@ export function DomesticTable2({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
             },
+            sortType: decimalSort,
           },
           {
             Header: "% Aggregate FS-DRI",
@@ -219,6 +227,7 @@ export function DomesticTable2({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%"/>;
             },
+            sortType: decimalSort
           }
         ],
       },
@@ -229,7 +238,7 @@ export function DomesticTable2({ params }) {
   let rowCount = rows.length
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={2} />
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={2} />
       <KeyFindings tableNum={2} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
@@ -300,6 +309,7 @@ export function DomesticTable3({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />;
             },
+            sortType: decimalSort
           },
           {
             Header: "Mean of Positives (ppm)",
@@ -307,6 +317,7 @@ export function DomesticTable3({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />;
             },
+            sortType: decimalSort
           },
         ],
       },
@@ -320,6 +331,7 @@ export function DomesticTable3({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
             },
+            sortType: decimalSort,
             borderLeft: true,
           },
           {
@@ -328,6 +340,7 @@ export function DomesticTable3({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true"/>;
             },
+            sortType: decimalSort
           },
           {
             Header: "% Aggregate FS-DRI",
@@ -335,6 +348,7 @@ export function DomesticTable3({ params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true" suffix="%"/>;
             },
+            sortType: decimalSort
           }
         ],
       },
@@ -345,7 +359,7 @@ export function DomesticTable3({ params }) {
   let rowCount = newData.length
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={3} />
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={3} />
       <KeyFindings tableNum={3} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {

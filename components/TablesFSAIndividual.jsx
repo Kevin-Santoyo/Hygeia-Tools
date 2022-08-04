@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import moment from 'moment'
 import { queryParseIndividualFSA } from '../pages/fsa/individual_samples'
+import decimalSort from './SortingMethods'
 
 export default function AggregateSamplesTable ({ data, params }) {
   
@@ -36,12 +37,13 @@ export default function AggregateSamplesTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
+          sortType: decimalSort,
           borderRight: true
         }
   ]
   return (
     <>
-      <Table data={data} columns={columns} params={params} paging="true" tableNum={1}/>
+      <Table data={data} columns={columns} params={params} paging="true"sortBy="aggr_sample_dri" sortDirection="desc" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -96,24 +98,28 @@ export function IndividualSamplesTable ({ params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
+          sortType: decimalSort
         },
         {
           Header: 'DRI',
           accessor: 'DRI',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'MRL Level (ppm)',
-          accessor: 'MRL'
+          accessor: 'MRL',
+          sortType: decimalSort
         },
         {
           Header: 'Residue as a % of MRL',
           accessor: 'MRLPercentage',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'AI Type',

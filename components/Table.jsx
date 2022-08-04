@@ -9,122 +9,26 @@ import styles from "./Table.module.css";
 
 const defaultPropGetter = () => ({})
 
-export function Table3({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    pageOptions,
-    page,
-    state: { pageIndex, pageSize },
-    gotoPage,
-    previousPage,
-    nextPage,
-    setPageSize,
-    canPreviousPage,
-    canNextPage } = useTable(
-    {
-      useControlledState: (state) => {
-        return useMemo(
-          () => ({
-            ...state,
-            pageSize: 250,
-            columns: columns,
-          }),
-          [state, columns]
-        );
-      },
-      columns,
-      data,
-    },
-    useSortBy, usePagination
-  );
+export default function Table({ columns, data, params, summary, paging, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
+  
+  if (sortDirection !== null) {
+    if (sortDirection === "desc") {
+      sortDirection = true
+    } else sortDirection = false
+  } else sortDirection = null
 
-  let csvData = data.map((dat) => {
-    var obj = {};
-    let i = 0;
-    while (i < columns.length) {
-      if (columns[i].emptyHeader || columns[i].groupHeader) {
-        let j = 0;
-        while (j < columns[i].columns.length) {
-          var header = columns[i].columns[j].Header;
-          var key = columns[i].columns[j].accessor;
-          obj[header] = dat[key];
-          j++;
+  let initialState
+  
+  if (sortDirection !== null) {
+    initialState = {
+      sortBy: [
+        {
+          id: sortBy,
+          desc: sortDirection
         }
-        i++;
-      } else {
-        var header = columns[i].Header;
-        var key = columns[i].accessor;
-        obj[header] = dat[key];
-        i++;
-      }
+      ]
     }
-    return obj;
-  });
-  let tableTitle = useRef(null)
-  let tables = useRef(null)
-  let id = `table${tableNum}`;
-  let rowData
-  if (paging) { rowData = page } else rowData = rows
-
-  return (
-    <>
-    { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <table id={id} {...getTableProps()} className={styles.table} ref={tables}>
-        <thead className={styles.tableHead}>
-          <tr ref={tableTitle}>
-            <Titles params={params} tableNum={tableNum} />
-          </tr>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => {
-                const className = column.emptyHeader ? styles.columnHeaderEmpty : column.groupHeader ? styles.groupHeader : column.borderLeft ? styles.columnHeaderLeft : column.borderRight ? styles.columnHeaderRight : styles.columnHeader;
-                return (
-                  <th className={className} {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-                    <span>{column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}</span>
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rowData.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr className={i % 2 === 0 ? styles.row : styles.rowOdd} {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  //console.log('cell props: ', cell)
-                  return (
-                    <td className={styles.cell} {...cell.getCellProps([
-                      getCellProps(cell)
-                    ])}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-          {summary == "true" && data.length > 0 && <Summary data={data} tableNum={tableNum} />}
-        </tbody>
-      </table>
-      { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <span className={styles.outputs}>
-        Output Options:&nbsp;
-          <CSVLink data={csvData} className={styles.download} filename={getCSVFileName(tableTitle)}>
-            CSV
-          </CSVLink>&nbsp;
-      </span>
-    </>
-  );
-}
-
-export default function Table({ columns, data, params, summary, paging, tableNum, getCellProps = defaultPropGetter }) {
+  }
   const {
     getTableProps,
     getTableBodyProps,
@@ -153,6 +57,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
       },
       columns,
       data,
+      initialState
     },
     useSortBy, usePagination, useFlexLayout
   );

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
+import decimalSort from './SortingMethods'
 
 export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }) {
 
@@ -51,7 +52,8 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           },
-          borderRight: true
+          borderRight: true,
+          sortType: decimalSort
         }
       ]
     },
@@ -65,13 +67,15 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           },
+          sortType: decimalSort
         },
         {
           Header: 'cRfC (ppm)',
           accessor: 'cRfC_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
-          }
+          },
+          sortType: decimalSort
         }
       ]
     },
@@ -85,6 +89,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={5} fixedDecimalScale="true"/>
           },
+          sortType: decimalSort,
           borderLeft: true
         },
         {
@@ -92,21 +97,23 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
           accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
           accessor: 'Percent_FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
-          }
+          },
+          sortType: decimalSort
         }
       ]
     }
   ]
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

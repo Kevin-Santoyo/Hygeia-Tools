@@ -4,6 +4,7 @@ import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import moment from 'moment'
+import decimalSort from './SortingMethods'
 
 export default function AggregateSamplesTable ({ data, params }) {
 
@@ -12,7 +13,8 @@ export default function AggregateSamplesTable ({ data, params }) {
   var columns = [
       {
           Header: 'Sample ID',
-          accessor: 'sample_id'
+          accessor: 'sample_id',
+          width: 50
         },
         {
           Header: 'Number of Residues',
@@ -23,7 +25,8 @@ export default function AggregateSamplesTable ({ data, params }) {
           accessor: 'aggr_sample_dri',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Claim',
@@ -40,7 +43,7 @@ export default function AggregateSamplesTable ({ data, params }) {
   ]
   return (
     <>
-      <Table data={rows} columns={columns} params={params} paging="true" tableNum={1}/>
+      <Table data={rows} columns={columns} params={params} paging="true" sortBy="aggr_sample_dri" sortDirection="desc" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -112,7 +115,7 @@ export function IndividualSamplesTable ({ params }) {
       {
           Header: 'Sample ID',
           accessor: 'sample_id',
-          borderLeft: true
+          borderLeft: true,
         },
         {
           Header: 'Analyte',
@@ -125,17 +128,20 @@ export function IndividualSamplesTable ({ params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
           },
+          sortType: decimalSort
         },
         {
           Header: 'DRI',
           accessor: 'dri',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Tolerance Level (ppm)',
-          accessor: 'tolerance'
+          accessor: 'tolerance',
+          sortType: decimalSort
         },
         {
           Header: 'Type of Tolerance',
@@ -151,7 +157,8 @@ export function IndividualSamplesTable ({ params }) {
           accessor: d => d.residue_ppm / d.tolerance * 100,
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'AI Type',
@@ -191,6 +198,8 @@ export function IndividualSamplesTable ({ params }) {
         })}
         summary="true"
         paging="true"
+        sortBy="sample_id"
+        sortDirection="asc"
         tableNum={2}
       />
       <style jsx>{`
@@ -277,24 +286,28 @@ export function AltIndividualSamplesTable({ params }) {
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
       },
+      sortType: decimalSort
     },
     {
       Header: 'DRI',
       accessor: 'dri',
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>;
-      }
+      },
+      sortType: decimalSort
     },
     {
       Header: 'Tolerance Level (ppm)',
-      accessor: 'tolerance'
+      accessor: 'tolerance',
+      sortType: decimalSort
     },
     {
       Header: 'Residue as a % of Tolerance',
       accessor: d => d.residue_ppm / d.tolerance * 100,
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-      }
+      },
+      sortType: decimalSort
     },
     {
       Header: 'Type of Tolerance',

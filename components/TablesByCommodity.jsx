@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
+import decimalSort from './SortingMethods'
+
 
 export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
@@ -52,7 +54,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale={true} suffix="%"/>
           },
-          borderRight: true
+          borderRight: true,
+          sortType: decimalSort
         }
       ]
     },
@@ -66,7 +69,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
           },
-          borderLeft: true
+          borderLeft: true,
+          sortType: decimalSort
         },
         {
           Header: 'cRfC (ppm)',
@@ -74,7 +78,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
           },
-          borderRight: true
+          borderRight: true,
+          sortType: decimalSort
         }
       ]
     },
@@ -88,14 +93,16 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
           },
-          borderLeft: true
+          borderLeft: true,
+          sortType: decimalSort
         },
         {
           Header: 'FS-DRI',
           accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
@@ -103,7 +110,8 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
           },
-          borderRight: true
+          borderRight: true,
+          sortType: decimalSort
         }
       ]
     }
@@ -111,7 +119,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -131,7 +139,8 @@ export function CRFCTable ({ data, params }) {
     },
     {
       Header: 'NOAEL (mg/kg/day)',
-      accessor: 'chronic_noael'
+      accessor: 'chronic_noael',
+      sortType: decimalSort
     },
     {
       Header: 'Standard Safety Factor',
@@ -147,6 +156,7 @@ export function CRFCTable ({ data, params }) {
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
       },
+      sortType: decimalSort
     },
     {
       Header: 'cRfC (ppm)',
@@ -154,12 +164,13 @@ export function CRFCTable ({ data, params }) {
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
       },
+      sortType: decimalSort
     }
   ], [])
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} tableNum={2} />
+      <Table data={data} columns={columns} params={params} sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;

@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import KeyFindings from './KeyFindings'
 import GraphicsTabs from './GraphicsTabs'
+import decimalSort from './SortingMethods'
 
 export default function FSAConventionalTable1 ({ data, params }) {
   
@@ -42,6 +43,7 @@ export default function FSAConventionalTable1 ({ data, params }) {
             Cell: ({ value }) => {
               return <NumberFormat value={value} displayType="text"  decimalScale={2} fixedDecimalScale="true"/>
             },
+            sortType: decimalSort
         },
         {
             Header: '% Samples with Zero Residue',
@@ -62,6 +64,7 @@ export default function FSAConventionalTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={4} />
           },
+          sortType: decimalSort,
           borderLeft: true
         },
         {
@@ -70,6 +73,7 @@ export default function FSAConventionalTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4}/>
           },
+          sortType: decimalSort,
         }
       ]
     }
@@ -78,7 +82,7 @@ export default function FSAConventionalTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1} />
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Claim" sortDirection="asc" tableNum={1} />
       <KeyFindings data={newData} tableNum={1}/>
       {/*<GraphicsTabs data={data} params={params}/>*/}
       <style jsx>{`
@@ -134,14 +138,16 @@ export function FSAConventionalTable2 ({ params }){
           accessor: '%Pos',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%" />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Mean of Positives (ppm)',
           accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         }
       ]
     },
@@ -154,14 +160,16 @@ export function FSAConventionalTable2 ({ params }){
           accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'FS-DRI',
           accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         }
       ]
     }
@@ -169,7 +177,7 @@ export function FSAConventionalTable2 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={2} />
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={2} />
       <KeyFindings data={rows} tableNum={2} food={params[0].selected}/>
       <style jsx>{`
         .title {
@@ -224,7 +232,8 @@ export function FSAConventionalTable3 ({ params }){
           accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Tolerance or Action Level (ppm)',
@@ -252,7 +261,8 @@ export function FSAConventionalTable3 ({ params }){
           accessor: 'conventional_mean_residue',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" defaultValue={0} />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Number of Inadvertent Residues',
@@ -266,13 +276,14 @@ export function FSAConventionalTable3 ({ params }){
           accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         }
   ]
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={3}/>
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={3}/>
       <KeyFindings data={rows} tableNum={3}/>
       <style jsx>{`
         .title {
@@ -322,14 +333,16 @@ export function FSAConventionalTable4 ({ params }){
           accessor: '%Pos',
           Cell: ({ value }) => {
             return <NumberFormat value={value*100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%"/>
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'Mean of Positives (ppm)',
           accessor: 'Mean_Positives',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         }
       ]
     },
@@ -342,14 +355,16 @@ export function FSAConventionalTable4 ({ params }){
           accessor: 'DRI_Mean_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         },
         {
           Header: 'FS-DRI',
           accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={6} fixedDecimalScale="true" />
-          }
+          },
+          sortType: decimalSort
         }
       ]
     }
@@ -357,7 +372,7 @@ export function FSAConventionalTable4 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" tableNum={4}/>
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" tableNum={4}/>
       <KeyFindings data={rows} tableNum={4}/>
       <style jsx>{`
         .title {

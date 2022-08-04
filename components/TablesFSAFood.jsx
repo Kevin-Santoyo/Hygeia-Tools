@@ -4,6 +4,7 @@ import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { queryParseFood } from '../pages/fsa/by_food'
+import decimalSort from './SortingMethods'
 
 export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
@@ -54,6 +55,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value * 100} displayType="text" decimalScale={1} fixedDecimalScale={true} suffix="%" />
           },
+          sortType: decimalSort,
           borderRight: true
         }
       ]
@@ -68,6 +70,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
           },
+          sortType: decimalSort,
           borderLeft: true
         },
         {
@@ -76,6 +79,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale={true}/>
           },
+          sortType: decimalSort,
           borderRight: true
         }
       ]
@@ -90,6 +94,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
           },
+          sortType: decimalSort,
           borderLeft: true
         },
         {
@@ -98,6 +103,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale={true}/>
           },
+          sortType: decimalSort
         },
         {
           Header: 'Percent of Aggregate FS-DRI',
@@ -105,6 +111,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text" decimalScale={2} suffix="%"/>
           },
+          sortType: decimalSort,
           borderRight: true
         }
       ]
@@ -113,7 +120,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} tableNum={1} summary="true"/>
+      <Table data={newData} columns={columns} params={params} tableNum={1} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -150,7 +157,8 @@ export function CRFCTable1 ({ data, params }) {
     },
     {
       Header: 'NOAEL (mg/kg/day)',
-      accessor: 'Chronic_NOAEL_LOAEL_BMDL'
+      accessor: 'Chronic_NOAEL_LOAEL_BMDL',
+      sortType: decimalSort
     },
     {
       Header: 'Standard Safety Factor',
@@ -166,6 +174,7 @@ export function CRFCTable1 ({ data, params }) {
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
       },
+      sortType: decimalSort
     },
     {
       Header: 'cRfC (ppm)',
@@ -173,12 +182,13 @@ export function CRFCTable1 ({ data, params }) {
       Cell: ({ value }) => {
         return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
       },
+      sortType: decimalSort
     }
   ]
 
   return (
     <>
-      <Table data={rows} columns={columns} params={params} tableNum={2} />
+      <Table data={rows} columns={columns} params={params} sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;
@@ -188,67 +198,3 @@ export function CRFCTable1 ({ data, params }) {
   )
 }
 
-export function CRFCTable2 ({ data, params }) {
-  
-  const [rows, setRows] = useState([])
-  
-  useEffect(() => {
-    // console.log('useEffect - params - fetch rows')
-    const query = _.fromPairs(params.map(({ field, selected }) => [field, selected]))
-    let queryOverride = queryParseFood(query)
-    if (query.Food && query.Sub_Food && query.Claim && query.FSA_Year) {
-      fetchRows({table: 'fsa', params: queryOverride, form: 'Food', tableNum: 2} ).then(val => {
-        console.log('fetched rows: ', val)
-        setRows(val)
-      })
-    } else {
-      console.log('not fetching rows. ', queryOverride)
-    }
-    // fetch()
-  }, [params])
-
-  const columns = [
-    {
-        Header: 'Analyte',
-        accessor: 'Rpt_Pest_Name',
-        Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
-    },
-    {
-      Header: 'NOAEL (mg/kg/day)',
-      accessor: 'Chronic_NOAEL_LOAEL_BMDL'
-    },
-    {
-      Header: 'Standard Safety Factor',
-      accessor: 'Chronic_SF'
-    },
-    {
-      Header: 'FQPA Safety Factor',
-      accessor: 'Chronic_FQPA_SF'
-    },
-    {
-      Header: 'cRfD or cPAD (mg/kg/day)',
-      accessor: 'Chronic_RfD_PAD',
-      Cell: ({ value }) => {
-        return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
-      },
-    },
-    {
-      Header: 'cRfC (ppm)',
-      accessor: 'cRfC_Kid',
-      Cell: ({ value }) => {
-        return <NumberFormat value={value} displayType="text" decimalScale={3} fixedDecimalScale="true"/>;
-      },
-    }
-  ]
-
-  return (
-    <>
-      <Table data={rows} columns={columns} params={params} tableNum={2} />
-      <style jsx>{`
-        .title {
-          font-family: Helvetica, Arial, sans-serif;
-        }
-`}</style>
-    </>
-  )
-}

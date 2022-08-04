@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import _ from 'lodash'
 import Table from './Table'
 import NumberFormat from 'react-number-format'
+import decimalSort from './SortingMethods'
 
 export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, params }) {
 
@@ -56,6 +57,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={1} fixedDecimalScale="true" suffix="%"/>
           },
+          sortType: decimalSort,
           borderRight: true
         }
       ]
@@ -70,13 +72,15 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
           },
+          sortType: decimalSort
         },
         {
           Header: 'cRfC (ppm)',
           accessor: 'cRfC_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={3} fixedDecimalScale="true"/>
-          }
+          },
+          sortType: decimalSort
         }
       ]
     },
@@ -90,6 +94,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
           Cell: ({ value }) => {
             return <NumberFormat value={value} displayType="text"  decimalScale={5} fixedDecimalScale="true"/>
           },
+          sortType: decimalSort,
           borderLeft: true
         },
         {
@@ -105,14 +110,15 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
           accessor: 'FS_DRI_Kid',
           Cell: ({ value }) => {
             return <NumberFormat value={(value / agg_dri)*100} displayType="text" decimalScale={2} suffix="%"/>
-          }
+          },
+          sortType: decimalSort
         }
       ]
     }
   ]
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

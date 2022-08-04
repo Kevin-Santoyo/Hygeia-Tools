@@ -205,7 +205,6 @@ export default function IndividualSamplesScreen() {
         <h4 className="title">Results</h4>
         <AggregateSamplesTable data={rows} params={params}/>
         <IndividualSamplesTable params={params}/>
-        <AltIndividualSamplesTable params={params}/>
       </TableContainer>
       <style jsx>{`
         .title {

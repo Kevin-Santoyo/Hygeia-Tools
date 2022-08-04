@@ -3,6 +3,7 @@ import Table from './Table'
 import NumberFormat from 'react-number-format'
 import { fetchRows } from '../lib/api'
 import { useEffect, useState } from 'react'
+import decimalSort from './SortingMethods'
 
 export default function Table5 ({ data, params }) {
 
@@ -36,28 +37,32 @@ export default function Table5 ({ data, params }) {
             accessor: 'SumOfNumber_Positives',
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" thousandSeparator={true}/>;
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Average Number of Residues per Sample',
             accessor: d => d.SumOfNumber_Positives/d.AvgOfTotal_Samples,
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" decimalScale={2} fixedDecimalScale="true"/>;
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Positive Sample DRI-M',
             accessor: 'SumOfDRI_Mean_Kid',
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>;
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Percent of Total DRI-M',
             accessor: d => d.SumOfDRI_Mean_Kid,
             Cell: ({ value }) => {
                 return <NumberFormat value={value/totalDRI * 100} displayType="text" decimalScale={1} fixedDecimalScale="true" suffix="%"/>
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Total FS-DRI',
@@ -71,7 +76,8 @@ export default function Table5 ({ data, params }) {
             accessor: d => d.SumOfFS_DRI_Kid,
             Cell: ({ value }) => {
                 return <NumberFormat value={value/totalFS * 100} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-            }
+            },
+            sortType: decimalSort
         }
     ]
   
@@ -149,35 +155,40 @@ export function Table6 ({ params }) {
             accessor: d => d.SumOfNumber_Positives,
             Cell: ({ value }) => {
                 return <NumberFormat value={value/totalPos * 100} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Positive Sample DRI-M',
             accessor: 'SumOfDRI_Mean_Kid',
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" decimalScale={4} fixedDecimalScale="true"/>
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Percent of Total DRI-M',
             accessor: d => d.SumOfDRI_Mean_Kid,
             Cell: ({ value }) => {
                 return <NumberFormat value={value/totalDRI * 100} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Total FS-DRI',
             accessor: 'SumOfFS_DRI_Kid',
             Cell: ({ value }) => {
                 return <NumberFormat value={value} displayType="text" decimalScale={5} fixedDecimalScale="true"/>
-            }
+            },
+            sortType: decimalSort
         },
         {
             Header: 'Percent of Total FS-DRI',
             accessor: d => d.SumOfFS_DRI_Kid,
             Cell: ({ value }) => {
                 return <NumberFormat value={value/totalFS * 100} displayType="text" decimalScale={2} fixedDecimalScale="true" suffix="%"/>
-            }
+            },
+            sortType: decimalSort
         }
     ]
     
