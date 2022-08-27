@@ -165,7 +165,7 @@ export function IndividualSamplesTable ({ params }) {
           accessor: 'ai_type'
         },
         {
-          Header: ' Claim',
+          Header: 'Claim',
           accessor: 'claim'
         },
         {
@@ -323,7 +323,7 @@ export function AltIndividualSamplesTable({ params }) {
       accessor: 'ai_type'
     },
     {
-      Header: ' Claim',
+      Header: 'Claim',
       accessor: 'claim'
     },
     {

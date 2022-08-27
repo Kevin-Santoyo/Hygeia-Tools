@@ -58,7 +58,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
       ]
     },
     {
-      Header: '  ',
+      Header: ' ',
       emptyHeader: true,
       columns: [
         {

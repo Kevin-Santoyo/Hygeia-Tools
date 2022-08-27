@@ -25,7 +25,7 @@ export default function ResidueAndRiskIndicatorsTable1 ({ data, params }) {
   
   const columns = [
     {
-      Header: '  ',
+      Header: ' ',
       emptyHeader: true,
       columns: [
         {

@@ -63,7 +63,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
       ]
     },
     {
-      Header: '  ',
+      Header: ' ',
       emptyHeader: true,
       columns: [
         {
