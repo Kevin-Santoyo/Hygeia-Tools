@@ -19,9 +19,6 @@
 
 .columnHeader {
   composes: header-title borderBottom;
-  margin: -1px;
-  padding: 0;
-  padding: .5rem;
   text-align: center;
   font-size: 0.9rem;
 }

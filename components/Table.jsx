@@ -59,7 +59,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
       data,
       initialState
     },
-    useSortBy, usePagination, useFlexLayout
+    useSortBy, usePagination
   );
 
   const defaultColumn = (
