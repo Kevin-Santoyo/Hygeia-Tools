@@ -9,8 +9,9 @@ import styles from "./Table.module.css";
 
 const defaultPropGetter = () => ({})
 
-export default function Table({ columns, data, params, summary, paging, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
-  
+export default function Table({ columns, data, params, summary, paging, type, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
+  let tableClass =  tableNum + type
+  console.log(tableClass)
   if (sortDirection !== null) {
     if (sortDirection === "desc") {
       sortDirection = true
@@ -102,7 +103,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
   return (
     <>
     { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <div id={id} {...getTableProps()} className={styles.table}>
+      <div id={id} class={`${tableClass}`} {...getTableProps()} className={styles.table}>
         <div className={styles.tableHead}>
           <div>
           <div ref={tableTitle}>
@@ -110,7 +111,7 @@ export default function Table({ columns, data, params, summary, paging, tableNum
           </div>
           </div>
           {headerGroups.map((headerGroup) => (
-            <div {...headerGroup.getHeaderGroupProps()}>
+            <div className={styles.parentRow}{...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => {
                 const className = column.emptyHeader ? styles.columnHeaderEmpty : column.groupHeader ? styles.groupHeader : column.borderLeft ? styles.columnHeaderLeft : column.borderRight ? styles.columnHeaderRight : styles.columnHeader;
                 return (
@@ -192,4 +193,8 @@ function getCSVFileName( tableTitle ) {
   }
   title += ".csv"
   return title
+}
+
+function bwpGridHeaders() {
+
 }

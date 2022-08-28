@@ -142,7 +142,7 @@ export default function ByCommodityScreen() {
       <Methods />
       <TableContainer>
         <h4 className="title">Results</h4>
-        <ResidueAndRiskIndicatorsTable data={rows} params={params} />
+        <ResidueAndRiskIndicatorsTable data={rows} params={params}/>
         <KeyFindings data={rows} />
         <CRFCTable data={_.sortBy(rows, 'Rpt_Pest_Name')} params={params} />
       </TableContainer>

@@ -117,7 +117,7 @@ export default function ResidueAndRiskIndicatorsTable ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={1} type="commodity"/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -168,7 +168,7 @@ export function CRFCTable ({ data, params }) {
 
   return (
     <>
-      <Table data={data} columns={columns} params={params} sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={2} />
+      <Table data={data} columns={columns} params={params} sortBy="Rpt_Pest_Name" sortDirection="asc" type="commodity" tableNum={2} />
       <style jsx>{`
         .title {
           font-family: Helvetica, Arial, sans-serif;
