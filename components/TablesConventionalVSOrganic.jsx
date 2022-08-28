@@ -82,7 +82,7 @@ export default function ConventialOrganicTable1 ({ data, params }) {
 
   return (
     <>
-      <Table data={newData} columns={columns} params={params} sortBy="Claim" sortDirection="asc" summary="true" tableNum={1} />
+      <Table data={newData} columns={columns} params={params} sortBy="Claim" sortDirection="asc" type="pdpConventional" summary="true" tableNum={1} />
       <KeyFindings data={newData} tableNum={1}/>
       <GraphicsTabs data={newData} params={params}/>
       <style jsx>{`
@@ -176,7 +176,7 @@ export function ConventialOrganicTable2 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={2} />
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" type="pdpConventional" tableNum={2} />
       <KeyFindings data={rows} tableNum={2} food={params[0].selected}/>
       <style jsx>{`
         .title {
@@ -290,7 +290,7 @@ export function ConventialOrganicTable3 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" tableNum={3}/>
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="Rpt_Pest_Name" sortDirection="asc" type="pdpConventional" tableNum={3}/>
       <KeyFindings data={rows} tableNum={3}/>
       <style jsx>{`
         .title {
@@ -379,7 +379,7 @@ export function ConventialOrganicTable4 ({ params }){
   
   return (
     <>
-      <Table data={rows} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" tableNum={4}/>
+      <Table data={rows} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" type="pdpConventional" tableNum={4}/>
       <KeyFindings data={rows} tableNum={4}/>
       <style jsx>{`
         .title {

@@ -147,12 +147,12 @@ export default function Table({ columns, data, params, summary, paging, type, ta
         </div>
       </div>
       { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <span className={styles.outputs}>
+      <p className={styles.outputs}>
         Output Options:&nbsp;
           <CSVLink data={csvData} className={styles.download} filename={getCSVFileName(tableTitle)}>
             csv
           </CSVLink>
-      </span>
+      </p>
     </>
   );
 }

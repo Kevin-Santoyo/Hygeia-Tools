@@ -43,7 +43,7 @@ export default function AggregateSamplesTable ({ data, params }) {
   ]
   return (
     <>
-      <Table data={rows} columns={columns} params={params} paging="true" sortBy="aggr_sample_dri" sortDirection="desc" tableNum={1}/>
+      <Table data={rows} columns={columns} params={params} paging="true" sortBy="aggr_sample_dri" sortDirection="desc" type="pdpIndividual" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;
@@ -200,6 +200,7 @@ export function IndividualSamplesTable ({ params }) {
         paging="true"
         sortBy="sample_id"
         sortDirection="asc"
+        type="pdpIndividual"
         tableNum={2}
       />
       <style jsx>{`
@@ -357,6 +358,7 @@ export function AltIndividualSamplesTable({ params }) {
         })}
         summary="true"
         paging="true"
+        type="pdpIndividual"
         tableNum={3}
       />
       <style jsx>{`

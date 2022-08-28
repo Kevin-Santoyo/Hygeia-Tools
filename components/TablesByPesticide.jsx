@@ -113,7 +113,7 @@ export default function PesticideResidueAndRiskIndicatorsTable ({ data, params }
   ]
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" type="pdpPesticide" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

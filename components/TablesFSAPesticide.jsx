@@ -118,7 +118,7 @@ export default function FSAPesticideResidueAndRiskIndicatorsTable ({ data, param
   ]
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" tableNum={1}/>
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="FS_DRI_Kid" sortDirection="desc" type="fsaPesticide" tableNum={1}/>
       <style jsx>{`
         .title {
           font-family: Arial, Helvetica, sans-serif;

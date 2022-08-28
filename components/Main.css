@@ -18,15 +18,6 @@ body {
     font-family: Lato;
 }
 
-a {
-    color: var(--redOrange);
-    transition: all .2 ease;
-}
-
-a:hover {
-    color: var(--yellow)
-}
-
 .div {
     width: 100%;
 }
@@ -87,4 +78,14 @@ a:hover {
 .commodity1 > [class*="Table_totalRow"] > div {
     display: grid;
     grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.commodity2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
+}
+
+.commodity2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
 }
