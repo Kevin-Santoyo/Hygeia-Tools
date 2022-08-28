@@ -10,7 +10,7 @@ import styles from "./Table.module.css";
 const defaultPropGetter = () => ({})
 
 export default function Table({ columns, data, params, summary, paging, type, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
-  let tableClass =  tableNum + type
+  let tableClass =  type + tableNum
   console.log(tableClass)
   if (sortDirection !== null) {
     if (sortDirection === "desc") {

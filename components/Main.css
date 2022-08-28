@@ -68,3 +68,18 @@ a:hover {
 .button:hover {
     background-color: var(--yellow);
 }
+
+.commodity1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 3fr;
+}
+
+.commodity1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.commodity1 > div:nth-child(2) div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
