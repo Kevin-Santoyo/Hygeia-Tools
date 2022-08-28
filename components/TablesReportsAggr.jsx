@@ -83,7 +83,7 @@ export default function Table5 ({ data, params }) {
   
     return (
       <>
-        <Table data={data} columns={columns} params={params} summary="true" tableNum={1}/>
+        <Table data={data} columns={columns} params={params} summary="true" type="pdpaggregate" tableNum={1}/>
         <style jsx>{`
           .title {
             font-family: Arial, Helvetica, sans-serif;
@@ -194,7 +194,7 @@ export function Table6 ({ params }) {
     
     return (
       <>
-        <Table data={rows} columns={columns} params={params} tableNum={2} summary="true"/>
+        <Table data={rows} columns={columns} params={params} tableNum={2} type="pdpaggregate" summary="true"/>
         <style jsx>{`
           .title {
             font-family: Helvetica, Arial, sans-serif;

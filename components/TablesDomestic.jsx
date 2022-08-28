@@ -109,7 +109,7 @@ export default function DomesticTable1({ data, params }) {
   }
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" type="pdpDomestic" tableNum={1} />
+      <Table data={newData} columns={columns} params={params} summary="true" type="pdpdomestic" tableNum={1} />
       <Methods />
       <KeyFindings data={newData} tableNum={1} params={params}/>
       <GraphicsTabs data={newData} params={params}/>
@@ -233,7 +233,7 @@ export function DomesticTable2({ params }) {
   let rowCount = rows.length
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" type="pdpDomestic" tableNum={2} />
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" type="pdpdomestic" tableNum={2} />
       <KeyFindings tableNum={2} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {
@@ -354,7 +354,7 @@ export function DomesticTable3({ params }) {
   let rowCount = newData.length
   return (
     <>
-      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" type="pdpDomestic" tableNum={3} />
+      <Table data={newData} columns={columns} params={params} summary="true" sortBy="Percent_FS_DRI_Kid" sortDirection="desc" type="pdpdomestic" tableNum={3} />
       <KeyFindings tableNum={3} params={params} rowCount={rowCount}/>
       <style jsx>{`
         .title {

@@ -89,3 +89,18 @@ body {
     display: grid;
     grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
 }
+
+.pdppesticide1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 140px 3fr 2fr 3fr;
+}
+
+.pdppesticide1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdppesticide1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
