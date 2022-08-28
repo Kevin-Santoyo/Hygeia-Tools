@@ -11,6 +11,7 @@ const defaultPropGetter = () => ({})
 
 export default function Table({ columns, data, params, summary, paging, type, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
   let tableClass =  type + tableNum
+  let summaryClass = type + 'summary' + tableNum
   console.log(tableClass)
   if (sortDirection !== null) {
     if (sortDirection === "desc") {

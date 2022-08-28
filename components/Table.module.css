@@ -79,8 +79,6 @@
 .totalRow {
   background-color: #5e6a71;
   color: #FFF;
-  display: flex;
-  flex: 1 0 auto;
   min-width: 0px;
   padding: 3px 0;
 }
@@ -92,9 +90,6 @@
 
 .summaryCell {
   box-sizing: border-box;
-  flex: 150 0 auto;
-  min-width: 0px;
-  width: 150px;
   text-align: center;
 }
 
