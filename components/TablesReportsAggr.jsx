@@ -18,8 +18,7 @@ export default function Table5 ({ data, params }) {
         {
             Header: 'Food',
             accessor: 'Commodity_Name',
-            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>,
-            borderLeft: true
+            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
             Header: 'PDP Year',
@@ -124,8 +123,7 @@ export function Table6 ({ params }) {
         {
             Header: 'Analyte',
             accessor: 'Rpt_Pest_Name',
-            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>,
-            borderLeft: true
+            Cell: row => <div style={{ textAlign: "left"}}>{row.value}</div>
         },
         {
             Header: 'Family of Chemistry',

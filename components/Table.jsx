@@ -10,9 +10,8 @@ import styles from "./Table.module.css";
 const defaultPropGetter = () => ({})
 
 export default function Table({ columns, data, params, summary, paging, type, tableNum, sortBy, sortDirection, getCellProps = defaultPropGetter }) {
-  let tableClass =  type + tableNum
-  let summaryClass = type + 'summary' + tableNum
-  console.log(tableClass)
+  const uniqueTableClass = type + tableNum
+  console.log(uniqueTableClass)
   if (sortDirection !== null) {
     if (sortDirection === "desc") {
       sortDirection = true
@@ -104,7 +103,7 @@ export default function Table({ columns, data, params, summary, paging, type, ta
   return (
     <>
     { paging && pagingOptions(pageIndex, pageOptions, nextPage, previousPage, canPreviousPage, canNextPage) }
-      <div id={id} class={`${tableClass}`} {...getTableProps()} className={styles.table}>
+      <div id={id} {...getTableProps()} className={uniqueTableClass}>
         <div className={styles.tableHead}>
           <div>
           <div ref={tableTitle}>

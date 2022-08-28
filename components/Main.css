@@ -59,7 +59,8 @@ body {
 .button:hover {
     background-color: var(--yellow);
 }
-/* Changes for CSS Grid tables */
+
+/* PDP Commodity rules */
 .commodity1 > [class*="Table_tableHead"] > div:nth-child(2) {
     display: grid;
     grid-template-columns: 175px 3fr 2fr 3fr;
@@ -80,6 +81,7 @@ body {
     grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
+/* PDP Commodity rules */
 .commodity2 > [class*="Table_tableHead"] > div:nth-child(2) {
     display: grid;
     grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
@@ -89,7 +91,7 @@ body {
     display: grid;
     grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
 }
-
+/* PDP Pesticide rules */
 .pdppesticide1 > [class*="Table_tableHead"] > div:nth-child(2) {
     display: grid;
     grid-template-columns: 140px 3fr 2fr 3fr;
@@ -103,4 +105,321 @@ body {
 .pdppesticide1 > div[role=rowgroup] > div {
     display: grid;
     grid-template-columns: 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Conventional rules */
+.pdpconventional1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.pdpconventional1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpconventional1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Conventional rules */
+.pdpconventional2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.pdpconventional2 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpconventional2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Conventional rules */
+.pdpconventional3 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpconventional3 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Conventional rules */
+.pdpconventional4 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+}
+
+.pdpconventional4 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpconventional4 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* PDP Domestic rules */
+.pdpdomestic1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.pdpdomestic1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpdomestic1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* PDP Domestic rules */
+.pdpdomestic2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+}
+
+.pdpdomestic2 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpdomestic2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* PDP Domestic rules */
+.pdpdomestic3 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+}
+
+.pdpdomestic3 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpdomestic3 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* PDP Individual rules */
+.pdpindividual1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpindividual1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Individual rules */
+.pdpindividual2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpindividual2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* PDP Aggregate rules */
+.pdpaggregate1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpaggregate1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* PDP Aggregate rules */
+.pdpaggregate2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 200px 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pdpaggregate2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 200px 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Food rules */
+.fsafood1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 175px 3fr 2fr 3fr;
+}
+
+.fsafood1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsafood1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsafood1 > [class*="Table_totalRow"] > div {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* FSA Food rules */
+.fsafood2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsafood2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 175px 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Pesticide rules */
+.fsapesticide1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 280px 3fr 2fr 3fr;
+}
+
+.fsapesticide1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 140px 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsapesticide1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 140px 140px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Conventional rules */
+.fsaconventional1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.fsaconventional1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaconventional1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* FSA Conventional rules */
+.fsaconventional2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.fsaconventional2 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaconventional2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* FSA Conventional rules */
+.fsaconventional3 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaconventional3 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* FSA Conventional rules */
+.fsaconventional4 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+}
+
+.fsaconventional4 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaconventional4 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Domestic rules */
+.fsadomestic1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+}
+
+.fsadomestic1 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsadomestic1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Domestic rules */
+.fsadomestic2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+}
+
+.fsadomestic2 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsadomestic2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Domestic rules */
+.fsadomestic3 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+}
+
+.fsadomestic3 > [class*="Table_tableHead"] > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsadomestic3 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+/* FSA Individual rules */
+.fsaindividual1 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaindividual1 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+/* FSA Individual rules */
+.fsaindividual2 > [class*="Table_tableHead"] > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fsaindividual2 > div[role=rowgroup] > div {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
